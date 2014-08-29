@@ -32,8 +32,8 @@ public class Page {
 
     /**
      *
-     * @param tagURL
-     * @param parentPage
+     * @param tagURL The end URL, for example, '/items'.
+     * @param parentPage The page from which this page was followed to.
      */
     public Page(String tagURL, Page parentPage) {
         this.tagURL = tagURL;
@@ -47,8 +47,8 @@ public class Page {
 
     /**
      *
-     * @param tagURL
-     * @param trawlingInterruptsRemaining
+     * @param tagURL The end URL, for example, '/items'.
+     * @param trawlingInterruptsRemaining The number of interrupts which this page can handle before we don't contact it anymore.
      */
     public Page(String tagURL, int trawlingInterruptsRemaining) {
         this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
@@ -59,7 +59,7 @@ public class Page {
     /**
      * Returns the tag url.
      *
-     * @return
+     * @return The end URL, for example, '/items'.
      */
     public String getTagURL() {
         return tagURL;
@@ -68,7 +68,7 @@ public class Page {
     /**
      * Sets the tag url.
      *
-     * @param tagURL
+     * @param tagURL The end URL, for example, '/items'.
      */
     public void setTagURL(String tagURL) {
         this.tagURL = tagURL;
@@ -77,7 +77,7 @@ public class Page {
     /**
      * Gets the html source of the page.
      *
-     * @return
+     * @return 
      */
     public String getHtml() {
         return html;
@@ -114,7 +114,8 @@ public class Page {
     }
 
     /**
-     *
+     * Returns this page's parent, the page through which this page was reached.
+     * 
      * @return
      */
     public Page getParent() {

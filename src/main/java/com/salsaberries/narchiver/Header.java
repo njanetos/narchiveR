@@ -49,7 +49,7 @@ public class Header {
 
     /**
      *
-     * @return
+     * @return The name of the header.
      */
     public String getName() {
         return name;
@@ -57,7 +57,7 @@ public class Header {
 
     /**
      *
-     * @param name
+     * @param name The name of the header.
      */
     public void setName(String name) {
         this.name = name;
@@ -65,7 +65,7 @@ public class Header {
 
     /**
      *
-     * @return
+     * @return The header value.
      */
     public String getValue() {
         return value;
@@ -73,7 +73,7 @@ public class Header {
 
     /**
      *
-     * @param value
+     * @param value The header value.
      */
     public void setValue(String value) {
         this.value = value;

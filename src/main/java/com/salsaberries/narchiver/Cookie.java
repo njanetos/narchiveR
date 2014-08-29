@@ -109,7 +109,7 @@ public class Cookie {
     /**
      * Returns a string formatted for this cookie.
      *
-     * @return
+     * @return The formatted string.
      */
     @Override
     public String toString() {

@@ -18,6 +18,7 @@
  */
 package com.salsaberries.narchiver;
 
+import com.salsaberries.narchiver.enums.HttpType;
 import com.salsaberries.narchiver.exceptions.AuthenticationException;
 import com.salsaberries.narchiver.exceptions.ConnectionException;
 import com.salsaberries.narchiver.exceptions.RedirectionException;
@@ -70,7 +71,6 @@ public class Trawler {
      * Trawler implements the recursive algorithm to search the web page.
      *
      * @param site
-     * @param writer
      * @throws com.salsaberries.narchiver.exceptions.TrawlException
      */
     public Trawler(JSONObject site) throws TrawlException {
@@ -516,8 +516,8 @@ public class Trawler {
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return The pages which are queued to be written.
      */
     public LinkedList<Page> getFinalPages() {
         return finalPages;
@@ -525,7 +525,7 @@ public class Trawler {
 
     /**
      *
-     * @return
+     * @return The base URL to visit, e.g., 'www.google.com'.
      */
     public String getBaseURL() {
         return baseURL;
@@ -601,12 +601,7 @@ public class Trawler {
         return Integer.toString(response.getStatusCode());
     }
 
-    /**
-     *
-     * @param headers
-     * @return
-     */
-    public String getRedirectionURL(ArrayList<Header> headers) {
+    private String getRedirectionURL(ArrayList<Header> headers) {
         for (Header h : headers) {
             if (h.getName().equals("Location")) {
                 return h.getValue();

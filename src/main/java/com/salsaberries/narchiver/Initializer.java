@@ -30,7 +30,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Loads the initialization file and loops over the listed sites, determines if 
+ * they need to be trawled, and if so instantiates a new Trawler to do so. Also
+ * registers a shutdown hook that emails the log when the program terminates to
+ * a listed user.
+ * 
  * @author njanetos
  */
 public class Initializer {
@@ -39,7 +43,8 @@ public class Initializer {
 
     /**
      *
-     * @throws TerminalException
+     * @throws TerminalException Only thrown if an unrecoverable error occurs so that
+     * the entire program needs to terminate.
      */
     public Initializer() throws TerminalException {
 

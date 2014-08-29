@@ -31,7 +31,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.io.IOUtils;
-import org.json.JSONObject;
 
 /**
  * Emailing class.
@@ -47,6 +46,8 @@ public class Alerter {
      */
     public void alert() throws FileNotFoundException, IOException {
 
+        // TODO: Load this info from file
+        
         // Common variables
         String host = "smtp.comcast.net";
         String from = "njanetos@comcast.net";

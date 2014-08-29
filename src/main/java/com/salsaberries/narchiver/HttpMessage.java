@@ -18,6 +18,7 @@
  */
 package com.salsaberries.narchiver;
 
+import com.salsaberries.narchiver.enums.HttpType;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import org.apache.commons.lang.StringUtils;
@@ -37,8 +38,8 @@ public class HttpMessage {
     private String url;
 
     /**
-     *
-     * @param httpType
+     * 
+     * @param httpType Usually GET or POST.
      */
     public HttpMessage(HttpType httpType) {
         this.httpType = httpType;
@@ -46,7 +47,7 @@ public class HttpMessage {
 
     /**
      *
-     * @return
+     * @return The HTTP type, either GET or POST.
      */
     public HttpType getHttpType() {
         return httpType;
@@ -54,7 +55,7 @@ public class HttpMessage {
 
     /**
      *
-     * @param httpType
+     * @param httpType The HTTP type, either GET or POST.
      */
     public void setHttpType(HttpType httpType) {
         this.httpType = httpType;
@@ -62,7 +63,7 @@ public class HttpMessage {
 
     /**
      *
-     * @return
+     * @return A list of the headers.
      */
     public ArrayList<Header> getHeaders() {
         return headers;
@@ -70,7 +71,7 @@ public class HttpMessage {
 
     /**
      *
-     * @param headers
+     * @param headers A list of the headers.
      */
     public void setHeaders(ArrayList<Header> headers) {
         this.headers = headers;
@@ -78,7 +79,7 @@ public class HttpMessage {
 
     /**
      *
-     * @return
+     * @return The body of this request.
      */
     public String getContent() {
         if (content == null) {
@@ -90,7 +91,7 @@ public class HttpMessage {
 
     /**
      *
-     * @param content
+     * @param content The body of this request.
      */
     public void setContent(String content) {
         this.content = content;
@@ -98,7 +99,7 @@ public class HttpMessage {
 
     /**
      *
-     * @return
+     * @return The request url.
      */
     public String getUrl() {
         return url;
@@ -106,7 +107,7 @@ public class HttpMessage {
 
     /**
      *
-     * @param url
+     * @param url The request url.
      */
     public void setUrl(String url) {
         this.url = url;
@@ -116,7 +117,7 @@ public class HttpMessage {
      * Intitializes a set of default headers that we should have to spoof a
      * browser.
      *
-     * @param site
+     * @param site The initialization file. 
      */
     public void initializeDefaultHeaders(JSONObject site) {
         if (headers == null) {
@@ -138,7 +139,7 @@ public class HttpMessage {
      * Converts a list of cookies into a list of appropriate headers of the form
      * "Cookie: [Cookie text]".
      *
-     * @param cookies
+     * @param cookies 
      */
     public void addCookieHeaders(ArrayList<Cookie> cookies) {
         if (cookies.isEmpty()) {
@@ -172,7 +173,9 @@ public class HttpMessage {
     }
 
     /**
-     *
+     * Appends content onto the end of already existing content and encodes it
+     * properly for sending through a GET or POST method using {@link URLEncoder}. 
+     * 
      * @param name
      * @param value
      */
@@ -188,7 +191,8 @@ public class HttpMessage {
     }
 
     /**
-     *
+     * Adds on a header.
+     * 
      * @param header
      */
     public void addHeader(Header header) {
