@@ -68,7 +68,7 @@ public class Cookie {
 
     /**
      *
-     * @return
+     * @return The expiration date of this cookie.
      */
     public Date getExpiration() {
         return expiration;
@@ -76,15 +76,7 @@ public class Cookie {
 
     /**
      *
-     * @param expiration
-     */
-    public void setExpiration(Date expiration) {
-        this.expiration = expiration;
-    }
-
-    /**
-     *
-     * @return
+     * @return The value of this cookie.
      */
     public String getValue() {
         return value;
@@ -92,15 +84,7 @@ public class Cookie {
 
     /**
      *
-     * @param value
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    /**
-     *
-     * @return
+     * @return The name of this cookie.
      */
     public String getName() {
         return name;
@@ -108,31 +92,25 @@ public class Cookie {
 
     /**
      *
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    /**
-     *
-     * @return
+     * @return Returns a header formatted for this cookie.
      */
     public Header getHeader() {
-        return new Header("Cookie", name+"="+value);
+        return new Header("Cookie", toString());
     }
     
     /**
-     *
-     * @param otherCookie
-     * @return
+     * Checks whether this cookie has the same name as another.
+     *  
+     * @param otherCookie The cookie to compare to.
+     * @return True if a match.
      */
     public boolean isTheSameAs(Cookie otherCookie) {
         return (otherCookie.getName().equals(getName()));
     }
     
     /**
-     *
+     * Returns a string formatted for this cookie.
+     * 
      * @return
      */
     @Override
@@ -141,10 +119,11 @@ public class Cookie {
     }
     
     /**
-     *
-     * @param cookies
-     * @param cookie
-     * @return
+     * Checks whether this cookie is already in a list (albeit possibly with a different value.)
+     * 
+     * @param cookies The list to search in.
+     * @param cookie The cookie to compare.
+     * @return True if it's already in the list.
      */
     public static boolean isAlreadyIn(ArrayList<Cookie> cookies, Cookie cookie) {
         for (Cookie c : cookies) {
@@ -156,9 +135,10 @@ public class Cookie {
     }
     
     /**
-     *
-     * @param cookies
-     * @param cookie
+     * Adds a {@link Cookie} to an array, but removes any existing cookies with the same name first.
+     * 
+     * @param cookies The list to add to.
+     * @param cookie The cookie to add.
      */
     public static void replace(ArrayList<Cookie> cookies, Cookie cookie) {
         

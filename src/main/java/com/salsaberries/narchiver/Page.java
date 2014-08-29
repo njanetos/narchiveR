@@ -45,6 +45,11 @@ public class Page {
         }
     }
     
+    /**
+     *
+     * @param tagURL
+     * @param trawlingInterruptsRemaining
+     */
     public Page(String tagURL, int trawlingInterruptsRemaining) {
         this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
         parentPage = null;
@@ -100,14 +105,26 @@ public class Page {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Page getParent() {
         return parentPage;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTrawlingInterruptsRemaining() {
         return trawlingInterruptsRemaining;
     }
 
+    /**
+     *
+     * @param trawlingInterruptsRemaining
+     */
     public void setTrawlingInterruptsRemaining(int trawlingInterruptsRemaining) {
         this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
     }

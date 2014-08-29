@@ -27,12 +27,12 @@ package com.salsaberries.narchiver;
 public enum HttpType {
 
     /**
-     *
+     * HTTP GET request.
      */
     GET,
 
     /**
-     *
+     * HTTP POST request.
      */
     POST;
 }

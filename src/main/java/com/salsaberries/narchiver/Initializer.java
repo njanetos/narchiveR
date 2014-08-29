@@ -38,6 +38,10 @@ public class Initializer {
     
     private static final Logger logger = LoggerFactory.getLogger(Initializer.class);
     
+    /**
+     *
+     * @throws TerminalException
+     */
     public Initializer() throws TerminalException {
         
         // Initialize properties
