@@ -128,4 +128,12 @@ public class Page {
     public void setTrawlingInterruptsRemaining(int trawlingInterruptsRemaining) {
         this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
     }
+    
+    /**
+     * Removes all high memory stuff. Only call after writing to the file or
+     * it will be lost.
+     */
+    public void clear() {
+        html = "";
+    }
 }

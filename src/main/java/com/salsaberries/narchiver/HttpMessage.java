@@ -188,7 +188,7 @@ public class HttpMessage {
         }
         
         // Set the new content length header
-        replaceHeader(new Header("Content", Integer.toString(content.length())));
+        replaceHeader(new Header("Content-Length", Integer.toString(content.length())));
     }
     
     /**

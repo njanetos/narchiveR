@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -52,6 +51,7 @@ public class Trawler {
     private final LinkedList<Page> pageQueue;
     private final ArrayList<Page> pagesExclude;
     private final LinkedList<Page> finalPages;
+    private final ArrayList<Page> writtenPages;
     private final int maxDepth;
     private final String baseURL;
     private final ArrayList<String> parentChildExclude;
@@ -64,7 +64,6 @@ public class Trawler {
     private int loginAttempts;
     private ArrayList<Cookie> cookies;
     private final Random random;
-    private final Writer writer;
     private final String outputLocation;
 
     /**
@@ -74,7 +73,7 @@ public class Trawler {
      * @param writer
      * @throws com.salsaberries.narchiver.exceptions.TrawlException
      */
-    public Trawler(JSONObject site, Writer writer) throws TrawlException {
+    public Trawler(JSONObject site) throws TrawlException {
 
         // Initialize the random variable
         random = new Random();
@@ -83,7 +82,7 @@ public class Trawler {
 
         // Create the root page of depth -1
         Page rootPage = new Page("", -1);
-        
+
         // Create the initial beginning pages
         ArrayList<Page> pages = new ArrayList<>();
         for (int j = 0; j < site.getJSONArray("BEGIN").length(); ++j) {
@@ -134,12 +133,13 @@ public class Trawler {
 
         pageQueue = new LinkedList<>();
         finalPages = new LinkedList<>();
+        writtenPages = new ArrayList<>();
         this.maxDepth = site.getInt("DEPTH");
         this.baseURL = site.getString("BASE_URL");
 
         // Push the initial pages onto the queue
         for (int i = 0; i < pages.size(); ++i) {
-            pageQueue.push(pages.get(i));
+            pageQueue.add(pages.get(i));
         }
 
         // Initialize cookies
@@ -147,15 +147,13 @@ public class Trawler {
 
         Date date = new Date();
         outputLocation = Long.toString(date.getTime());
-        
+
         logger.info("Begun trawling at " + date.getTime() + ".");
-        
+
         // Start trawling
         visitNext(false);
 
         logger.info("Trawling has terminated for " + site.getString("BASE_URL") + ". Writing to file.");
-
-        this.writer = writer;
     }
 
     private boolean login() throws TrawlException {
@@ -245,7 +243,7 @@ public class Trawler {
         } catch (InterruptedException ex) {
 
         }
-        
+
         Page page = null;
         try {
             // Do we need to log in?
@@ -254,25 +252,25 @@ public class Trawler {
             } else {
                 // Reset the login attempts
                 loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
-                page = pageQueue.pop();
+                page = pageQueue.removeFirst();
                 visit(page);
             }
         } catch (AuthenticationException e) {
             // Re-add the page if necessary
             if (page != null) {
-                pageQueue.push(page);
+                pageQueue.add(page);
             }
             needToLogin = true;
         } catch (TrawlingInterrupt e) {
             if (page != null) {
-                pageQueue.push(page);
+                pageQueue.add(page);
             }
 
-            logger.info("Warning! Trawling was interrupted. Retrying in 1 minute: " + e.getMessage());
+            logger.info("Warning! Trawling was interrupted. Retrying in 30 seconds: " + e.getMessage());
 
             // Wait one minute
             try {
-                Thread.sleep(60000);
+                Thread.sleep(30000);
             } catch (InterruptedException ex) {
 
             }
@@ -281,31 +279,48 @@ public class Trawler {
             if (page != null) {
                 logger.info("Redirecting to page " + e.getMessage() + ". I'm going to set this to this page's new URL, push it back onto the queue, and restart.");
                 page.setTagURL(e.getMessage().substring(baseURL.length()));
-                pageQueue.push(page);
+                pageQueue.add(page);
             }
         }
 
         // If the number of final pages is higher than some number, write them to file.
-        // This will remove everything from finalPages. Also, run a pass filter.
+        // This will remove everything from finalPages. Also, it will remove their
+        // html content. Also, run a pass filter.
         if (finalPages.size() > site.getInt("WRITE_BUFFER")) {
-            // Create regex pattern
-            Pattern passFilter = Pattern.compile(site.getString("PASS_FILTER")); 
-            
-            // Run the pass filters
-            for (int i = finalPages.size() - 1; i >= 0; --i) {
-                if (!passFilter.matcher(finalPages.get(i).getTagURL()).find()) {
-                    logger.info("Final pass: Removing page " + finalPages.get(i).getTagURL());
-                    logger.info(finalPages.get(i).getHtml());
-                    finalPages.remove(i);
-                }
-            }
-            writer.storePages(finalPages, site.getString("LOCATION") + "/" + outputLocation);
+            logger.info("Flushing information to file.");
+            flushToFile();
         }
-        
+
         // If there are pages remaining to visit, visit the next one.
         if (pageQueue.size() != 0) {
             visitNext(needToLogin);
         }
+
+        // Flush any remaining pages
+        flushToFile();
+    }
+
+    private void flushToFile() {
+        // Create regex pattern
+        Pattern passFilter = Pattern.compile(site.getString("PASS_FILTER"));
+
+        logger.info("Check " +finalPages.size());
+        
+        // Run the pass filters
+        for (int i = finalPages.size() - 1; i >= 0; --i) {
+            logger.info("Check " + finalPages.get(i).getTagURL());
+            if (!passFilter.matcher(finalPages.get(i).getTagURL()).find()) {
+                logger.info("Final pass: Removing page " + finalPages.get(i).getTagURL());
+                finalPages.remove(i);
+            }
+        }
+        logger.info("Storing pages.");
+
+        Writer.storePages(finalPages, site.getString("LOCATION") + "/" + outputLocation);
+        
+        // Shift final pages to written pages
+        writtenPages.addAll(finalPages);
+        finalPages.clear();
     }
 
     /**
@@ -347,12 +362,12 @@ public class Trawler {
 
                 // Add new pages to the queue.
                 for (int i = 0; i < newPages.size(); ++i) {
-                    pageQueue.push(newPages.get(i));
+                    pageQueue.add(newPages.get(i));
                 }
             }
 
             // If all went well, add this page to the final list
-            finalPages.push(page);
+            finalPages.add(page);
 
         } catch (ConnectionException e) {
             switch (e.getMessage()) {
@@ -371,8 +386,8 @@ public class Trawler {
     }
 
     /**
-     * Extracts links from html, and returns a set of Pages with their parent page
-     * already defined.
+     * Extracts links from html, and returns a set of Pages with their parent
+     * page already defined.
      *
      * @param html
      * @return

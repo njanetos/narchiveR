@@ -51,9 +51,9 @@ public class Writer {
      * @param pages
      * @param location
      */
-    public void storePages(LinkedList<Page> pages, String location) {
+    public static void storePages(LinkedList<Page> pages, String location) {
         
-        logger.info("Dumping " + pages.size() + " pages to file at " + location + ".");
+        logger.info("Dumping " + pages.size() + " pages to file at " + location + "/");
 
         File file = new File(location);
         // Make sure the directory exists
@@ -68,10 +68,12 @@ public class Writer {
         }
         // Write them to the file
         while (pages.size() > 0) {
-            Page page = pages.pop();
+            Page page = pages.removeFirst();
             logger.info("Writing to " + location + page.getTagURL().replace("/", ".") + " referer " + page.getParent().getTagURL() + "\n\n");
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(location + page.getTagURL().replace("/", ".") + " referer " + page.getParent().getTagURL() + "\n\n"), "utf-8"))) {
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + page.getTagURL().replace("/", ".") + "_referer_" + page.getParent().getTagURL()), "utf-8"))) {
                 writer.write(page.getHtml());
+                // Remove the html for memory purposes
+                page.clear();
             } 
             catch (IOException e) {
                 logger.warn(e.getMessage());

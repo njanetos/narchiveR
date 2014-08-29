@@ -67,9 +67,6 @@ public class Initializer {
                 }
             });
 
-            // Create a writer
-            Writer writer = new Writer();
-
             // Loop through all the sites
             JSONArray sites = initialization.getJSONArray("SITES");
             for (int i = 0; i < sites.length(); ++i) {
@@ -80,7 +77,7 @@ public class Initializer {
 
                 // Create a new trawler
                 try {
-                    Trawler trawler = new Trawler(site, writer);
+                    Trawler trawler = new Trawler(site);
                 }
                 catch (TrawlException e) {
                     logger.error("Trawler for " + site.getString("LOCATION") + " failed: " + e.getMessage());

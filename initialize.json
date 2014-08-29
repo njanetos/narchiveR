@@ -3,7 +3,7 @@
     "FREQUENCY": "weekly",
     "BASE_URL": "http://silkroad6ownowfk.onion",
     "COMPRESS": true,
-    "DEPTH": 2,
+    "DEPTH": 10,
     "BEGIN": ["/"],
     "CONNECTION_TYPE": "TOR",
     "EXCLUDE": ["/logout", 
@@ -39,7 +39,7 @@
     "PARENT_CHILD_EXCLUDE": [],
     "STOP_AT": [],
     "MUST_INCLUDE": [],
-    "PASS_FILTER": ["/items"],
+    "PASS_FILTER": "/items",
     "CAPTCHA": [],
     "PROXIES": [],
     "COOKIES": true,
@@ -57,7 +57,7 @@
     "PASSWORD_FIELD": "user[password]",
     "MAX_LOGIN_ATTEMPTS": 3,
     "PARSER": "",
-    "WRITE_BUFFER": 20,
+    "WRITE_BUFFER": 10,
     "LOWER_WAIT_TIME": 2500,
     "UPPER_WAIT_TIME": 5000
 }]}

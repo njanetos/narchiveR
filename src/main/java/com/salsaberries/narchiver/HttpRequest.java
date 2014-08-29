@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import org.slf4j.LoggerFactory;
@@ -69,6 +70,9 @@ public class HttpRequest {
 
             URL url = new URL(message.getUrl());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
+            
+            // Default timeout is 120 seconds
+            connection.setConnectTimeout(120000);
             
             // Allow the request to have content, if turned on
             if (!message.getContent().equals("")) {
