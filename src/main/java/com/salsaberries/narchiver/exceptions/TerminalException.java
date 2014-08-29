@@ -17,32 +17,20 @@
  * MA 02110-1301  USA
  */
 
-package com.salsaberries.narchiver;
+package com.salsaberries.narchiver.exceptions;
 
-import com.salsaberries.narchiver.exceptions.TerminalException;
-import java.io.IOException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+/**
+ * A Terminal exception occurs when all else fails.
+ * 
+ * @author njanetos
+ */
+public class TerminalException extends Exception {
 
-public class Main {
-
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
-    public static void main(String[] args) {        
-
-        try {
-            Initializer init = new Initializer();
-        }
-        catch (TerminalException e) {
-            logger.error("Encountered a terminal exception: " + e.getMessage());
-        }
-        
-        Alerter alerter = new Alerter();
-        try {
-            alerter.alert();
-        }
-        catch (IOException e) {
-            logger.error("Unable to send email! " + e.getMessage());
-        }
+    /**
+     *
+     * @param message
+     */
+    public TerminalException(String message) {
+        super(message);
     }
 }

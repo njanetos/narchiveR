@@ -16,16 +16,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 import com.salsaberries.narchiver.exceptions.AuthenticationException;
 import com.salsaberries.narchiver.exceptions.ConnectionException;
 import com.salsaberries.narchiver.exceptions.RedirectionException;
+import com.salsaberries.narchiver.exceptions.TrawlException;
 import com.salsaberries.narchiver.exceptions.TrawlingInterrupt;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -35,9 +40,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Trawler is given an initial set of pages, then recursively finds
- * pages within those pages and uses a queue to organize everything.
- * 
+ * Trawler is given an initial set of pages, then recursively finds pages within
+ * those pages and uses a queue to organize everything.
+ *
  * @author njanetos
  */
 public class Trawler {
@@ -46,37 +51,43 @@ public class Trawler {
 
     private final LinkedList<Page> pageQueue;
     private final ArrayList<Page> pagesExclude;
-    private final ArrayList<Page> finalPages;
+    private final LinkedList<Page> finalPages;
     private final int maxDepth;
     private final String baseURL;
     private final ArrayList<String> parentChildExclude;
     private final ArrayList<String> exclude;
     private final ArrayList<String> stopAt;
     private final ArrayList<String> mustInclude;
-    private final ArrayList<String> passInclude;
     private final ArrayList<String> captchas;
     private final boolean cookiesEnabled;
     private final JSONObject site;
     private int loginAttempts;
     private ArrayList<Cookie> cookies;
-    private Random random;
-    
+    private final Random random;
+    private final Writer writer;
+    private final String outputLocation;
+
     /**
      * Trawler implements the recursive algorithm to search the web page.
-     * 
+     *
      * @param site
+     * @param writer
+     * @throws com.salsaberries.narchiver.exceptions.TrawlException
      */
-    public Trawler(JSONObject site) {
+    public Trawler(JSONObject site, Writer writer) throws TrawlException {
 
         // Initialize the random variable
         random = new Random();
-        
+
         this.site = site;
 
+        // Create the root page of depth -1
+        Page rootPage = new Page("", -1);
+        
         // Create the initial beginning pages
         ArrayList<Page> pages = new ArrayList<>();
         for (int j = 0; j < site.getJSONArray("BEGIN").length(); ++j) {
-            pages.add(new Page(site.getJSONArray("BEGIN").getString(j), null));
+            pages.add(new Page(site.getJSONArray("BEGIN").getString(j), rootPage));
         }
 
         // Create the pages to exclude
@@ -109,195 +120,163 @@ public class Trawler {
             mustInclude.add(site.getJSONArray("MUST_INCLUDE").getString(j));
         }
 
-        // Create the list of PASS_INCLUDE
-        passInclude = new ArrayList<>();
-        for (int j = 0; j < site.getJSONArray("PASS_INCLUDE").length(); ++j) {
-            passInclude.add(site.getJSONArray("PASS_INCLUDE").getString(j));
-        }
-
         // Create the list of CAPTCHA
         captchas = new ArrayList<>();
         for (int j = 0; j < site.getJSONArray("CAPTCHA").length(); ++j) {
             captchas.add(site.getJSONArray("CAPTCHA").getString(j));
         }
-        
+
         // Are cookies enabled?
         cookiesEnabled = site.getBoolean("COOKIES");
-        
+
         // Set the maximum number of login attempts
         loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
 
         pageQueue = new LinkedList<>();
-        finalPages = new ArrayList<>();
+        finalPages = new LinkedList<>();
         this.maxDepth = site.getInt("DEPTH");
         this.baseURL = site.getString("BASE_URL");
-        
+
         // Push the initial pages onto the queue
         for (int i = 0; i < pages.size(); ++i) {
             pageQueue.push(pages.get(i));
         }
-        
+
         // Initialize cookies
         cookies = new ArrayList<>();
 
+        Date date = new Date();
+        outputLocation = Long.toString(date.getTime());
+        
+        logger.info("Begun trawling at " + date.getTime() + ".");
+        
         // Start trawling
         visitNext(false);
-        
+
         logger.info("Trawling has terminated for " + site.getString("BASE_URL") + ". Writing to file.");
-        
-        // Run the pass filters
-        for (String e : passInclude) {
-            for (int i = finalPages.size()-1; i >= 0; --i) {
-                if (!finalPages.get(i).getTagURL().contains(e)) {
-                    logger.info("Final pass: Removing page " + finalPages.get(i).getTagURL());
-                    logger.info(finalPages.get(i).getHtml());
-                    finalPages.remove(i);
-                }
-            }
-        }
+
+        this.writer = writer;
     }
-    
-    private boolean login() throws TrawlingInterrupt {
+
+    private boolean login() throws TrawlException {
         --loginAttempts;
 
-       if (loginAttempts < 0) {
-           logger.error("Warning! Exceeded maximum number of login attempts! Program is now exiting.");
-           Alerter alert = new Alerter();
-           alert.alert();
-           // TODO: Handle this better
-           System.exit(1);
-       }
+        if (loginAttempts < 0) {
+            logger.error("Warning! Exceeded maximum number of login attempts! Program is now exiting.");
+            throw new TrawlException("Maximum login attempts exceeded.");
+        }
 
-       logger.info("Attempting to log in at " + baseURL + site.getString("LOGIN_URL"));
+        logger.info("Attempting to log in at " + baseURL + site.getString("LOGIN_URL"));
 
-       HttpMessage httpGet = new HttpMessage(HttpType.GET);
-       httpGet.setUrl(baseURL + site.getString("LOGIN_URL"));
-       httpGet.initializeDefaultHeaders(site);
-       httpGet.addCookieHeaders(cookies);
+        HttpMessage httpGet = new HttpMessage(HttpType.GET);
+        httpGet.setUrl(baseURL + site.getString("LOGIN_URL"));
+        httpGet.initializeDefaultHeaders(site);
+        httpGet.addCookieHeaders(cookies);
 
-       try {
-           HttpRequest httpRequest = new HttpRequest(httpGet);
-           
+        try {
+            HttpRequest httpRequest = new HttpRequest(httpGet);
+
             // Get headers
-             ArrayList<Header> headers = httpRequest.getHeaders();
-              // Parse the cookies
-             getTempCookies(headers);
+            ArrayList<Header> headers = httpRequest.getHeaders();
+            // Parse the cookies
+            getTempCookies(headers);
 
-             String body = httpRequest.getHtml();
+            String body = httpRequest.getHtml();
 
-             Document doc = Jsoup.parse(body);          
-             Element login = doc.getElementById(site.getString("LOGIN_ELEMENT"));
+            Document doc = Jsoup.parse(body);
+            Element login = doc.getElementById(site.getString("LOGIN_ELEMENT"));
 
-             if (login == null) {
-                 logger.error("Failed to find login form.");
-                 System.exit(1);
-                 // TODO: Fix this up
-             }
+            if (login == null) {
+                throw new TrawlException("Failed to find login form.");
+            }
 
-             // Grab any hidden fields
-             Elements hidden = login.getElementsByAttributeValue("type", "hidden");
+            // Grab any hidden fields
+            Elements hidden = login.getElementsByAttributeValue("type", "hidden");
 
-             // Build the post response
-             HttpMessage httpPost = new HttpMessage(HttpType.POST);
-             httpPost.initializeDefaultHeaders(site);
-             httpPost.addCookieHeaders(cookies);
-             // TODO: Read this from the html!
-             httpPost.setUrl(baseURL + site.getString("LOGIN_SUBMIT"));
+            // Build the post response
+            HttpMessage httpPost = new HttpMessage(HttpType.POST);
+            httpPost.initializeDefaultHeaders(site);
+            httpPost.addCookieHeaders(cookies);
+            // TODO: Read this from the html!
+            httpPost.setUrl(baseURL + site.getString("LOGIN_SUBMIT"));
 
-             httpPost.appendContent(site.getString("USERNAME_FIELD"), site.getString("USERNAME"));
-             httpPost.appendContent(site.getString("PASSWORD_FIELD"), site.getString("PASSWORD"));
+            httpPost.appendContent(site.getString("USERNAME_FIELD"), site.getString("USERNAME"));
+            httpPost.appendContent(site.getString("PASSWORD_FIELD"), site.getString("PASSWORD"));
 
-             for (int i = 0; i < hidden.size(); ++i) {
-                 httpPost.appendContent(hidden.get(i).attr("name"), hidden.get(i).attr("value"));
-             }
-             //TODO FIX THIS!
-             httpPost.appendContent("commit", "enter");
+            for (int i = 0; i < hidden.size(); ++i) {
+                httpPost.appendContent(hidden.get(i).attr("name"), hidden.get(i).attr("value"));
+            }
+            //httpPost.appendContent("commit", "enter");
 
-             // Add additional cookies
-             httpPost.getHeaders().add(new Header("Content-Type", "application/x-www-form-urlencoded"));
-             httpPost.getHeaders().add(new Header("Referer", baseURL + site.getString("LOGIN_URL")));
-             httpPost.getHeaders().add(new Header("Content-Length", Integer.toString(httpPost.getContent().length())));
+            // Log in
+            HttpRequest response = new HttpRequest(httpPost);
+            headers = response.getHeaders();
+            // Add any relevant cookies
+            getTempCookies(headers);
+            logger.info("Successfully logged in, response code: " + response.getStatusCode());
 
-             // Log in
-             HttpRequest response = new HttpRequest(httpPost);
-             headers = response.getHeaders();
-             // Add any relevant cookies
-             getTempCookies(headers);
-             logger.info("Successfully logged in, response code: " + response.getStatusCode());
+            // Send a GET request to the redirection URL before continuing. 
+            httpGet = new HttpMessage(HttpType.GET);
+            httpGet.initializeDefaultHeaders(site);
+            httpGet.addHeader(new Header("Referer", baseURL + site.getString("LOGIN_URL")));
+            String redirectionURL = getRedirectionURL(headers);
+            httpGet.setUrl(redirectionURL);
+            httpGet.addCookieHeaders(cookies);
 
-             // Send a GET request to the redirection URL before continuing. 
-             httpGet = new HttpMessage(HttpType.GET);
-             httpGet.initializeDefaultHeaders(site);
-             httpGet.addHeader(new Header("Referer", baseURL + site.getString("LOGIN_URL")));
-             String redirectionURL = getRedirectionURL(headers);
-             httpGet.setUrl(redirectionURL);
-             httpGet.addCookieHeaders(cookies);
+            httpRequest = new HttpRequest(httpGet);
+            logger.debug("Visited redirected page. Status code " + httpRequest.getStatusCode());
 
-             httpRequest = new HttpRequest(httpGet);
-             logger.debug("Visited redirected page. Status code " + httpRequest.getStatusCode());
+        } catch (ConnectionException | MalformedURLException | ProtocolException e) {
+            // Did not successfully log in
+            return false;
+        }
 
-       }
-       catch (ConnectionException e) {
-           throw new TrawlingInterrupt(e.getMessage());
-       }
-       
-       // Did we successfully log in? Then return true.
-       return true;
-       
+        // Did we successfully log in? Then return true.
+        return true;
+
     }
-    
-    private void visitNext(boolean needToLogin) {
+
+    private void visitNext(boolean needToLogin) throws TrawlException {
 
         // Wait a random time period
         logger.info("Waiting some random time before visiting");
         try {
-            Thread.sleep(random.nextInt(2500) + 5000);
-        }
-        catch (InterruptedException ex) {
-            ex.printStackTrace();
-            logger.error("This should not happen.");
-            System.exit(1);
-            // TODO: Make this better.
-        }
+            Thread.sleep(random.nextInt(site.getInt("LOWER_WAIT_TIME")) + site.getInt("UPPER_WAIT_TIME"));
+        } catch (InterruptedException ex) {
 
+        }
+        
         Page page = null;
         try {
             // Do we need to log in?
             if (needToLogin) {
-                try {
-                    needToLogin = (!login());
-                }
-                catch (TrawlingInterrupt e) {
-                    needToLogin = true;
-                }
-            }
-            else {
+                needToLogin = (!login());
+            } else {
+                // Reset the login attempts
+                loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
                 page = pageQueue.pop();
                 visit(page);
             }
-        }
-        catch (AuthenticationException e) {
+        } catch (AuthenticationException e) {
             // Re-add the page if necessary
-            if (page != null) { pageQueue.push(page); }
+            if (page != null) {
+                pageQueue.push(page);
+            }
             needToLogin = true;
-        }
-        catch (TrawlingInterrupt e) {
-            if (page != null) { pageQueue.push(page); }
+        } catch (TrawlingInterrupt e) {
+            if (page != null) {
+                pageQueue.push(page);
+            }
 
-            logger.info("Warning! Trawling was interrupted. Retrying in 1 minute.");
-            
+            logger.info("Warning! Trawling was interrupted. Retrying in 1 minute: " + e.getMessage());
+
             // Wait one minute
             try {
                 Thread.sleep(60000);
+            } catch (InterruptedException ex) {
+
             }
-            catch (InterruptedException ex) {
-                e.printStackTrace();
-                logger.error("This should not happen.");
-                System.exit(1);
-                // TODO: Make this better.
-            }
-        }
-        catch (RedirectionException e) {
+        } catch (RedirectionException e) {
             // Set this page's URL to the new URL and push it back onto the queue.
             if (page != null) {
                 logger.info("Redirecting to page " + e.getMessage() + ". I'm going to set this to this page's new URL, push it back onto the queue, and restart.");
@@ -306,15 +285,33 @@ public class Trawler {
             }
         }
 
+        // If the number of final pages is higher than some number, write them to file.
+        // This will remove everything from finalPages. Also, run a pass filter.
+        if (finalPages.size() > site.getInt("WRITE_BUFFER")) {
+            // Create regex pattern
+            Pattern passFilter = Pattern.compile(site.getString("PASS_FILTER")); 
+            
+            // Run the pass filters
+            for (int i = finalPages.size() - 1; i >= 0; --i) {
+                if (!passFilter.matcher(finalPages.get(i).getTagURL()).find()) {
+                    logger.info("Final pass: Removing page " + finalPages.get(i).getTagURL());
+                    logger.info(finalPages.get(i).getHtml());
+                    finalPages.remove(i);
+                }
+            }
+            writer.storePages(finalPages, site.getString("LOCATION") + "/" + outputLocation);
+        }
+        
+        // If there are pages remaining to visit, visit the next one.
         if (pageQueue.size() != 0) {
             visitNext(needToLogin);
         }
     }
-    
+
     /**
      * Visit the first page in the queue. Download all the info. Extract
-     * relevant URLs. Add them to the queue. Add this page to the list of
-     * final pages.
+     * relevant URLs. Add them to the queue. Add this page to the list of final
+     * pages.
      */
     private void visit(Page page) throws AuthenticationException, TrawlingInterrupt, RedirectionException {
 
@@ -348,17 +345,16 @@ public class Trawler {
             if (page.getDepth() < maxDepth) {
                 ArrayList<Page> newPages = extractPages(page);
 
-                // Add new pages to the queue
+                // Add new pages to the queue.
                 for (int i = 0; i < newPages.size(); ++i) {
                     pageQueue.push(newPages.get(i));
                 }
             }
 
             // If all went well, add this page to the final list
-            finalPages.add(page);
+            finalPages.push(page);
 
-        }
-        catch (ConnectionException e) {
+        } catch (ConnectionException e) {
             switch (e.getMessage()) {
                 // Server timed out. Re-add the page, wait, and restart.
                 case "408":
@@ -366,21 +362,27 @@ public class Trawler {
                 case "500":
                     throw new TrawlingInterrupt("500");
             }
+        } catch (MalformedURLException e) {
+            // Malformed URL, remove this page from the list
+            logger.error("There was a malformed url: " + baseURL + page.getTagURL() + ". This page will not be included in the final pages.");
+        } catch (ProtocolException e) {
+            throw new TrawlingInterrupt("Protocol exception. Will retry later...");
         }
     }
-    
+
     /**
-     * Extracts links from html.
-     * 
+     * Extracts links from html, and returns a set of Pages with their parent page
+     * already defined.
+     *
      * @param html
-     * @return 
+     * @return
      */
     private ArrayList<Page> extractPages(Page extractPage) {
-        
+
         String html = extractPage.getHtml();
-                
+
         ArrayList<Page> pages = new ArrayList<>();
-        
+
         // Are we at a stop at page?
         for (String e : stopAt) {
             if (extractPage.getTagURL().contains(e)) {
@@ -392,24 +394,23 @@ public class Trawler {
         // Parse the html
         Document doc = Jsoup.parse(html);
         Elements links = doc.getElementsByTag("a");
-        
+
         for (Element link : links) {
-            
+
             String tagURL = "";
             boolean alreadyFollowed = false;
             boolean validURL = false;
             boolean parentChildExcluded = false;
-            
+
             // First format the link
             if (link.attr("href").startsWith(baseURL)) {
                 tagURL = link.attr("href").replace(baseURL, "");
                 validURL = true;
-            }
-            else if (link.attr("href").startsWith("/")) {
+            } else if (link.attr("href").startsWith("/")) {
                 tagURL = link.attr("href");
                 validURL = true;
             }
-            
+
             // Has it already been followed?
             for (Page page : finalPages) {
                 if (page.getTagURL().equals(tagURL)) {
@@ -429,7 +430,7 @@ public class Trawler {
                     break;
                 }
             }
-            
+
             // Does it violate parent/child exclude?
             boolean parentMissing = true;
             boolean childMissing = true;
@@ -443,11 +444,10 @@ public class Trawler {
                     }
                 }
                 parentChildExcluded = parentMissing & childMissing;
-            }
-            else {
+            } else {
                 parentChildExcluded = false;
             }
-            
+
             // Does it violate the exclusion rules?
             boolean excluded = false;
             for (String e : exclude) {
@@ -455,28 +455,28 @@ public class Trawler {
                     excluded = true;
                 }
             }
-            
+
             // Does it violate the must include rules?
             boolean mustIncluded = false;
 
             if (!alreadyFollowed && validURL && !parentChildExcluded && !excluded && !mustIncluded) {
                 logger.info("Creating new page at URL " + tagURL);
-                Page page = new Page(tagURL, extractPage);           
+                Page page = new Page(tagURL, extractPage);
                 pages.add(page);
             }
-            
+
             if (alreadyFollowed) {
                 logger.info("Skipping duplicate at URL " + tagURL);
             }
-            
+
             if (!validURL) {
                 logger.info("Invalid URL at " + link.attr("href"));
             }
-            
+
             if (parentChildExcluded) {
                 logger.info("Parent child exclusion at " + link.attr("href"));
             }
-            
+
             if (excluded) {
                 logger.info("Exclusion at " + link.attr("href"));
             }
@@ -492,7 +492,7 @@ public class Trawler {
      *
      * @return
      */
-    public ArrayList<Page> getFinalPages() {
+    public LinkedList<Page> getFinalPages() {
         return finalPages;
     }
 
@@ -503,14 +503,14 @@ public class Trawler {
     public String getBaseURL() {
         return baseURL;
     }
-    
+
     private boolean testForCaptcha(String string) {
         for (String e : captchas) {
             if (string.contains(e)) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -522,20 +522,25 @@ public class Trawler {
                 // with the newest one.
                 if (!Cookie.isAlreadyIn(cookies, cookie)) {
                     cookies.add(cookie);
-                }
-                else {
+                } else {
                     Cookie.replace(cookies, cookie);
                 }
             }
         }
     }
-    
+
     /**
      * Searches through the headers to see if any redirect to the login page.
+     *
      * @param headers
-     * @return 
+     * @return
      */
-    private String checkHeaders(HttpRequest response) throws AuthenticationException, RedirectionException {
+    private String checkHeaders(HttpRequest response) throws AuthenticationException, RedirectionException, TrawlingInterrupt {
+
+        if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+            return Integer.toString(response.getStatusCode());
+        }
+
         // We've been redirected
         if (response.getStatusCode() >= 300 && response.getStatusCode() < 400) {
             ArrayList<Header> headers = response.getHeaders();
@@ -546,29 +551,41 @@ public class Trawler {
                     if (h.getValue().contains(site.getString("LOGIN_URL"))) {
                         logger.info("We've been redirected to the login page! " + h.getValue());
                         throw new AuthenticationException(h.getValue());
-                    }
-                    else {
+                    } else {
                         logger.info("We've been redirected somewhere within the site.");
                         throw new RedirectionException(h.getValue());
                     }
                 }
             }
-            
-            // TODO: Fix this.
-            return "";
         }
-        
-        // TODO: Fix this.
-        return "";
+
+        // Permissions status
+        if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+            if (response.getStatusCode() == 403) {
+                throw new TrawlingInterrupt(Integer.toString(response.getStatusCode()));
+            }
+        }
+
+        // Server error
+        if (response.getStatusCode() >= 500 && response.getStatusCode() < 600) {
+            throw new TrawlingInterrupt(Integer.toString(response.getStatusCode()));
+        }
+
+        return Integer.toString(response.getStatusCode());
     }
-    
+
+    /**
+     *
+     * @param headers
+     * @return
+     */
     public String getRedirectionURL(ArrayList<Header> headers) {
         for (Header h : headers) {
             if (h.getName().equals("Location")) {
                 return h.getValue();
             }
         }
-        
+
         return "";
     }
 

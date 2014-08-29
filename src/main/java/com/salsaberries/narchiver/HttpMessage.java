@@ -115,7 +115,9 @@ public class HttpMessage {
     }
     
     /**
-     *
+     * Intitializes a set of default headers that we should have to spoof a
+     * browser.
+     * 
      * @param site
      */
     public void initializeDefaultHeaders(JSONObject site) {
@@ -132,6 +134,7 @@ public class HttpMessage {
         headers.add(new Header("Accept-Language", site.getString("ACCEPT-LANGUAGE")));
         headers.add(new Header("Accept-Encoding", site.getString("ACCEPT-ENCODING")));
         headers.add(new Header("Connection", site.getString("CONNECTION")));
+        headers.add(new Header("Content-Type", "application/x-www-form-urlencoded"));
     }
     
     /**
@@ -183,8 +186,15 @@ public class HttpMessage {
         else {
             content = content + "&" + URLEncoder.encode(name) + "=" + URLEncoder.encode(value);
         }
+        
+        // Set the new content length header
+        replaceHeader(new Header("Content", Integer.toString(content.length())));
     }
     
+    /**
+     *
+     * @param header
+     */
     public void addHeader(Header header) {
         if (headers == null) {
             headers = new ArrayList<>();
@@ -193,5 +203,20 @@ public class HttpMessage {
         else {
             headers.add(header);
         }
+    }
+    
+    /**
+     * Checks to see if the header is already there and replaces it if so.
+     * 
+     * @param header 
+     */
+    public void replaceHeader(Header header) {
+        for (int i = headers.size()-1; i > 0; --i) {
+            if (headers.get(i).getName().equals(header.getName())) {
+                headers.remove(i);
+            }
+        }
+        
+        headers.add(header);
     }
 }

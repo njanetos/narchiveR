@@ -61,8 +61,8 @@ public class Cookie {
             expiration = formatter.parse(raw);
         }
         catch (ParseException e) {
-            // TODO: Fix this
-            expiration = new Date();
+            logger.info("Unable to parse cookie date. Assuming it's way in the future.");
+            expiration = new Date(17534932134000L);
         }        
     }
 
@@ -155,6 +155,11 @@ public class Cookie {
         return false;
     }
     
+    /**
+     *
+     * @param cookies
+     * @param cookie
+     */
     public static void replace(ArrayList<Cookie> cookies, Cookie cookie) {
         
         ArrayList<Cookie> flaggedCookies = new ArrayList<>();

@@ -29,6 +29,7 @@ public enum ConnectionType {
     /**
      *
      */
+    NOR,
     NORMAL,
 
     /**

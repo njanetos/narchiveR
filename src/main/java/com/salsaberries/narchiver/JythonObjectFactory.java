@@ -34,11 +34,15 @@ public class JythonObjectFactory {
     private static JythonObjectFactory instance = null;
     private static PyObject pyObject = null;
 
+    /**
+     *
+     */
     protected JythonObjectFactory() {
 
     }
     /**
      * Create a singleton object. Only allow one instance to be created
+     * @return 
      */
     public static JythonObjectFactory getInstance(){
         if(instance == null){
@@ -51,6 +55,9 @@ public class JythonObjectFactory {
     /**
      * The createObject() method is responsible for the actual creation of the
      * Jython object into Java bytecode.
+     * @param interfaceType
+     * @param moduleName
+     * @return 
      */
     public static Object createObject(Object interfaceType, String moduleName){
         Object javaInt = null;

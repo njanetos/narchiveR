@@ -27,6 +27,11 @@ package com.salsaberries.narchiver;
  */
 public interface Parser {
     
+    /**
+     *
+     * @param doc
+     * @return
+     */
     public String pageInfo(String doc);
     
 }

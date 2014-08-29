@@ -52,11 +52,14 @@ public class HttpRequest {
     private int statusCode;
     
     /**
-     *
-     * @param message
-     * @throws com.salsaberries.archiver.exceptions.ConnectionException
+     * Opens a new HTTP connection using the information contained in an {@link HttpMessage}.
+     * 
+     * @param message The information used to open the session. If incomplete an exception will occur.
+     * @throws com.salsaberries.narchiver.exceptions.ConnectionException Throws a connection exception after any error reading content.
+     * @throws java.net.MalformedURLException Throws if the URL is malformed. (This should never happen.)
+     * @throws java.net.ProtocolException Throws if there was an error reading from the stream. 
      */
-    public HttpRequest(HttpMessage message) throws ConnectionException {
+    public HttpRequest(HttpMessage message) throws ConnectionException, MalformedURLException, ProtocolException {
         
         logger.debug("Sending request: \n" + message.getFormattedMessage());
         
@@ -120,26 +123,15 @@ public class HttpRequest {
                 html = finalResponse;
             }
         }
-        catch (MalformedURLException e) {
-            // TODO: Fix this
-            logger.error("Malformed URL " + message.getUrl() + ": " + e.getMessage());
-            System.exit(1);
-        }
-        catch (ProtocolException e) {
-            logger.error("Bad protocol " + e.getMessage());
-            // TODO: Fix this
-            System.exit(1);
-        }
         catch (IOException e) {
             logger.error("IOException " + e.getMessage());
-            // TODO: Fix this up better
             throw new ConnectionException(statusCode);
         }
     }
 
     /**
      *
-     * @return
+     * @return The html body of the response.
      */
     public String getHtml() {
         return html;
@@ -147,15 +139,7 @@ public class HttpRequest {
 
     /**
      *
-     * @param html
-     */
-    public void setHtml(String html) {
-        this.html = html;
-    }
-
-    /**
-     *
-     * @return
+     * @return The HTTP headers.
      */
     public ArrayList<Header> getHeaders() {
         return headers;
@@ -163,33 +147,18 @@ public class HttpRequest {
 
     /**
      *
-     * @param headers
-     */
-    public void setHeaders(ArrayList<Header> headers) {
-        this.headers = headers;
-    }
-
-    /**
-     *
-     * @return
+     * @return The HTTP status code of the response.
      */
     public int getStatusCode() {
         return statusCode;
     }
-
-    /**
-     *
-     * @param statusCode
-     */
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
     
     /**
-     *
-     * @param string
-     * @return
-     * @throws IOException
+     * Compresses a string using gzip.
+     *  
+     * @param string The string to compress.
+     * @return A compressed array of bytes.
+     * @throws IOException 
      */
     public static byte[] compress(String string) throws IOException {
         byte[] compressed = null;
@@ -200,9 +169,10 @@ public class HttpRequest {
     }
 
     /**
-     *
-     * @param compressed
-     * @return
+     * Decompresses a string using gzip.
+     * 
+     * @param compressed The compressed array of bytes.
+     * @return A decompressed string. 
      * @throws IOException
      */
     public static String decompress(byte[] compressed) throws IOException {

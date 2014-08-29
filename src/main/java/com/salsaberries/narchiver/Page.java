@@ -16,19 +16,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 /**
  * A Page just stores html info along with the url
- * 
+ *
  * @author njanetos
  */
 public class Page {
-   
+
     private String tagURL;
     private String html;
     private final Page parentPage;
+    private int trawlingInterruptsRemaining;
 
     /**
      *
@@ -38,11 +38,22 @@ public class Page {
     public Page(String tagURL, Page parentPage) {
         this.tagURL = tagURL;
         this.parentPage = parentPage;
+        if (parentPage == null) {
+            trawlingInterruptsRemaining = 6;
+        } else {
+            this.trawlingInterruptsRemaining = parentPage.getTrawlingInterruptsRemaining();
+        }
+    }
+    
+    public Page(String tagURL, int trawlingInterruptsRemaining) {
+        this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
+        parentPage = null;
+        this.tagURL = tagURL;
     }
 
     /**
      * Returns the tag url.
-     * 
+     *
      * @return
      */
     public String getTagURL() {
@@ -51,7 +62,7 @@ public class Page {
 
     /**
      * Sets the tag url.
-     * 
+     *
      * @param tagURL
      */
     public void setTagURL(String tagURL) {
@@ -60,7 +71,7 @@ public class Page {
 
     /**
      * Gets the html source of the page.
-     * 
+     *
      * @return
      */
     public String getHtml() {
@@ -69,7 +80,7 @@ public class Page {
 
     /**
      * Returns the html source.
-     * 
+     *
      * @param html
      */
     public void setHtml(String html) {
@@ -78,15 +89,26 @@ public class Page {
 
     /**
      * Returns the page's depth in the recursive search
-     * 
+     *
      * @return
      */
     public int getDepth() {
         if (parentPage == null) {
             return 0;
+        } else {
+            return parentPage.getDepth() + 1;
         }
-        else {
-            return parentPage.getDepth()+1;
-        }
+    }
+    
+    public Page getParent() {
+        return parentPage;
+    }
+
+    public int getTrawlingInterruptsRemaining() {
+        return trawlingInterruptsRemaining;
+    }
+
+    public void setTrawlingInterruptsRemaining(int trawlingInterruptsRemaining) {
+        this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
     }
 }

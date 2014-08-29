@@ -30,6 +30,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.zip.GZIPOutputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
@@ -50,18 +51,14 @@ public class Writer {
     
     /**
      * Writes all the pages to file.
-     * @param trawler
+     * @param pages
      * @param location
-     * @param compressed
      */
-    public void storePages(Trawler trawler, String location, boolean compressed) {
+    public void storePages(LinkedList<Page> pages, String location) {
         
-        logger.info("Writing " + trawler.getFinalPages().size() + " pages to file at " + location + ".");
-        
-        Date date = new Date();
-        location = location + "/" + Long.toString(date.getTime());
-        File file = new File(location);
+        logger.info("Dumping " + pages.size() + " pages to file at " + location + ".");
 
+        File file = new File(location);
         // Make sure the directory exists
         if (!file.exists()) {
             try {
@@ -72,26 +69,15 @@ public class Writer {
                 logger.error(e.getMessage());
             }
         }
-        for (Page page : trawler.getFinalPages()) {
-            logger.info("Writing to " + location + page.getTagURL().replace("/", "."));
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(location + "/" + page.getTagURL().replace("/", ".")), "utf-8"))) {
+        // Write them to the file
+        while (pages.size() > 0) {
+            Page page = pages.pop();
+            logger.info("Writing to " + location + page.getTagURL().replace("/", ".") + " referer " + page.getParent().getTagURL() + "\n\n");
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(location + page.getTagURL().replace("/", ".") + " referer " + page.getParent().getTagURL() + "\n\n"), "utf-8"))) {
                 writer.write(page.getHtml());
             } 
             catch (IOException e) {
                 logger.warn(e.getMessage());
-            }
-        }
-        
-        // If compression is required, compress then delete the original directory
-        if (compressed) {
-            ArrayList<File> compress = new ArrayList<>();
-            compress.add(file);
-            try {
-                compressFiles(compress, new File(location+".tar.gz"));
-                FileUtils.deleteDirectory(file);
-            }
-            catch (IOException e) {
-                logger.error("Unable to compress archive. " + e.getMessage());
             }
         }
     }
