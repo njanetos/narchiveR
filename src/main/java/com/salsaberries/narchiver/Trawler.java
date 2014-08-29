@@ -256,14 +256,26 @@ public class Trawler {
                 visit(page);
             }
         } catch (AuthenticationException e) {
-            // Re-add the page if necessary
+            // Re-add the page (at the beginning) if necessary
             if (page != null) {
-                pageQueue.add(page);
+                if (!page.registerTrawlInterrupt()) {
+                    // Don't do anything: It's been interrupted too many times.
+                    logger.error("Trawling has been interrupted for this page too many times. Removing from site map.");
+                } else {
+                    // Push the page back on.
+                    pageQueue.push(page);
+                }
             }
             needToLogin = true;
         } catch (TrawlingInterrupt e) {
             if (page != null) {
-                pageQueue.add(page);
+                if (!page.registerTrawlInterrupt()) {
+                    // Don't do anything: It's been interrupted too many times.
+                    logger.error("Trawling has been interrupted for this page too many times. Removing from site map.");
+                } else {
+                    // Push the page back on.
+                    pageQueue.push(page);
+                }
             }
 
             logger.info("Warning! Trawling was interrupted. Retrying in 30 seconds: " + e.getMessage());
@@ -304,8 +316,8 @@ public class Trawler {
         // Create regex pattern
         Pattern passFilter = Pattern.compile(site.getString("PASS_FILTER"));
 
-        logger.info("Check " +finalPages.size());
-        
+        logger.info("Check " + finalPages.size());
+
         // Run the pass filters
         for (int i = finalPages.size() - 1; i >= 0; --i) {
             logger.info("Check " + finalPages.get(i).getTagURL());
@@ -317,7 +329,7 @@ public class Trawler {
         logger.info("Storing pages.");
 
         Writer.storePages(finalPages, site.getString("LOCATION") + "/" + outputLocation);
-        
+
         // Shift final pages to written pages
         writtenPages.addAll(finalPages);
         finalPages.clear();
@@ -475,29 +487,29 @@ public class Trawler {
             boolean mustIncluded = false;
 
             if (!alreadyFollowed && validURL && !parentChildExcluded && !excluded && !mustIncluded) {
-                logger.info("Creating new page at URL " + tagURL);
+                logger.debug("Creating new page at URL " + tagURL);
                 Page page = new Page(tagURL, extractPage);
                 pages.add(page);
             }
 
             if (alreadyFollowed) {
-                logger.info("Skipping duplicate at URL " + tagURL);
+                logger.debug("Skipping duplicate at URL " + tagURL);
             }
 
             if (!validURL) {
-                logger.info("Invalid URL at " + link.attr("href"));
+                logger.debug("Invalid URL at " + link.attr("href"));
             }
 
             if (parentChildExcluded) {
-                logger.info("Parent child exclusion at " + link.attr("href"));
+                logger.debug("Parent child exclusion at " + link.attr("href"));
             }
 
             if (excluded) {
-                logger.info("Exclusion at " + link.attr("href"));
+                logger.debug("Exclusion at " + link.attr("href"));
             }
 
             if (mustIncluded) {
-                logger.info(link.attr("href") + " did not include required inclusion.");
+                logger.debug(link.attr("href") + " did not include required inclusion.");
             }
         }
         return pages;

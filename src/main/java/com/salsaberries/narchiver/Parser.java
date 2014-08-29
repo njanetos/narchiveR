@@ -16,22 +16,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 /**
- * Can be implemented to parse webpages. Should return a String which stores info
- * for this page.
- * 
+ * Can be implemented to parse webpages. Should return a String which stores
+ * info for this page.
+ *
  * @author njanetos
  */
 public interface Parser {
-    
+
     /**
      *
      * @param doc
      * @return
      */
     public String pageInfo(String doc);
-    
+
 }

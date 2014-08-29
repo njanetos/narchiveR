@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 import java.text.ParseException;
@@ -27,43 +26,42 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A Cookie stores some temporary information from the website. Corresponds
- * to the concept of 'cookie' in a browser.
- * 
+ * A Cookie stores some temporary information from the website. Corresponds to
+ * the concept of 'cookie' in a browser.
+ *
  * @author njanetos
  */
 public class Cookie {
-    
+
     /**
      *
      */
     public static final Logger logger = LoggerFactory.getLogger(Cookie.class);
-    
+
     private Date expiration;
     private String value;
     private String name;
-    
+
     /**
      * Builds a cookie from the input.
-     * 
-     * @param raw 
+     *
+     * @param raw
      */
     public Cookie(String raw) {
-        
+
         name = raw.substring(0, raw.indexOf(";")).split("=")[0];
         value = raw.substring(0, raw.indexOf(";")).split("=")[1];
-        raw = raw.substring(raw.indexOf(";")+2);
+        raw = raw.substring(raw.indexOf(";") + 2);
         raw = raw.substring(0, raw.indexOf(";")).split("=")[1];
-        
+
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss zzz");
-        
+
         try {
             expiration = formatter.parse(raw);
-        }
-        catch (ParseException e) {
-            logger.info("Unable to parse cookie date. Assuming it's way in the future.");
+        } catch (ParseException e) {
+            logger.debug("Unable to parse cookie date. Assuming it's way in the future.");
             expiration = new Date(17534932134000L);
-        }        
+        }
     }
 
     /**
@@ -97,30 +95,31 @@ public class Cookie {
     public Header getHeader() {
         return new Header("Cookie", toString());
     }
-    
+
     /**
      * Checks whether this cookie has the same name as another.
-     *  
+     *
      * @param otherCookie The cookie to compare to.
      * @return True if a match.
      */
     public boolean isTheSameAs(Cookie otherCookie) {
         return (otherCookie.getName().equals(getName()));
     }
-    
+
     /**
      * Returns a string formatted for this cookie.
-     * 
+     *
      * @return
      */
     @Override
     public String toString() {
         return getName() + "=" + getValue();
     }
-    
+
     /**
-     * Checks whether this cookie is already in a list (albeit possibly with a different value.)
-     * 
+     * Checks whether this cookie is already in a list (albeit possibly with a
+     * different value.)
+     *
      * @param cookies The list to search in.
      * @param cookie The cookie to compare.
      * @return True if it's already in the list.
@@ -133,27 +132,28 @@ public class Cookie {
         }
         return false;
     }
-    
+
     /**
-     * Adds a {@link Cookie} to an array, but removes any existing cookies with the same name first.
-     * 
+     * Adds a {@link Cookie} to an array, but removes any existing cookies with
+     * the same name first.
+     *
      * @param cookies The list to add to.
      * @param cookie The cookie to add.
      */
     public static void replace(ArrayList<Cookie> cookies, Cookie cookie) {
-        
+
         ArrayList<Cookie> flaggedCookies = new ArrayList<>();
-        
+
         for (Cookie c : cookies) {
             if (c.isTheSameAs(cookie)) {
                 flaggedCookies.add(c);
             }
         }
-        
+
         for (Cookie c : flaggedCookies) {
             cookies.remove(c);
         }
-        
+
         cookies.add(cookie);
     }
 }

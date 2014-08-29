@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver.exceptions;
 
 /**
@@ -24,7 +23,7 @@ package com.salsaberries.narchiver.exceptions;
  * @author njanetos
  */
 public class TrawlingInterrupt extends Exception {
-    
+
     /**
      *
      * @param message

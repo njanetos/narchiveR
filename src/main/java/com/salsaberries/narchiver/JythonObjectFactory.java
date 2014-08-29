@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 import java.util.logging.Level;
@@ -25,12 +24,11 @@ import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
 
 /**
- * Object factory implementation that is defined
- * in a generic fashion.
+ * Object factory implementation that is defined in a generic fashion.
  *
  */
-
 public class JythonObjectFactory {
+
     private static JythonObjectFactory instance = null;
     private static PyObject pyObject = null;
 
@@ -40,12 +38,14 @@ public class JythonObjectFactory {
     protected JythonObjectFactory() {
 
     }
+
     /**
      * Create a singleton object. Only allow one instance to be created
-     * @return 
+     *
+     * @return
      */
-    public static JythonObjectFactory getInstance(){
-        if(instance == null){
+    public static JythonObjectFactory getInstance() {
+        if (instance == null) {
             instance = new JythonObjectFactory();
         }
 
@@ -55,11 +55,12 @@ public class JythonObjectFactory {
     /**
      * The createObject() method is responsible for the actual creation of the
      * Jython object into Java bytecode.
+     *
      * @param interfaceType
      * @param moduleName
-     * @return 
+     * @return
      */
-    public static Object createObject(Object interfaceType, String moduleName){
+    public static Object createObject(Object interfaceType, String moduleName) {
         Object javaInt = null;
         // Create a PythonInterpreter object and import our Jython module
         // to obtain a reference.
@@ -75,8 +76,8 @@ public class JythonObjectFactory {
             // Call __tojava__ method on the new object along with the interface name
             // to create the java bytecode
             javaInt = newObj.__tojava__(Class.forName(interfaceType.toString().substring(
-                        interfaceType.toString().indexOf(" ")+1,
-                        interfaceType.toString().length())));
+                    interfaceType.toString().indexOf(" ") + 1,
+                    interfaceType.toString().length())));
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JythonObjectFactory.class.getName()).log(Level.SEVERE, null, ex);
         }

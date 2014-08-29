@@ -16,12 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver.exceptions;
 
 /**
  * A Terminal exception occurs when all else fails.
- * 
+ *
  * @author njanetos
  */
 public class TerminalException extends Exception {

@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 import java.io.BufferedInputStream;
@@ -27,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.zip.GZIPOutputStream;
@@ -39,20 +39,21 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Writer writes data to the server.
- * 
+ *
  * @author njanetos
  */
 public class Writer {
 
     private static final Logger logger = LoggerFactory.getLogger(Writer.class);
-    
+
     /**
      * Writes all the pages to file.
+     *
      * @param pages
      * @param location
      */
     public static void storePages(LinkedList<Page> pages, String location) {
-        
+
         logger.info("Dumping " + pages.size() + " pages to file at " + location + "/");
 
         File file = new File(location);
@@ -61,21 +62,19 @@ public class Writer {
             try {
                 file.mkdirs();
                 logger.info("Directory " + file.getAbsolutePath() + " does not exist, creating.");
-            } 
-            catch(SecurityException e) {
+            } catch (SecurityException e) {
                 logger.error(e.getMessage());
             }
         }
         // Write them to the file
         while (pages.size() > 0) {
             Page page = pages.removeFirst();
-            logger.info("Writing to " + location + page.getTagURL().replace("/", ".") + " referer " + page.getParent().getTagURL() + "\n\n");
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + page.getTagURL().replace("/", ".") + "_referer_" + page.getParent().getTagURL()), "utf-8"))) {
+            logger.info("Writing to " + location + page.getTagURL() + " referer " + page.getParent().getTagURL());
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + URLEncoder.encode(page.getTagURL() + "_referer_" + page.getParent().getTagURL())), "utf-8"))) {
                 writer.write(page.getHtml());
                 // Remove the html for memory purposes
                 page.clear();
-            } 
-            catch (IOException e) {
+            } catch (IOException e) {
                 logger.warn(e.getMessage());
             }
         }
@@ -89,14 +88,13 @@ public class Writer {
      */
     public static void compressFiles(Collection<File> files, File output) throws IOException {
         // Wrap the output file stream in streams that will tar and gzip everything
-        try (FileOutputStream fos = new FileOutputStream(output); 
+        try (FileOutputStream fos = new FileOutputStream(output);
+                // Wrap the output file stream in streams that will tar and gzip everything
+                TarArchiveOutputStream taos = new TarArchiveOutputStream(new GZIPOutputStream(new BufferedOutputStream(fos)))) {
 
-            // Wrap the output file stream in streams that will tar and gzip everything
-            TarArchiveOutputStream taos = new TarArchiveOutputStream(new GZIPOutputStream(new BufferedOutputStream(fos)))) {
-            
             // Enable support for long file names
             taos.setLongFileMode(TarArchiveOutputStream.LONGFILE_GNU);
-            
+
             // Put all the files in a compressed output file
             for (File f : files) {
                 addFilesToCompression(taos, f, ".");
@@ -106,15 +104,14 @@ public class Writer {
 
     private static void addFilesToCompression(TarArchiveOutputStream taos, File file, String dir) throws IOException {
         // Create an entry for the file
-        taos.putArchiveEntry(new TarArchiveEntry(file, dir+FILE_SEPARATOR+file.getName()));
+        taos.putArchiveEntry(new TarArchiveEntry(file, dir + FILE_SEPARATOR + file.getName()));
         if (file.isFile()) {
             // Add the file to the archive
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
             IOUtils.copy(bis, taos);
             taos.closeArchiveEntry();
             bis.close();
-        }
-        else if (file.isDirectory()) {
+        } else if (file.isDirectory()) {
             // Close the archive entry
             taos.closeArchiveEntry();
             // Go through all the files in the directory and using recursion, add them to the archive

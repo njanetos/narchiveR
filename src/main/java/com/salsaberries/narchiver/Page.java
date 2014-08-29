@@ -44,7 +44,7 @@ public class Page {
             this.trawlingInterruptsRemaining = parentPage.getTrawlingInterruptsRemaining();
         }
     }
-    
+
     /**
      *
      * @param tagURL
@@ -92,6 +92,14 @@ public class Page {
         this.html = html;
     }
 
+    public int getTrawlingInterruptsRemaining() {
+        return trawlingInterruptsRemaining;
+    }
+
+    public void setTrawlingInterruptsRemaining(int trawlingInterruptsRemaining) {
+        this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
+    }
+
     /**
      * Returns the page's depth in the recursive search
      *
@@ -104,7 +112,7 @@ public class Page {
             return parentPage.getDepth() + 1;
         }
     }
-    
+
     /**
      *
      * @return
@@ -113,25 +121,14 @@ public class Page {
         return parentPage;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getTrawlingInterruptsRemaining() {
-        return trawlingInterruptsRemaining;
+    public boolean registerTrawlInterrupt() {
+        --trawlingInterruptsRemaining;
+        return (trawlingInterruptsRemaining > 0);
     }
 
     /**
-     *
-     * @param trawlingInterruptsRemaining
-     */
-    public void setTrawlingInterruptsRemaining(int trawlingInterruptsRemaining) {
-        this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
-    }
-    
-    /**
-     * Removes all high memory stuff. Only call after writing to the file or
-     * it will be lost.
+     * Removes all high memory stuff. Only call after writing to the file or it
+     * will be lost.
      */
     public void clear() {
         html = "";

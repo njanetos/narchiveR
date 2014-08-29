@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 import com.salsaberries.narchiver.exceptions.ConnectionException;
@@ -47,38 +46,43 @@ import org.slf4j.LoggerFactory;
 public class HttpRequest {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HttpRequest.class);
-    
+
     private String html;
     private ArrayList<Header> headers;
     private int statusCode;
-    
+
     /**
-     * Opens a new HTTP connection using the information contained in an {@link HttpMessage}.
-     * 
-     * @param message The information used to open the session. If incomplete an exception will occur.
-     * @throws com.salsaberries.narchiver.exceptions.ConnectionException Throws a connection exception after any error reading content.
-     * @throws java.net.MalformedURLException Throws if the URL is malformed. (This should never happen.)
-     * @throws java.net.ProtocolException Throws if there was an error reading from the stream. 
+     * Opens a new HTTP connection using the information contained in an
+     * {@link HttpMessage}.
+     *
+     * @param message The information used to open the session. If incomplete an
+     * exception will occur.
+     * @throws com.salsaberries.narchiver.exceptions.ConnectionException Throws
+     * a connection exception after any error reading content.
+     * @throws java.net.MalformedURLException Throws if the URL is malformed.
+     * (This should never happen.)
+     * @throws java.net.ProtocolException Throws if there was an error reading
+     * from the stream.
      */
     public HttpRequest(HttpMessage message) throws ConnectionException, MalformedURLException, ProtocolException {
-        
+
         logger.debug("Sending request: \n" + message.getFormattedMessage());
-        
+
         try {
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8118));
             HttpURLConnection.setFollowRedirects(false);
 
             URL url = new URL(message.getUrl());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
-            
+
             // Default timeout is 120 seconds
             connection.setConnectTimeout(120000);
-            
+
             // Allow the request to have content, if turned on
             if (!message.getContent().equals("")) {
                 connection.setDoOutput(true);
             }
-            
+
             // Set what type of request this is
             connection.setRequestMethod(message.getHttpType().toString());
 
@@ -86,7 +90,7 @@ public class HttpRequest {
             for (Header h : message.getHeaders()) {
                 connection.setRequestProperty(h.getName(), h.getValue());
             }
-            
+
             // Open and write output stream, if the message has output
             if (!message.getContent().equals("")) {
                 try (DataOutputStream writer = new DataOutputStream(connection.getOutputStream())) {
@@ -102,23 +106,23 @@ public class HttpRequest {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String input;
                 StringBuilder response = new StringBuilder();
-                
+
                 while ((input = reader.readLine()) != null) {
                     response.append(input);
                 }
-                                
+
                 // Unzip if necessary
                 String finalResponse = response.toString();
                 if ("gzip".equals(connection.getContentEncoding())) {
                     finalResponse = decompress(response.toString().getBytes("UTF-8"));
                 }
-                
+
                 // Get the headers
                 Map<String, List<String>> heads = connection.getHeaderFields();
                 headers = new ArrayList<>();
-                
+
                 for (String headName : heads.keySet()) {
-                    for (String headValue : heads.get(headName)) {                       
+                    for (String headValue : heads.get(headName)) {
                         headers.add(new Header(headName, headValue));
                     }
                 }
@@ -126,8 +130,7 @@ public class HttpRequest {
                 // Get html
                 html = finalResponse;
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             logger.error("IOException " + e.getMessage());
             throw new ConnectionException(statusCode);
         }
@@ -156,13 +159,13 @@ public class HttpRequest {
     public int getStatusCode() {
         return statusCode;
     }
-    
+
     /**
      * Compresses a string using gzip.
-     *  
+     *
      * @param string The string to compress.
      * @return A compressed array of bytes.
-     * @throws IOException 
+     * @throws IOException
      */
     public static byte[] compress(String string) throws IOException {
         byte[] compressed = null;
@@ -174,9 +177,9 @@ public class HttpRequest {
 
     /**
      * Decompresses a string using gzip.
-     * 
+     *
      * @param compressed The compressed array of bytes.
-     * @return A decompressed string. 
+     * @return A decompressed string.
      * @throws IOException
      */
     public static String decompress(byte[] compressed) throws IOException {
@@ -188,9 +191,9 @@ public class HttpRequest {
             int bytesRead;
             while ((bytesRead = gis.read(data)) != -1) {
                 string.append(new String(data, 0, bytesRead));
-            }          }
+            }
+        }
         return string.toString();
     }
-
 
 }

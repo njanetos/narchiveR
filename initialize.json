@@ -12,7 +12,7 @@
                 "/orders", 
                 "/account", 
                 "/cart", 
-                "/users", 
+                "/users/archiver", 
                 "/tickets", 
                 "/categories/apparel",
                 "/categories/apparel/items",
@@ -58,7 +58,7 @@
     "MAX_LOGIN_ATTEMPTS": 3,
     "PARSER": "",
     "WRITE_BUFFER": 10,
-    "LOWER_WAIT_TIME": 2500,
-    "UPPER_WAIT_TIME": 5000
+    "LOWER_WAIT_TIME": 4000,
+    "UPPER_WAIT_TIME": 8000
 }]}
 

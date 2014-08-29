@@ -16,38 +16,37 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 /**
  * A Header stores information from the header in an HTTP request/response.
- * 
+ *
  * @author njanetos
  */
 public class Header {
-    
+
     private String name;
     private String value;
 
     /**
      * Instantiates a new header.
-     * 
+     *
      * @param name
      * @param value
      */
     public Header(String name, String value) {
-        
+
         /**
          * Sometimes the names are null, need to check for that:
          */
         if (name == null) {
             name = "";
         }
-        
+
         this.name = name;
         this.value = value;
     }
-    
+
     /**
      *
      * @return

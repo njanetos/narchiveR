@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 import java.io.FileInputStream;
@@ -36,13 +35,14 @@ import org.json.JSONObject;
 
 /**
  * Emailing class.
- * 
+ *
  * @author njanetos
  */
 public class Alerter {
-        
+
     /**
      * Emails the log to me.
+     *
      * @throws java.io.FileNotFoundException
      */
     public void alert() throws FileNotFoundException, IOException {
@@ -64,22 +64,20 @@ public class Alerter {
         try {
             FileInputStream is = new FileInputStream("log.out");
             log = IOUtils.toString(is);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             log = "Nick, \n \n Something went wrong with the archiver, so seriously wrong that the log file cannot be found. \n \n Best, \n Archiver";
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             log = "Nick, \n \n Something went wrong with the archiver, so seriously wrong that I can't even tell you what went wrong. \n \n Best, \n Archiver";
         }
 
         // Get session
         Session session = Session.getInstance(props,
-            new javax.mail.Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
+                new javax.mail.Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication("njanetos", "2point7182");
-                }
-            });
+                    }
+                });
 
         try {
             // Instantiate a message
@@ -102,10 +100,9 @@ public class Alerter {
 
             // Send the message
             Transport.send(msg);
-        }
-        catch (MessagingException mex) {
+        } catch (MessagingException mex) {
             mex.printStackTrace();
         }
     }
-    
+
 }

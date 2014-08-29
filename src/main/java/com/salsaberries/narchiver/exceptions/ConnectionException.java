@@ -16,12 +16,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver.exceptions;
 
 /**
- * BotDetectionException is thrown when the website asks for a captcha challenge.
- * 
+ * BotDetectionException is thrown when the website asks for a captcha
+ * challenge.
+ *
  * @author njanetos
  */
 public class ConnectionException extends Exception {

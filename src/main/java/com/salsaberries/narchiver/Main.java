@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 import com.salsaberries.narchiver.exceptions.TerminalException;
@@ -36,20 +35,18 @@ public class Main {
      *
      * @param args
      */
-    public static void main(String[] args) {        
+    public static void main(String[] args) {
 
         try {
             Initializer init = new Initializer();
-        }
-        catch (TerminalException e) {
+        } catch (TerminalException e) {
             logger.error("Encountered a terminal exception: " + e.getMessage());
         }
-        
+
         Alerter alerter = new Alerter();
         try {
             alerter.alert();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             logger.error("Unable to send email! " + e.getMessage());
         }
     }

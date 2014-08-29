@@ -1,419 +1,491 @@
 Preparing to trawl silkroad
-Begun trawling at 1409333542584.
+Begun trawling at 1409334441304.
 Waiting some random time before visiting
 Downloading and analyzing http://silkroad6ownowfk.onion/, current depth: 1
-Sending request: 
-
-
- ========= GET: http://silkroad6ownowfk.onion/ =========
- Host: silkroad6ownowfk.onion
- User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
- Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
- Accept-Language: en-us,en;q=0.5
- Accept-Encoding: gzip, deflate
- Connection: keep-alive
- Content-Type: application/x-www-form-urlencoded
- 
- Content: 
-=======================================================
- 
-
 Unable to parse cookie date. Assuming it's way in the future.
 We've been redirected to the login page! http://silkroad6ownowfk.onion/login
 Waiting some random time before visiting
 Attempting to log in at http://silkroad6ownowfk.onion/login
-Sending request: 
-
-
- ========= GET: http://silkroad6ownowfk.onion/login =========
- Host: silkroad6ownowfk.onion
- User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
- Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
- Accept-Language: en-us,en;q=0.5
- Accept-Encoding: gzip, deflate
- Connection: keep-alive
- Content-Type: application/x-www-form-urlencoded
- Cookie: SRLOGIN=OfHFowieHRHizaoriK
- 
- Content: 
-============================================================
- 
-
 Unable to parse cookie date. Assuming it's way in the future.
-Sending request: 
-
-
- ========= POST: http://silkroad6ownowfk.onion/login =========
- Host: silkroad6ownowfk.onion
- User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
- Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
- Accept-Language: en-us,en;q=0.5
- Accept-Encoding: gzip, deflate
- Connection: keep-alive
- Content-Type: application/x-www-form-urlencoded
- Cookie: SRLOGIN=OfHFowieHRHizaoriK; PHPSESSID=KzR2VktqQjRiRDhUR2FmaEZ1RkR6YlVhQWEzRlJnV1I4U1BNWnVHU2g0OTNFdTNsanFiTExoY3FUUVVjQ2NsallvM3RMbE1OS0JUcWthV0IvZFpNY1I1VVgvNmN6WjdhWWwxbG9TRTVGQStxMzE1dGx5STlZSXZiVjRYY0NHMWFnOFhlK3YzOGlJM3M5Z250anFQRkg4ZTVpZU9FUS9pV0hJZGMrMUQrcUFQZVdna0U3TlRkQ2pnOGxEeGZlV1NBLS0vbjhVUXJ2YXNVaFRMcVVPL2phWFJBPT0%3D--df164faa0bdb3378224f959d5436304eb1ede7d9
- Content-Length: 168
- 
- Content: user%5Busername%5D=archiver&user%5Bpassword%5D=c9a906e78accdb84d0bb31e062a1e904&utf8=%E2%9C%93&authenticity_token=R8Vo%2F87HT%2FTkaquN1pW%2BxstzLvtFgL%2B2xHSIQSJImJU%3D
-=============================================================
- 
-
 Unable to parse cookie date. Assuming it's way in the future.
 Successfully logged in, response code: 302
-Sending request: 
-
-
- ========= GET: http://silkroad6ownowfk.onion/liberty =========
- Host: silkroad6ownowfk.onion
- User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
- Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
- Accept-Language: en-us,en;q=0.5
- Accept-Encoding: gzip, deflate
- Connection: keep-alive
- Content-Type: application/x-www-form-urlencoded
- Referer: http://silkroad6ownowfk.onion/login
- Cookie: SRLOGIN=OfHFowieHRHizaoriK; PHPSESSID=eWFzSGlyZGVEL1Nqa29VeEY5a0UzczB6dkNXQ2E5TFhtNXNBWGt4dmVPSWVRZEpZUlZyUmh4Wnh6MXcvQlNibGFDWlVFUzRscmVJNXZLQnNqb0ZBS3M2SkNMNnFEcjcyT3VITzNFQVAxRUNQLzFDWXU5KzhwOUdvQ0oxYjI1K1FnTEVRRXUvM1NVV1pBNGEzTW5UK1hCVjJVN3dDMkt5Ukp1alI5NEc5MmtWWDMvVEQ1Uk85Y0Fuc3hKY3k2MzI5MkxtaUJ6Y253a3Y1eEtzaitOQTNrYzhRWG5tU0JkcHNUQzVWU0FFTDZOZS8wNjBmdmg2d0pzZWYzSXR0VkI4bjhOSHdFaURhWHNicmxDMFF3NTk3cHFoWHZObndBdHVuYWt6dFEzY0hkMm89LS1ZSTNSRXQzaENoWUFZYlpMUXIxQ3dRPT0%3D--6a256c8221afc6b00ea19d12e1f17213bc6018f5
- 
- Content: 
-==============================================================
- 
-
-Visited redirected page. Status code 200
 Waiting some random time before visiting
 Downloading and analyzing http://silkroad6ownowfk.onion/, current depth: 1
-Sending request: 
-
-
- ========= GET: http://silkroad6ownowfk.onion/ =========
- Host: silkroad6ownowfk.onion
- User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
- Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
- Accept-Language: en-us,en;q=0.5
- Accept-Encoding: gzip, deflate
- Connection: keep-alive
- Content-Type: application/x-www-form-urlencoded
- Cookie: SRLOGIN=OfHFowieHRHizaoriK; PHPSESSID=eWFzSGlyZGVEL1Nqa29VeEY5a0UzczB6dkNXQ2E5TFhtNXNBWGt4dmVPSWVRZEpZUlZyUmh4Wnh6MXcvQlNibGFDWlVFUzRscmVJNXZLQnNqb0ZBS3M2SkNMNnFEcjcyT3VITzNFQVAxRUNQLzFDWXU5KzhwOUdvQ0oxYjI1K1FnTEVRRXUvM1NVV1pBNGEzTW5UK1hCVjJVN3dDMkt5Ukp1alI5NEc5MmtWWDMvVEQ1Uk85Y0Fuc3hKY3k2MzI5MkxtaUJ6Y253a3Y1eEtzaitOQTNrYzhRWG5tU0JkcHNUQzVWU0FFTDZOZS8wNjBmdmg2d0pzZWYzSXR0VkI4bjhOSHdFaURhWHNicmxDMFF3NTk3cHFoWHZObndBdHVuYWt6dFEzY0hkMm89LS1ZSTNSRXQzaENoWUFZYlpMUXIxQ3dRPT0%3D--6a256c8221afc6b00ea19d12e1f17213bc6018f5
- 
- Content: 
-=======================================================
- 
-
 Unable to parse cookie date. Assuming it's way in the future.
-Creating new page at URL /liberty
-Exclusion at /messages
-Exclusion at /orders
-Exclusion at /account
-Exclusion at /cart
-Exclusion at /users/archiver
-Exclusion at /users/archiver/edit
-Exclusion at /logout
-Creating new page at URL /categories/drugs/items
-Creating new page at URL /categories/drugs-stimulants/items
-Creating new page at URL /categories/drugs-psychedelics/items
-Creating new page at URL /categories/drugs-prescription/items
-Creating new page at URL /categories/drugs-precursors/items
-Creating new page at URL /categories/drugs-other/items
-Creating new page at URL /categories/drugs-opioids/items
-Creating new page at URL /categories/drugs-ecstasy/items
-Creating new page at URL /categories/drugs-dissociatives/items
-Creating new page at URL /categories/drugs-cannabis/items
-Creating new page at URL /categories/drugs-steriodpeds/items
-Creating new page at URL /categories/drugs-other-intoxicants-alcohol/items
-Exclusion at /categories/apparel/items
-Exclusion at /categories/art/items
-Exclusion at /categories/biotic-materials/items
-Exclusion at /categories/books/items
-Exclusion at /categories/collectibles/items
-Exclusion at /categories/computer-equipment/items
-Exclusion at /categories/custom-orders/items
-Exclusion at /categories/digital-goods/items
-Exclusion at /categories/drug-paraphernalia/items
-Exclusion at /categories/electronics/items
-Exclusion at /categories/erotica/items
-Exclusion at /categories/forgeries/items
-Exclusion at /categories/hardware/items
-Exclusion at /categories/herbs-supplements/items
-Exclusion at /categories/jewelry/items
-Exclusion at /categories/lab-supplies/items
-Exclusion at /categories/lotteries-games/items
-Creating new page at URL /categories/medical/items
-Exclusion at /categories/money/items
-Exclusion at /categories/packaging/items
-Exclusion at /categories/services/items
-Exclusion at /categories/writing/items
-Invalid URL at http://silkroad5v7dywlc.onion/index.php?topic=41683.0
-Invalid URL at http://silkroad5v7dywlc.onion/index.php?topic=26366.0
-Invalid URL at http://silkroad5v7dywlc.onion/index.php?topic=26475.0
-Invalid URL at http://silkroad5v7dywlc.onion
-Exclusion at /tickets
 Waiting some random time before visiting
 Downloading and analyzing http://silkroad6ownowfk.onion/liberty, current depth: 2
-Sending request: 
-
-
- ========= GET: http://silkroad6ownowfk.onion/liberty =========
- Host: silkroad6ownowfk.onion
- User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
- Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
- Accept-Language: en-us,en;q=0.5
- Accept-Encoding: gzip, deflate
- Connection: keep-alive
- Content-Type: application/x-www-form-urlencoded
- Cookie: SRLOGIN=OfHFowieHRHizaoriK; PHPSESSID=c3ZKS3NNMmRzVlVmNVFMcmNKQVNwWGswYVlpdWFwQXlibHZUamZ0VHp6NVJ5NCtXWTlUcGhGWlREbzg0V0hjaVZGM1BrL1o2S2NnMGZsQlFnZlVDYmtCMXY5MnpYODloREpJMFJOZXBYbDNZZ0doL2JDMW41MVBwYzlqdWdIQVJpQVJzUTA0d1ptKzBrYkF3UUZxdGJ4Q1ZGb2lLbk1jdzVTbDZkd1Z2TVJQWHFLa0JhZEFNb2lGZFkwV2xEaDRKcllxSXBWWVB0ME42RlAxRFRkSDc5blBRQlBnL0NxYzJtZDhoUk93Z2xaa1h4V0FwY1BMY0kxQzFEaU1ZbzlmdUtQL0Qxc3pZdHF2VG15eXFCR1ZLK0crUGRDNnUyYmdCdHBUQndhMWJKRUk9LS1sWXcybFJrd2dlQ2huSVdWcThlSTFRPT0%3D--f0c6dd708f9c0c37468b8f422874fc97d6fb9959
- 
- Content: 
-==============================================================
- 
-
 Unable to parse cookie date. Assuming it's way in the future.
-Creating new page at URL /liberty
-Exclusion at /messages
-Exclusion at /orders
-Exclusion at /account
-Exclusion at /cart
-Exclusion at /users/archiver
-Exclusion at /users/archiver/edit
-Exclusion at /logout
-Skipping duplicate at URL /categories/drugs/items
-Skipping duplicate at URL /categories/drugs-stimulants/items
-Skipping duplicate at URL /categories/drugs-psychedelics/items
-Skipping duplicate at URL /categories/drugs-prescription/items
-Skipping duplicate at URL /categories/drugs-precursors/items
-Skipping duplicate at URL /categories/drugs-other/items
-Skipping duplicate at URL /categories/drugs-opioids/items
-Skipping duplicate at URL /categories/drugs-ecstasy/items
-Skipping duplicate at URL /categories/drugs-dissociatives/items
-Skipping duplicate at URL /categories/drugs-cannabis/items
-Skipping duplicate at URL /categories/drugs-steriodpeds/items
-Skipping duplicate at URL /categories/drugs-other-intoxicants-alcohol/items
-Exclusion at /categories/apparel/items
-Exclusion at /categories/art/items
-Exclusion at /categories/biotic-materials/items
-Exclusion at /categories/books/items
-Exclusion at /categories/collectibles/items
-Exclusion at /categories/computer-equipment/items
-Exclusion at /categories/custom-orders/items
-Exclusion at /categories/digital-goods/items
-Exclusion at /categories/drug-paraphernalia/items
-Exclusion at /categories/electronics/items
-Exclusion at /categories/erotica/items
-Exclusion at /categories/forgeries/items
-Exclusion at /categories/hardware/items
-Exclusion at /categories/herbs-supplements/items
-Exclusion at /categories/jewelry/items
-Exclusion at /categories/lab-supplies/items
-Exclusion at /categories/lotteries-games/items
-Skipping duplicate at URL /categories/medical/items
-Exclusion at /categories/money/items
-Exclusion at /categories/packaging/items
-Exclusion at /categories/services/items
-Exclusion at /categories/writing/items
-Invalid URL at http://silkroad5v7dywlc.onion/index.php?topic=41683.0
-Invalid URL at http://silkroad5v7dywlc.onion/index.php?topic=26366.0
-Invalid URL at http://silkroad5v7dywlc.onion/index.php?topic=26475.0
-Invalid URL at http://silkroad5v7dywlc.onion
-Exclusion at /tickets
 Waiting some random time before visiting
 Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs/items, current depth: 2
-Sending request: 
-
-
- ========= GET: http://silkroad6ownowfk.onion/categories/drugs/items =========
- Host: silkroad6ownowfk.onion
- User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
- Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
- Accept-Language: en-us,en;q=0.5
- Accept-Encoding: gzip, deflate
- Connection: keep-alive
- Content-Type: application/x-www-form-urlencoded
- Cookie: SRLOGIN=OfHFowieHRHizaoriK; PHPSESSID=QWRvWVlWRTVqWkREbWtlUERCMDJBZXRZTjAyT0FjZmhEUWRLN1ZDRWdUSzcwNHRnUDlLWStEbWU5RXgyTnI3SFg4cXpzSy9YcGtJT3YxditKa0hhNTUwb3RoVnVmbFlLWk02Zi8yU1B1ZlNDOXlDdktFNHQ2bVg0bUNYa2hHS0dtZVAzMlc3djRSRVB4NmZtS3M5aXVUaTI2a3U0Mm1iZzFCRTVUQUFDRlp3eVVyMWF3OW1lSUFPMnRRUTgvcnRZcmJJSEVaU3NoK2tSdHIrY3RqS1ZvcjlISVpDUFJzTzBzcHFNMHFnT2hnWlhCdmNwZEsvR2dEMFBHWlZLRWZPSUNBQVZEVU5JdXRJUkUrc1BodDhTMU55UnJOZGtraGJvblRQZjZBQjl4b3c9LS1maE12ZGFUOEhLRjFIOE9XcktsZ3FRPT0%3D--67e510b505f94249534cfa489d0502033a3d69d9
- 
- Content: 
-=============================================================================
- 
-
 Unable to parse cookie date. Assuming it's way in the future.
-Skipping duplicate at URL /liberty
-Exclusion at /messages
-Exclusion at /orders
-Exclusion at /account
-Exclusion at /cart
-Exclusion at /users/archiver
-Exclusion at /users/archiver/edit
-Exclusion at /logout
-Creating new page at URL /categories/drugs/items
-Skipping duplicate at URL /categories/drugs-stimulants/items
-Skipping duplicate at URL /categories/drugs-psychedelics/items
-Skipping duplicate at URL /categories/drugs-prescription/items
-Skipping duplicate at URL /categories/drugs-precursors/items
-Skipping duplicate at URL /categories/drugs-other/items
-Skipping duplicate at URL /categories/drugs-opioids/items
-Skipping duplicate at URL /categories/drugs-ecstasy/items
-Skipping duplicate at URL /categories/drugs-dissociatives/items
-Skipping duplicate at URL /categories/drugs-cannabis/items
-Skipping duplicate at URL /categories/drugs-steriodpeds/items
-Skipping duplicate at URL /categories/drugs-other-intoxicants-alcohol/items
-Exclusion at /categories/apparel/items
-Exclusion at /categories/art/items
-Exclusion at /categories/biotic-materials/items
-Exclusion at /categories/books/items
-Exclusion at /categories/collectibles/items
-Exclusion at /categories/computer-equipment/items
-Exclusion at /categories/custom-orders/items
-Exclusion at /categories/digital-goods/items
-Exclusion at /categories/drug-paraphernalia/items
-Exclusion at /categories/electronics/items
-Exclusion at /categories/erotica/items
-Exclusion at /categories/forgeries/items
-Exclusion at /categories/hardware/items
-Exclusion at /categories/herbs-supplements/items
-Exclusion at /categories/jewelry/items
-Exclusion at /categories/lab-supplies/items
-Exclusion at /categories/lotteries-games/items
-Skipping duplicate at URL /categories/medical/items
-Exclusion at /categories/money/items
-Exclusion at /categories/packaging/items
-Exclusion at /categories/services/items
-Exclusion at /categories/writing/items
-Creating new page at URL /items/1g-platinum-standard-pure-fire-mdma
-Skipping duplicate at URL /items/1g-platinum-standard-pure-fire-mdma
-Creating new page at URL /items/1g-platinum-standard-pure-fire-mdma#feedback
-Exclusion at /users/platinum-standard
-Creating new page at URL /items/200mg-high-quality-dmt
-Skipping duplicate at URL /items/200mg-high-quality-dmt
-Creating new page at URL /items/200mg-high-quality-dmt#feedback
-Exclusion at /users/ringo-deathstarr
-Creating new page at URL /items/1g-of-pure-uncut-peruvian-cocaine
-Skipping duplicate at URL /items/1g-of-pure-uncut-peruvian-cocaine
-Creating new page at URL /items/1g-of-pure-uncut-peruvian-cocaine#feedback
-Exclusion at /users/fredthebaker
-Creating new page at URL /items/1gr-pure-flake-cocaine
-Skipping duplicate at URL /items/1gr-pure-flake-cocaine
-Creating new page at URL /items/1gr-pure-flake-cocaine#feedback
-Exclusion at /users/lostheaven
-Creating new page at URL /items/10-gram-ground-cubensis-mush-shroom-powder-by-mushbud-shipping-worldwide
-Skipping duplicate at URL /items/10-gram-ground-cubensis-mush-shroom-powder-by-mushbud-shipping-worldwide
-Creating new page at URL /items/10-gram-ground-cubensis-mush-shroom-powder-by-mushbud-shipping-worldwide#feedback
-Exclusion at /users/mushbud
-Creating new page at URL /items/5g-white-widow-dutchmagic
-Skipping duplicate at URL /items/5g-white-widow-dutchmagic
-Creating new page at URL /items/5g-white-widow-dutchmagic#feedback
-Exclusion at /users/dutchmagic
-Creating new page at URL /items/5g-of-speed-paste-80
-Skipping duplicate at URL /items/5g-of-speed-paste-80
-Creating new page at URL /items/5g-of-speed-paste-80#feedback
-Exclusion at /users/fredthebaker
-Creating new page at URL /items/xanax-2mg-quad-bar
-Skipping duplicate at URL /items/xanax-2mg-quad-bar
-Creating new page at URL /items/xanax-2mg-quad-bar#feedback
-Exclusion at /users/domesticdoode
-Creating new page at URL /items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4
-Skipping duplicate at URL /items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4
-Creating new page at URL /items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4#feedback
-Exclusion at /users/marcelketman
-Creating new page at URL /items/ketamine-1g
-Skipping duplicate at URL /items/ketamine-1g
-Creating new page at URL /items/ketamine-1g#feedback
-Exclusion at /users/project4
-Creating new page at URL /items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details
-Skipping duplicate at URL /items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details
-Creating new page at URL /items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details#feedback
-Exclusion at /users/tripwithscience
-Creating new page at URL /items/5g-high-quality-dmt
-Skipping duplicate at URL /items/5g-high-quality-dmt
-Creating new page at URL /items/5g-high-quality-dmt#feedback
-Exclusion at /users/ringo-deathstarr
-Creating new page at URL /items/1g-dmt-freebase
-Skipping duplicate at URL /items/1g-dmt-freebase
-Creating new page at URL /items/1g-dmt-freebase#feedback
-Exclusion at /users/ringo-deathstarr
-Creating new page at URL /items/1g-beautiful-mdma-80
-Skipping duplicate at URL /items/1g-beautiful-mdma-80
-Creating new page at URL /items/1g-beautiful-mdma-80#feedback
-Exclusion at /users/fredthebaker
-Creating new page at URL /items/angelina-s-daze-straspberry-suckers-1x
-Skipping duplicate at URL /items/angelina-s-daze-straspberry-suckers-1x
-Creating new page at URL /items/angelina-s-daze-straspberry-suckers-1x#feedback
-Exclusion at /users/angelina
-Creating new page at URL /items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome
-Skipping duplicate at URL /items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome
-Creating new page at URL /items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome#feedback
-Exclusion at /users/dahbome
-Creating new page at URL /items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer
-Skipping duplicate at URL /items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer
-Creating new page at URL /items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer#feedback
-Exclusion at /users/cornettos
-Creating new page at URL /items/10gr-badass-mdma-crystals-80
-Skipping duplicate at URL /items/10gr-badass-mdma-crystals-80
-Creating new page at URL /items/10gr-badass-mdma-crystals-80#feedback
-Exclusion at /users/lostheaven
-Creating new page at URL /items/power-plant-3gr
-Skipping duplicate at URL /items/power-plant-3gr
-Creating new page at URL /items/power-plant-3gr#feedback
-Exclusion at /users/online-cannabis-king
-Creating new page at URL /items/1000mg-of-mescaline-hcl
-Skipping duplicate at URL /items/1000mg-of-mescaline-hcl
-Creating new page at URL /items/1000mg-of-mescaline-hcl#feedback
-Exclusion at /users/gammagoblin
-Creating new page at URL /items/durban-poison-1g
-Skipping duplicate at URL /items/durban-poison-1g
-Creating new page at URL /items/durban-poison-1g#feedback
-Exclusion at /users/carlos-lopez
-Creating new page at URL /items/beautiful-creamy-high-grade-pollen-14g-listing-import
-Skipping duplicate at URL /items/beautiful-creamy-high-grade-pollen-14g-listing-import
-Creating new page at URL /items/beautiful-creamy-high-grade-pollen-14g-listing-import#feedback
-Exclusion at /users/cornettos
-Creating new page at URL /items/hash-sample-pack-dutchmagic
-Skipping duplicate at URL /items/hash-sample-pack-dutchmagic
-Creating new page at URL /items/hash-sample-pack-dutchmagic#feedback
-Exclusion at /users/dutchmagic
-Creating new page at URL /items/power-plant-5gr
-Skipping duplicate at URL /items/power-plant-5gr
-Creating new page at URL /items/power-plant-5gr#feedback
-Exclusion at /users/online-cannabis-king
-Creating new page at URL /items/10-platinum-standard-145mg-pure-mdma-capsules
-Skipping duplicate at URL /items/10-platinum-standard-145mg-pure-mdma-capsules
-Creating new page at URL /items/10-platinum-standard-145mg-pure-mdma-capsules#feedback
-Exclusion at /users/platinum-standard
-Creating new page at URL /categories/drugs/items?page=2
-Creating new page at URL /categories/drugs/items?page=3
-Creating new page at URL /categories/drugs/items?page=4
-Creating new page at URL /categories/drugs/items?page=5
-Skipping duplicate at URL /categories/drugs/items?page=2
-Creating new page at URL /categories/drugs/items?page=372
-Invalid URL at http://silkroad5v7dywlc.onion
-Exclusion at /tickets
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-stimulants/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-psychedelics/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-prescription/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-precursors/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-other/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-opioids/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-ecstasy/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-dissociatives/items, current depth: 2
+IOException Server returned HTTP response code: 500 for URL: http://silkroad6ownowfk.onion/categories/drugs-dissociatives/items
+Warning! Trawling was interrupted. Retrying in 30 seconds: 500
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-cannabis/items, current depth: 2
+IOException Server returned HTTP response code: 500 for URL: http://silkroad6ownowfk.onion/categories/drugs-cannabis/items
+Warning! Trawling was interrupted. Retrying in 30 seconds: 500
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-steriodpeds/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
 Flushing information to file.
-Check 3
+Check 11
+Check /categories/drugs-steriodpeds/items
+Check /categories/drugs-ecstasy/items
+Check /categories/drugs-opioids/items
+Check /categories/drugs-other/items
+Check /categories/drugs-precursors/items
+Check /categories/drugs-prescription/items
+Check /categories/drugs-psychedelics/items
+Check /categories/drugs-stimulants/items
 Check /categories/drugs/items
 Check /liberty
 Final pass: Removing page /liberty
 Check /
 Final pass: Removing page /
 Storing pages.
-Dumping 1 pages to file at silkroad/1409333542584/
-Directory /home/njanetos/Dropbox/Programming/Narchiver/silkroad/1409333542584 does not exist, creating.
-Writing to silkroad/1409333542584.categories.drugs.items referer /
+Dumping 9 pages to file at silkroad/1409334441304/
+Directory /home/njanetos/Dropbox/Programming/Narchiver/silkroad/1409334441304 does not exist, creating.
+Writing to silkroad/1409334441304.categories.drugs.items referer /
+
+
+Writing to silkroad/1409334441304.categories.drugs-stimulants.items referer /
+
+
+Writing to silkroad/1409334441304.categories.drugs-psychedelics.items referer /
+
+
+Writing to silkroad/1409334441304.categories.drugs-prescription.items referer /
+
+
+Writing to silkroad/1409334441304.categories.drugs-precursors.items referer /
+
+
+Writing to silkroad/1409334441304.categories.drugs-other.items referer /
+
+
+Writing to silkroad/1409334441304.categories.drugs-opioids.items referer /
+
+
+Writing to silkroad/1409334441304.categories.drugs-ecstasy.items referer /
+
+
+Writing to silkroad/1409334441304.categories.drugs-steriodpeds.items referer /
 
 
 Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-stimulants/items, current depth: 2
-Sending request: 
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-other-intoxicants-alcohol/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/medical/items, current depth: 2
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/liberty, current depth: 3
+IOException Server returned HTTP response code: 408 for URL: http://silkroad6ownowfk.onion/liberty
+Warning! Trawling was interrupted. Retrying in 30 seconds: 408
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs/items, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-platinum-standard-pure-fire-mdma, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-platinum-standard-pure-fire-mdma#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/platinum-standard, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/200mg-high-quality-dmt, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/200mg-high-quality-dmt#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/ringo-deathstarr, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-of-pure-uncut-peruvian-cocaine, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-of-pure-uncut-peruvian-cocaine#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Flushing information to file.
+Check 11
+Check /items/1g-of-pure-uncut-peruvian-cocaine#feedback
+Check /items/1g-of-pure-uncut-peruvian-cocaine
+Check /users/ringo-deathstarr
+Final pass: Removing page /users/ringo-deathstarr
+Check /items/200mg-high-quality-dmt#feedback
+Check /items/200mg-high-quality-dmt
+Check /users/platinum-standard
+Final pass: Removing page /users/platinum-standard
+Check /items/1g-platinum-standard-pure-fire-mdma#feedback
+Check /items/1g-platinum-standard-pure-fire-mdma
+Check /categories/drugs/items
+Check /categories/medical/items
+Check /categories/drugs-other-intoxicants-alcohol/items
+Storing pages.
+Dumping 9 pages to file at silkroad/1409334441304/
+Writing to silkroad/1409334441304.categories.drugs-other-intoxicants-alcohol.items referer /
 
 
- ========= GET: http://silkroad6ownowfk.onion/categories/drugs-stimulants/items =========
- Host: silkroad6ownowfk.onion
- User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
- Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
- Accept-Language: en-us,en;q=0.5
- Accept-Encoding: gzip, deflate
- Connection: keep-alive
- Content-Type: application/x-www-form-urlencoded
- Cookie: SRLOGIN=OfHFowieHRHizaoriK; PHPSESSID=UlUrR3ZNZnBoZHhGMUFwYmdXOHNQNkNwcHNrTitEWldzeDJld0U5YVcxQXpBVkozUEVnM2lBZWFxZUxkZXllWURQQTFGem00NW9FN1UyKy9Idlc5N0d2VWVpOTNzMTNPMnJTNzRiQmxpRTVQWVlLNjlUK2FPUWhNSitndWJ1SXBCK1N4MzhENGlFdXJmVkZwaUg1N2VTZ0d0Sjd5a2lNbzhJUGh2NTUxTDZILy9mZVBLWGZLeWZ0NkFvMlo0ZERldlEzMElkRlJaN1BOR1F0WTVncHA5UndFV2hqVUpVSzJTOUJLdStmZ0ZnYlRsamtKR0lxS3JnMXNpWmpCN2ZmUU1tWnUrZURFNlR0Z2hjcDhWWk5Gcmx0Rm80SStJRExVMFJoS0wzdjA5S0k9LS0wK1FrVWNLSHlEdEpPVzBDcEdZN1V3PT0%3D--0a5b28dfa00baf8355e48a49d6cada4cb07003d1
- 
- Content: 
-========================================================================================
- 
+Writing to silkroad/1409334441304.categories.medical.items referer /
 
-IOException Server returned HTTP response code: 500 for URL: http://silkroad6ownowfk.onion/categories/drugs-stimulants/items
-Warning! Trawling was interrupted. Retrying in 30 seconds: 500
+
+Writing to silkroad/1409334441304.categories.drugs.items referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1g-platinum-standard-pure-fire-mdma referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1g-platinum-standard-pure-fire-mdma#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.200mg-high-quality-dmt referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.200mg-high-quality-dmt#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1g-of-pure-uncut-peruvian-cocaine referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1g-of-pure-uncut-peruvian-cocaine#feedback referer /categories/drugs/items
+
+
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/fredthebaker, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1gr-pure-flake-cocaine, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1gr-pure-flake-cocaine#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/lostheaven, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-white-widow-dutchmagic, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-white-widow-dutchmagic#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/dutchmagic, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-of-speed-paste-80, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-of-speed-paste-80#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/xanax-2mg-quad-bar, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/xanax-2mg-quad-bar#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Flushing information to file.
+Check 11
+Check /items/xanax-2mg-quad-bar#feedback
+Check /items/xanax-2mg-quad-bar
+Check /items/5g-of-speed-paste-80#feedback
+Check /items/5g-of-speed-paste-80
+Check /users/dutchmagic
+Final pass: Removing page /users/dutchmagic
+Check /items/5g-white-widow-dutchmagic#feedback
+Check /items/5g-white-widow-dutchmagic
+Check /users/lostheaven
+Final pass: Removing page /users/lostheaven
+Check /items/1gr-pure-flake-cocaine#feedback
+Check /items/1gr-pure-flake-cocaine
+Check /users/fredthebaker
+Final pass: Removing page /users/fredthebaker
+Storing pages.
+Dumping 8 pages to file at silkroad/1409334441304/
+Writing to silkroad/1409334441304.items.1gr-pure-flake-cocaine referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1gr-pure-flake-cocaine#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.5g-white-widow-dutchmagic referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.5g-white-widow-dutchmagic#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.5g-of-speed-paste-80 referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.5g-of-speed-paste-80#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.xanax-2mg-quad-bar referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.xanax-2mg-quad-bar#feedback referer /categories/drugs/items
+
+
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/domesticdoode, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/marcelketman, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/ketamine-1g, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/ketamine-1g#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/project4, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/tripwithscience, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-high-quality-dmt, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Flushing information to file.
+Check 11
+Check /items/5g-high-quality-dmt
+Check /users/tripwithscience
+Final pass: Removing page /users/tripwithscience
+Check /items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details#feedback
+Check /items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details
+Check /users/project4
+Final pass: Removing page /users/project4
+Check /items/ketamine-1g#feedback
+Check /items/ketamine-1g
+Check /users/marcelketman
+Final pass: Removing page /users/marcelketman
+Check /items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4#feedback
+Check /items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4
+Check /users/domesticdoode
+Final pass: Removing page /users/domesticdoode
+Storing pages.
+Dumping 7 pages to file at silkroad/1409334441304/
+Writing to silkroad/1409334441304.items.ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4 referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.ketamine-1g referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.ketamine-1g#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.5g-high-quality-dmt referer /categories/drugs/items
+
+
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-high-quality-dmt#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-dmt-freebase, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-dmt-freebase#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-beautiful-mdma-80, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-beautiful-mdma-80#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/angelina-s-daze-straspberry-suckers-1x, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/angelina-s-daze-straspberry-suckers-1x#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/angelina, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/dahbome, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Flushing information to file.
+Check 11
+Check /users/dahbome
+Final pass: Removing page /users/dahbome
+Check /items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome#feedback
+Check /items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome
+Check /users/angelina
+Final pass: Removing page /users/angelina
+Check /items/angelina-s-daze-straspberry-suckers-1x#feedback
+Check /items/angelina-s-daze-straspberry-suckers-1x
+Check /items/1g-beautiful-mdma-80#feedback
+Check /items/1g-beautiful-mdma-80
+Check /items/1g-dmt-freebase#feedback
+Check /items/1g-dmt-freebase
+Check /items/5g-high-quality-dmt#feedback
+Storing pages.
+Dumping 9 pages to file at silkroad/1409334441304/
+Writing to silkroad/1409334441304.items.5g-high-quality-dmt#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1g-dmt-freebase referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1g-dmt-freebase#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1g-beautiful-mdma-80 referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1g-beautiful-mdma-80#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.angelina-s-daze-straspberry-suckers-1x referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.angelina-s-daze-straspberry-suckers-1x#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome#feedback referer /categories/drugs/items
+
+
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/cornettos, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/10gr-badass-mdma-crystals-80, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/10gr-badass-mdma-crystals-80#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/power-plant-3gr, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/power-plant-3gr#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/online-cannabis-king, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1000mg-of-mescaline-hcl, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/1000mg-of-mescaline-hcl#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/gammagoblin, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Flushing information to file.
+Check 11
+Check /users/gammagoblin
+Final pass: Removing page /users/gammagoblin
+Check /items/1000mg-of-mescaline-hcl#feedback
+Check /items/1000mg-of-mescaline-hcl
+Check /users/online-cannabis-king
+Final pass: Removing page /users/online-cannabis-king
+Check /items/power-plant-3gr#feedback
+Check /items/power-plant-3gr
+Check /items/10gr-badass-mdma-crystals-80#feedback
+Check /items/10gr-badass-mdma-crystals-80
+Check /users/cornettos
+Final pass: Removing page /users/cornettos
+Check /items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer#feedback
+Check /items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer
+Storing pages.
+Dumping 8 pages to file at silkroad/1409334441304/
+Writing to silkroad/1409334441304.items.intro-offer-0-5g-uncut-90-cocaine-one-per-customer referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.intro-offer-0-5g-uncut-90-cocaine-one-per-customer#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.10gr-badass-mdma-crystals-80 referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.10gr-badass-mdma-crystals-80#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.power-plant-3gr referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.power-plant-3gr#feedback referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1000mg-of-mescaline-hcl referer /categories/drugs/items
+
+
+Writing to silkroad/1409334441304.items.1000mg-of-mescaline-hcl#feedback referer /categories/drugs/items
+
+
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/durban-poison-1g, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/durban-poison-1g#feedback, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/users/carlos-lopez, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting
+Downloading and analyzing http://silkroad6ownowfk.onion/items/beautiful-creamy-high-grade-pollen-14g-listing-import, current depth: 3
+Unable to parse cookie date. Assuming it's way in the future.
+Waiting some random time before visiting

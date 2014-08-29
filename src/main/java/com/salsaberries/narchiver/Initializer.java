@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package com.salsaberries.narchiver;
 
 import com.salsaberries.narchiver.exceptions.TerminalException;
@@ -35,15 +34,15 @@ import org.slf4j.LoggerFactory;
  * @author njanetos
  */
 public class Initializer {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(Initializer.class);
-    
+
     /**
      *
      * @throws TerminalException
      */
     public Initializer() throws TerminalException {
-        
+
         // Initialize properties
         try {
             FileInputStream is = new FileInputStream("initialize.json");
@@ -58,8 +57,7 @@ public class Initializer {
                     Alerter alerter = new Alerter();
                     try {
                         alerter.alert();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         // Nothing could be done to prevent hard crash.
                         logger.error("Unable to send email! " + e.getMessage());
                         System.exit(1);
@@ -78,17 +76,14 @@ public class Initializer {
                 // Create a new trawler
                 try {
                     Trawler trawler = new Trawler(site);
-                }
-                catch (TrawlException e) {
+                } catch (TrawlException e) {
                     logger.error("Trawler for " + site.getString("LOCATION") + " failed: " + e.getMessage());
                 }
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error(e.getMessage());
             throw new TerminalException("Unable to find initialization file initialization.json.");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new TerminalException("IOException: " + e.getMessage());
         }
     }
