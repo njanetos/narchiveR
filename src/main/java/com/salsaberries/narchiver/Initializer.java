@@ -43,14 +43,27 @@ public class Initializer {
 
     /**
      *
+     * @param initialize
      * @throws TerminalException Only thrown if an unrecoverable error occurs so that
      * the entire program needs to terminate.
      */
-    public Initializer() throws TerminalException {
+    public Initializer(String initialize) throws TerminalException {
 
-        // Initialize properties
+        logger.info("\n\n\n");
+        logger.info("=====================================================================");
+        logger.info("███╗   ██╗ █████╗ ██████╗  ██████╗██╗  ██╗██╗██╗   ██╗███████╗██████╗");
+        logger.info("████╗  ██║██╔══██╗██╔══██╗██╔════╝██║  ██║██║██║   ██║██╔════╝██╔══██╗");
+        logger.info("██╔██╗ ██║███████║██████╔╝██║     ███████║██║██║   ██║█████╗  ██████╔╝");
+        logger.info("██║╚██╗██║██╔══██║██╔══██╗██║     ██╔══██║██║╚██╗ ██╔╝██╔══╝  ██╔══██╗");
+        logger.info("██║ ╚████║██║  ██║██║  ██║╚██████╗██║  ██║██║ ╚████╔╝ ███████╗██║  ██║");
+        logger.info("╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝");
+        logger.info("================================ 1.0 ================================\n\n\n");
+
+        logger.info("Preparing to use initialization file " + initialize + "\n\n\n");
+        
         try {
-            FileInputStream is = new FileInputStream("initialize.json");
+            // Open initial properties
+            FileInputStream is = new FileInputStream(initialize);
             JSONObject initialization = new JSONObject(IOUtils.toString(is));
 
             // Register shutdown hook for graceful termination.

@@ -66,16 +66,17 @@ public class Writer {
                 logger.error(e.getMessage());
             }
         }
-        // Write them to the file
-        while (pages.size() > 0) {
-            Page page = pages.removeFirst();
-            logger.info("Writing to " + location + page.getTagURL() + " referer " + page.getParent().getTagURL());
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + URLEncoder.encode(page.getTagURL() + "_referer_" + page.getParent().getTagURL())), "utf-8"))) {
-                writer.write(page.getHtml());
-                // Remove the html for memory purposes
-                page.clear();
-            } catch (IOException e) {
-                logger.warn(e.getMessage());
+        // Write them to the file if they haven't been already written
+        for (Page page : pages) {
+            if (!page.isWritten()) {
+                logger.info("Writing to " + location + page.getTagURL() + " referer " + page.getParent().getTagURL());
+                try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + URLEncoder.encode(page.getTagURL() + "_referer_" + page.getParent().getTagURL())), "utf-8"))) {
+                    writer.write(page.getHtml());
+                    // Flag as written. Also will remove html for memory purposes
+                    page.setWritten(true);
+                } catch (IOException e) {
+                    logger.warn(e.getMessage());
+                }
             }
         }
     }

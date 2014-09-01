@@ -139,7 +139,7 @@ public class HttpMessage {
      * Converts a list of cookies into a list of appropriate headers of the form
      * "Cookie: [Cookie text]".
      *
-     * @param cookies 
+     * @param cookies The cookies to convert.
      */
     public void addCookieHeaders(ArrayList<Cookie> cookies) {
         if (cookies.isEmpty()) {
@@ -157,7 +157,7 @@ public class HttpMessage {
     /**
      * Returns the message formatted nicely for logging.
      *
-     * @return
+     * @return Nicely formatted header.
      */
     public String getFormattedMessage() {
 

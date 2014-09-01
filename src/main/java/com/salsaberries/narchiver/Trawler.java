@@ -52,7 +52,6 @@ public class Trawler {
     private final LinkedList<Page> pageQueue;
     private final ArrayList<Page> pagesExclude;
     private final LinkedList<Page> finalPages;
-    private final ArrayList<Page> writtenPages;
     private final int maxDepth;
     private final String baseURL;
     private final ArrayList<String> parentChildExclude;
@@ -133,7 +132,6 @@ public class Trawler {
 
         pageQueue = new LinkedList<>();
         finalPages = new LinkedList<>();
-        writtenPages = new ArrayList<>();
         this.maxDepth = site.getInt("DEPTH");
         this.baseURL = site.getString("BASE_URL");
 
@@ -237,7 +235,6 @@ public class Trawler {
     private void visitNext(boolean needToLogin) throws TrawlException {
 
         // Wait a random time period
-        logger.info("Waiting some random time before visiting");
         try {
             Thread.sleep(random.nextInt(site.getInt("LOWER_WAIT_TIME")) + site.getInt("UPPER_WAIT_TIME"));
         } catch (InterruptedException ex) {
@@ -278,11 +275,11 @@ public class Trawler {
                 }
             }
 
-            logger.info("Warning! Trawling was interrupted. Retrying in 30 seconds: " + e.getMessage());
+            logger.info("Warning! Trawling was interrupted. Retrying in 10 seconds: " + e.getMessage());
 
             // Wait one minute
             try {
-                Thread.sleep(30000);
+                Thread.sleep(10000);
             } catch (InterruptedException ex) {
 
             }
@@ -299,7 +296,6 @@ public class Trawler {
         // This will remove everything from finalPages. Also, it will remove their
         // html content. Also, run a pass filter.
         if (finalPages.size() > site.getInt("WRITE_BUFFER")) {
-            logger.info("Flushing information to file.");
             flushToFile();
         }
 
@@ -313,11 +309,11 @@ public class Trawler {
     }
 
     private void flushToFile() {
-        // Create regex pattern
+        // Create regex pattern for final pass
         Pattern passFilter = Pattern.compile(site.getString("PASS_FILTER"));
 
-        logger.info("Check " + finalPages.size());
-
+        logger.info("\n\n=== Flushing data to file ====\n\n");
+        
         // Run the pass filters
         for (int i = finalPages.size() - 1; i >= 0; --i) {
             logger.info("Check " + finalPages.get(i).getTagURL());
@@ -326,13 +322,11 @@ public class Trawler {
                 finalPages.remove(i);
             }
         }
-        logger.info("Storing pages.");
 
         Writer.storePages(finalPages, site.getString("LOCATION") + "/" + outputLocation);
-
-        // Shift final pages to written pages
-        writtenPages.addAll(finalPages);
-        finalPages.clear();
+        
+        logger.info("\n\n=== Finished flushing data ===\n\n");
+        
     }
 
     /**
@@ -342,7 +336,7 @@ public class Trawler {
      */
     private void visit(Page page) throws AuthenticationException, TrawlingInterrupt, RedirectionException {
 
-        logger.info("Downloading and analyzing " + baseURL + page.getTagURL() + ", current depth: " + page.getDepth());
+        logger.info(page.getDepth() + ": " + page.getTagURL());
 
         // Initialize the get request
         HttpMessage httpGet = new HttpMessage(HttpType.GET);
@@ -402,7 +396,7 @@ public class Trawler {
      * page already defined.
      *
      * @param html
-     * @return
+     * @return A list of pages to follow.
      */
     private ArrayList<Page> extractPages(Page extractPage) {
 
@@ -427,7 +421,6 @@ public class Trawler {
             String tagURL = "";
             boolean alreadyFollowed = false;
             boolean validURL = false;
-            boolean parentChildExcluded = false;
 
             // First format the link
             if (link.attr("href").startsWith(baseURL)) {
@@ -458,23 +451,6 @@ public class Trawler {
                 }
             }
 
-            // Does it violate parent/child exclude?
-            boolean parentMissing = true;
-            boolean childMissing = true;
-            if (parentChildExclude.size() > 0) {
-                for (String e : parentChildExclude) {
-                    if (extractPage.getTagURL().contains(e)) {
-                        parentMissing = false;
-                    }
-                    if (tagURL.contains(e)) {
-                        childMissing = false;
-                    }
-                }
-                parentChildExcluded = parentMissing & childMissing;
-            } else {
-                parentChildExcluded = false;
-            }
-
             // Does it violate the exclusion rules?
             boolean excluded = false;
             for (String e : exclude) {
@@ -483,10 +459,7 @@ public class Trawler {
                 }
             }
 
-            // Does it violate the must include rules?
-            boolean mustIncluded = false;
-
-            if (!alreadyFollowed && validURL && !parentChildExcluded && !excluded && !mustIncluded) {
+            if (!alreadyFollowed && validURL && !excluded) {
                 logger.debug("Creating new page at URL " + tagURL);
                 Page page = new Page(tagURL, extractPage);
                 pages.add(page);
@@ -495,21 +468,11 @@ public class Trawler {
             if (alreadyFollowed) {
                 logger.debug("Skipping duplicate at URL " + tagURL);
             }
-
             if (!validURL) {
                 logger.debug("Invalid URL at " + link.attr("href"));
             }
-
-            if (parentChildExcluded) {
-                logger.debug("Parent child exclusion at " + link.attr("href"));
-            }
-
             if (excluded) {
                 logger.debug("Exclusion at " + link.attr("href"));
-            }
-
-            if (mustIncluded) {
-                logger.debug(link.attr("href") + " did not include required inclusion.");
             }
         }
         return pages;
@@ -560,7 +523,7 @@ public class Trawler {
      * Searches through the headers to see if any redirect to the login page.
      *
      * @param headers
-     * @return
+     * @return A response code if no issue was found.
      */
     private String checkHeaders(HttpRequest response) throws AuthenticationException, RedirectionException, TrawlingInterrupt {
 

@@ -20,6 +20,7 @@ package com.salsaberries.narchiver;
 
 import com.salsaberries.narchiver.exceptions.TerminalException;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +38,15 @@ public class Main {
      */
     public static void main(String[] args) {
 
+        if (ManagementFactory.getRuntimeMXBean().getInputArguments().isEmpty()) {
+            logger.error("No initialization file specified!");
+            System.exit(1);
+        }
+        
+        String initialize = ManagementFactory.getRuntimeMXBean().getInputArguments().get(0).split("=")[1];
+        
         try {
-            Initializer init = new Initializer();
+            Initializer init = new Initializer(initialize);
         } catch (TerminalException e) {
             logger.error("Encountered a terminal exception: " + e.getMessage());
         }
@@ -49,5 +57,7 @@ public class Main {
         } catch (IOException e) {
             logger.error("Unable to send email! " + e.getMessage());
         }
+        
+        logger.info("Finished trawling.");
     }
 }

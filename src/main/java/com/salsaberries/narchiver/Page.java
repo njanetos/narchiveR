@@ -29,6 +29,7 @@ public class Page {
     private String html;
     private final Page parentPage;
     private int trawlingInterruptsRemaining;
+    private boolean written;
 
     /**
      *
@@ -38,11 +39,8 @@ public class Page {
     public Page(String tagURL, Page parentPage) {
         this.tagURL = tagURL;
         this.parentPage = parentPage;
-        if (parentPage == null) {
-            trawlingInterruptsRemaining = 6;
-        } else {
-            this.trawlingInterruptsRemaining = parentPage.getTrawlingInterruptsRemaining();
-        }
+        trawlingInterruptsRemaining = 6;
+        written = false;
     }
 
     /**
@@ -54,6 +52,7 @@ public class Page {
         this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
         parentPage = null;
         this.tagURL = tagURL;
+        written = false;
     }
 
     /**
@@ -77,25 +76,33 @@ public class Page {
     /**
      * Gets the html source of the page.
      *
-     * @return 
+     * @return  The html source.
      */
     public String getHtml() {
         return html;
     }
 
     /**
-     * Returns the html source.
+     * Sets the html source.
      *
-     * @param html
+     * @param html The html source.
      */
     public void setHtml(String html) {
         this.html = html;
     }
 
+    /**
+     *
+     * @return The number of trawling interrupts remaining before this page is removed.
+     */
     public int getTrawlingInterruptsRemaining() {
         return trawlingInterruptsRemaining;
     }
 
+    /**
+     *
+     * @param trawlingInterruptsRemaining
+     */
     public void setTrawlingInterruptsRemaining(int trawlingInterruptsRemaining) {
         this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
     }
@@ -103,7 +110,7 @@ public class Page {
     /**
      * Returns the page's depth in the recursive search
      *
-     * @return
+     * @return The page depth.
      */
     public int getDepth() {
         if (parentPage == null) {
@@ -116,12 +123,16 @@ public class Page {
     /**
      * Returns this page's parent, the page through which this page was reached.
      * 
-     * @return
+     * @return Page's parent.
      */
     public Page getParent() {
         return parentPage;
     }
 
+    /**
+     *
+     * @return Whether this page has had too many trawling interrupts
+     */
     public boolean registerTrawlInterrupt() {
         --trawlingInterruptsRemaining;
         return (trawlingInterruptsRemaining > 0);
@@ -134,4 +145,23 @@ public class Page {
     public void clear() {
         html = "";
     }
+
+    /**
+     *
+     * @return Whether this has been flagged as written.
+     */
+    public boolean isWritten() {
+        return written;
+    }
+
+    /**
+     *
+     * @param written
+     */
+    public void setWritten(boolean written) {
+        this.written = written;
+        this.html = "";
+    }
+    
+    
 }
