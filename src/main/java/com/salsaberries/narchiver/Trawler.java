@@ -24,13 +24,17 @@ import com.salsaberries.narchiver.exceptions.ConnectionException;
 import com.salsaberries.narchiver.exceptions.RedirectionException;
 import com.salsaberries.narchiver.exceptions.TrawlException;
 import com.salsaberries.narchiver.exceptions.TrawlingInterrupt;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.regex.Pattern;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -50,8 +54,9 @@ public class Trawler {
     private static final Logger logger = LoggerFactory.getLogger(Trawler.class);
 
     private final LinkedList<Page> pageQueue;
+    private final HashSet<String> trawledPages;
+    private final LinkedList<Page> writeQueue;
     private final ArrayList<Page> pagesExclude;
-    private final LinkedList<Page> finalPages;
     private final int maxDepth;
     private final String baseURL;
     private final ArrayList<String> parentChildExclude;
@@ -62,7 +67,7 @@ public class Trawler {
     private final boolean cookiesEnabled;
     private final JSONObject site;
     private int loginAttempts;
-    private ArrayList<Cookie> cookies;
+    private final ArrayList<Cookie> cookies;
     private final Random random;
     private final String outputLocation;
 
@@ -79,19 +84,16 @@ public class Trawler {
 
         this.site = site;
 
-        // Create the root page of depth -1
-        Page rootPage = new Page("", -1);
-
         // Create the initial beginning pages
         ArrayList<Page> pages = new ArrayList<>();
         for (int j = 0; j < site.getJSONArray("BEGIN").length(); ++j) {
-            pages.add(new Page(site.getJSONArray("BEGIN").getString(j), rootPage));
+            pages.add(new Page(site.getJSONArray("BEGIN").getString(j), 0));
         }
 
         // Create the pages to exclude
         pagesExclude = new ArrayList<>();
         for (int j = 0; j < site.getJSONArray("EXCLUDE").length(); ++j) {
-            pagesExclude.add(new Page(site.getJSONArray("EXCLUDE").getString(j), null));
+            pagesExclude.add(new Page(site.getJSONArray("EXCLUDE").getString(j)));
         }
 
         // Create the list of PARENT_CHILD exclusions
@@ -131,7 +133,9 @@ public class Trawler {
         loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
 
         pageQueue = new LinkedList<>();
-        finalPages = new LinkedList<>();
+        trawledPages = new HashSet<>();
+        writeQueue = new LinkedList<>();
+        
         this.maxDepth = site.getInt("DEPTH");
         this.baseURL = site.getString("BASE_URL");
 
@@ -152,6 +156,18 @@ public class Trawler {
         visitNext(false);
 
         logger.info("Trawling has terminated for " + site.getString("BASE_URL") + ". Writing to file.");
+
+        flushToFile();
+        
+        // Compress the file
+        try {
+            Writer.zipDirectory(site.getString("LOCATION") + "/" + outputLocation, site.getString("LOCATION") + "/" + outputLocation + ".zip");
+            // Remove the original directory
+            FileUtils.deleteDirectory(new File(site.getString("LOCATION") + "/" + outputLocation));
+        }
+        catch (IOException e) {
+            logger.error("Failed to zip " + site.getString("LOCATION") + "/" + outputLocation);
+        }
     }
 
     private boolean login() throws TrawlException {
@@ -275,7 +291,7 @@ public class Trawler {
                 }
             }
 
-            logger.info("Warning! Trawling was interrupted. Retrying in 10 seconds: " + e.getMessage());
+            logger.debug("Warning! Trawling was interrupted. Retrying in 10 seconds: " + e.getMessage());
 
             // Wait one minute
             try {
@@ -295,7 +311,7 @@ public class Trawler {
         // If the number of final pages is higher than some number, write them to file.
         // This will remove everything from finalPages. Also, it will remove their
         // html content. Also, run a pass filter.
-        if (finalPages.size() > site.getInt("WRITE_BUFFER")) {
+        if (writeQueue.size() > site.getInt("WRITE_BUFFER")) {
             flushToFile();
         }
 
@@ -303,9 +319,6 @@ public class Trawler {
         if (pageQueue.size() != 0) {
             visitNext(needToLogin);
         }
-
-        // Flush any remaining pages
-        flushToFile();
     }
 
     private void flushToFile() {
@@ -315,15 +328,15 @@ public class Trawler {
         logger.info("\n\n=== Flushing data to file ====\n\n");
         
         // Run the pass filters
-        for (int i = finalPages.size() - 1; i >= 0; --i) {
-            logger.info("Check " + finalPages.get(i).getTagURL());
-            if (!passFilter.matcher(finalPages.get(i).getTagURL()).find()) {
-                logger.info("Final pass: Removing page " + finalPages.get(i).getTagURL());
-                finalPages.remove(i);
+        for (int i = writeQueue.size() - 1; i >= 0; --i) {
+            logger.info("Check " + writeQueue.get(i).getTagURL());
+            if (!passFilter.matcher(writeQueue.get(i).getTagURL()).find()) {
+                logger.info("Final pass: Removing page " + writeQueue.get(i).getTagURL());
+                writeQueue.remove(i);
             }
         }
 
-        Writer.storePages(finalPages, site.getString("LOCATION") + "/" + outputLocation);
+        Writer.storePages(writeQueue, site.getString("LOCATION") + "/" + outputLocation);
         
         logger.info("\n\n=== Finished flushing data ===\n\n");
         
@@ -372,8 +385,8 @@ public class Trawler {
                 }
             }
 
-            // If all went well, add this page to the final list
-            finalPages.add(page);
+            // If all went well, add this page to the final queue for writing
+            writeQueue.add(page);
 
         } catch (ConnectionException e) {
             switch (e.getMessage()) {
@@ -432,24 +445,7 @@ public class Trawler {
             }
 
             // Has it already been followed?
-            for (Page page : finalPages) {
-                if (page.getTagURL().equals(tagURL)) {
-                    alreadyFollowed = true;
-                    break;
-                }
-            }
-            for (Page page : pageQueue) {
-                if (page.getTagURL().equals(tagURL)) {
-                    alreadyFollowed = true;
-                    break;
-                }
-            }
-            for (Page page : pages) {
-                if (page.getTagURL().equals(tagURL)) {
-                    alreadyFollowed = true;
-                    break;
-                }
-            }
+            alreadyFollowed = trawledPages.contains(tagURL);
 
             // Does it violate the exclusion rules?
             boolean excluded = false;
@@ -461,7 +457,8 @@ public class Trawler {
 
             if (!alreadyFollowed && validURL && !excluded) {
                 logger.debug("Creating new page at URL " + tagURL);
-                Page page = new Page(tagURL, extractPage);
+                Page page = new Page(tagURL, extractPage.getDepth()+1);
+                trawledPages.add(tagURL);
                 pages.add(page);
             }
 
@@ -482,8 +479,8 @@ public class Trawler {
      * 
      * @return The pages which are queued to be written.
      */
-    public LinkedList<Page> getFinalPages() {
-        return finalPages;
+    public LinkedList<Page> getWriteQueue() {
+        return writeQueue;
     }
 
     /**

@@ -19,8 +19,10 @@
 package com.salsaberries.narchiver;
 
 import com.salsaberries.narchiver.exceptions.TerminalException;
+import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,13 +40,15 @@ public class Main {
      */
     public static void main(String[] args) {
 
+        String initialize;
         if (ManagementFactory.getRuntimeMXBean().getInputArguments().isEmpty()) {
-            logger.error("No initialization file specified!");
-            System.exit(1);
+            logger.info("No initialization file specified! Defaulting to initialize.json.");
+            initialize = "initialize.json";
         }
-        
-        String initialize = ManagementFactory.getRuntimeMXBean().getInputArguments().get(0).split("=")[1];
-        
+        else {
+            initialize = ManagementFactory.getRuntimeMXBean().getInputArguments().get(0).split("=")[1];
+        }
+
         try {
             Initializer init = new Initializer(initialize);
         } catch (TerminalException e) {

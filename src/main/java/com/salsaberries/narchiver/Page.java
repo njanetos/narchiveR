@@ -27,31 +27,29 @@ public class Page {
 
     private String tagURL;
     private String html;
-    private final Page parentPage;
     private int trawlingInterruptsRemaining;
+    private int depth;
     private boolean written;
 
     /**
      *
      * @param tagURL The end URL, for example, '/items'.
-     * @param parentPage The page from which this page was followed to.
      */
-    public Page(String tagURL, Page parentPage) {
+    public Page(String tagURL, int depth) {
         this.tagURL = tagURL;
-        this.parentPage = parentPage;
         trawlingInterruptsRemaining = 6;
+        this.depth = depth;
         written = false;
     }
 
     /**
      *
      * @param tagURL The end URL, for example, '/items'.
-     * @param trawlingInterruptsRemaining The number of interrupts which this page can handle before we don't contact it anymore.
      */
-    public Page(String tagURL, int trawlingInterruptsRemaining) {
-        this.trawlingInterruptsRemaining = trawlingInterruptsRemaining;
-        parentPage = null;
+    public Page(String tagURL) {
+        trawlingInterruptsRemaining = 6;
         this.tagURL = tagURL;
+        depth = 0;
         written = false;
     }
 
@@ -113,20 +111,15 @@ public class Page {
      * @return The page depth.
      */
     public int getDepth() {
-        if (parentPage == null) {
-            return 0;
-        } else {
-            return parentPage.getDepth() + 1;
-        }
+        return depth;
     }
-
+    
     /**
-     * Returns this page's parent, the page through which this page was reached.
      * 
-     * @return Page's parent.
+     * @param depth
      */
-    public Page getParent() {
-        return parentPage;
+    public void setDepth(int depth) {
+        this.depth = depth;
     }
 
     /**

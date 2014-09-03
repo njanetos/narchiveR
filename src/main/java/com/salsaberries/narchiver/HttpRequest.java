@@ -130,7 +130,7 @@ public class HttpRequest {
                 html = finalResponse;
             }
         } catch (IOException e) {
-            logger.error("IOException " + e.getMessage());
+            logger.debug("IOException " + e.getMessage());
             throw new ConnectionException(statusCode);
         }
     }
