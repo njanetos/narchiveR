@@ -29,17 +29,16 @@ public class Page {
     private String html;
     private int trawlingInterruptsRemaining;
     private int depth;
-    private boolean written;
 
     /**
      *
      * @param tagURL The end URL, for example, '/items'.
+     * @param depth
      */
     public Page(String tagURL, int depth) {
         this.tagURL = tagURL;
         trawlingInterruptsRemaining = 6;
         this.depth = depth;
-        written = false;
     }
 
     /**
@@ -50,7 +49,6 @@ public class Page {
         trawlingInterruptsRemaining = 6;
         this.tagURL = tagURL;
         depth = 0;
-        written = false;
     }
 
     /**
@@ -137,24 +135,6 @@ public class Page {
      */
     public void clear() {
         html = "";
-    }
-
-    /**
-     *
-     * @return Whether this has been flagged as written.
-     */
-    public boolean isWritten() {
-        return written;
-    }
-
-    /**
-     *
-     * @param written
-     */
-    public void setWritten(boolean written) {
-        this.written = written;
-        this.html = "";
-    }
-    
+    }   
     
 }

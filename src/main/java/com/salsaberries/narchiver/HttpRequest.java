@@ -65,8 +65,6 @@ public class HttpRequest {
      */
     public HttpRequest(HttpMessage message) throws ConnectionException, MalformedURLException, ProtocolException {
 
-        logger.debug("Sending request: \n" + message.getFormattedMessage());
-
         try {
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8118));
             HttpURLConnection.setFollowRedirects(false);

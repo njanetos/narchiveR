@@ -71,14 +71,14 @@ public class Writer {
         // Write them to the file if they haven't been already written
         while (!pages.isEmpty()) {
             Page page = pages.removeFirst();
-            if (!page.isWritten()) {
-                logger.info("Writing to " + location + page.getTagURL());
-                try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + URLEncoder.encode(page.getTagURL())), "utf-8"))) {
-                    writer.write(page.getHtml());
-                } catch (IOException e) {
-                    logger.warn(e.getMessage());
-                }
+            logger.info("Writing to " + location + page.getTagURL());
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + URLEncoder.encode(page.getTagURL())), "utf-8"))) {
+                writer.write(page.getHtml());
+            } catch (IOException e) {
+                logger.warn(e.getMessage());
             }
+            // Temporarily try to reduce memory
+            page.setHtml("");
         }
     }
 

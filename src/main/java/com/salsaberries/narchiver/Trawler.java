@@ -56,10 +56,8 @@ public class Trawler {
     private final LinkedList<Page> pageQueue;
     private final HashSet<String> trawledPages;
     private final LinkedList<Page> writeQueue;
-    private final ArrayList<Page> pagesExclude;
     private final int maxDepth;
     private final String baseURL;
-    private final ArrayList<String> parentChildExclude;
     private final ArrayList<String> exclude;
     private final ArrayList<String> stopAt;
     private final ArrayList<String> mustInclude;
@@ -70,6 +68,7 @@ public class Trawler {
     private final ArrayList<Cookie> cookies;
     private final Random random;
     private final String outputLocation;
+    private boolean needToLogin = false;
 
     /**
      * Trawler implements the recursive algorithm to search the web page.
@@ -88,18 +87,6 @@ public class Trawler {
         ArrayList<Page> pages = new ArrayList<>();
         for (int j = 0; j < site.getJSONArray("BEGIN").length(); ++j) {
             pages.add(new Page(site.getJSONArray("BEGIN").getString(j), 0));
-        }
-
-        // Create the pages to exclude
-        pagesExclude = new ArrayList<>();
-        for (int j = 0; j < site.getJSONArray("EXCLUDE").length(); ++j) {
-            pagesExclude.add(new Page(site.getJSONArray("EXCLUDE").getString(j)));
-        }
-
-        // Create the list of PARENT_CHILD exclusions
-        parentChildExclude = new ArrayList<>();
-        for (int j = 0; j < site.getJSONArray("PARENT_CHILD_EXCLUDE").length(); ++j) {
-            parentChildExclude.add(site.getJSONArray("PARENT_CHILD_EXCLUDE").getString(j));
         }
 
         // Create the list of EXCLUSIONS
@@ -135,7 +122,7 @@ public class Trawler {
         pageQueue = new LinkedList<>();
         trawledPages = new HashSet<>();
         writeQueue = new LinkedList<>();
-        
+
         this.maxDepth = site.getInt("DEPTH");
         this.baseURL = site.getString("BASE_URL");
 
@@ -153,20 +140,94 @@ public class Trawler {
         logger.info("Begun trawling at " + date.getTime() + ".");
 
         // Start trawling
-        visitNext(false);
+        while (pageQueue.size() != 0) {
+            // If there are pages remaining to visit, visit the next one.
+            visitNext();
+
+            // If the number of final pages is higher than some number, write them to file.
+            // This will remove everything from finalPages. Also, it will remove their
+            // html content. Also, run a pass filter.
+            if (writeQueue.size() > site.getInt("WRITE_BUFFER")) {
+                flushToFile();
+                logger.info("Page queue: " + pageQueue.size() + ", write queue: " + writeQueue.size() + ". Total sites found: " + trawledPages.size());
+                logger.info("Total memory: " + Long.toString(Runtime.getRuntime().totalMemory()));
+                logger.info("Used memory: " + Long.toString(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
+            }
+        }
 
         logger.info("Trawling has terminated for " + site.getString("BASE_URL") + ". Writing to file.");
-
-        flushToFile();
         
+        // Finish any final flushing
+        flushToFile();
+
         // Compress the file
         try {
             Writer.zipDirectory(site.getString("LOCATION") + "/" + outputLocation, site.getString("LOCATION") + "/" + outputLocation + ".zip");
             // Remove the original directory
             FileUtils.deleteDirectory(new File(site.getString("LOCATION") + "/" + outputLocation));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             logger.error("Failed to zip " + site.getString("LOCATION") + "/" + outputLocation);
+        }
+    }
+
+    private void visitNext() throws TrawlException {
+
+        // Wait a random time period
+        try {
+            Thread.sleep(random.nextInt(site.getInt("LOWER_WAIT_TIME")) + site.getInt("UPPER_WAIT_TIME"));
+        } catch (InterruptedException ex) {
+
+        }
+
+        Page page = null;
+        try {
+            // Do we need to log in?
+            if (needToLogin) {
+                needToLogin = (!login());
+            } else {
+                // Reset the login attempts
+                loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
+                page = pageQueue.removeFirst();
+                visit(page);
+            }
+        } catch (AuthenticationException e) {
+            // Re-add the page (at the beginning) if necessary
+            if (page != null) {
+                if (!page.registerTrawlInterrupt()) {
+                    // Don't do anything: It's been interrupted too many times.
+                    logger.error("Trawling has been interrupted for this page too many times. Removing from site map.");
+                } else {
+                    // Push the page back on.
+                    pageQueue.push(page);
+                }
+            }
+            needToLogin = true;
+        } catch (TrawlingInterrupt e) {
+            if (page != null) {
+                if (!page.registerTrawlInterrupt()) {
+                    // Don't do anything: It's been interrupted too many times.
+                    logger.error("Trawling has been interrupted for this page too many times. Removing from site map.");
+                } else {
+                    // Push the page back on.
+                    pageQueue.push(page);
+                }
+            }
+
+            logger.debug("Warning! Trawling was interrupted. Retrying in 10 seconds: " + e.getMessage());
+
+            // Wait one minute
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException ex) {
+
+            }
+        } catch (RedirectionException e) {
+            // Set this page's URL to the new URL and push it back onto the queue.
+            if (page != null) {
+                logger.info("Redirecting to page " + e.getMessage() + ". I'm going to set this to this page's new URL, push it back onto the queue, and restart.");
+                page.setTagURL(e.getMessage().substring(baseURL.length()));
+                pageQueue.add(page);
+            }
         }
     }
 
@@ -248,85 +309,12 @@ public class Trawler {
 
     }
 
-    private void visitNext(boolean needToLogin) throws TrawlException {
-
-        // Wait a random time period
-        try {
-            Thread.sleep(random.nextInt(site.getInt("LOWER_WAIT_TIME")) + site.getInt("UPPER_WAIT_TIME"));
-        } catch (InterruptedException ex) {
-
-        }
-
-        Page page = null;
-        try {
-            // Do we need to log in?
-            if (needToLogin) {
-                needToLogin = (!login());
-            } else {
-                // Reset the login attempts
-                loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
-                page = pageQueue.removeFirst();
-                visit(page);
-            }
-        } catch (AuthenticationException e) {
-            // Re-add the page (at the beginning) if necessary
-            if (page != null) {
-                if (!page.registerTrawlInterrupt()) {
-                    // Don't do anything: It's been interrupted too many times.
-                    logger.error("Trawling has been interrupted for this page too many times. Removing from site map.");
-                } else {
-                    // Push the page back on.
-                    pageQueue.push(page);
-                }
-            }
-            needToLogin = true;
-        } catch (TrawlingInterrupt e) {
-            if (page != null) {
-                if (!page.registerTrawlInterrupt()) {
-                    // Don't do anything: It's been interrupted too many times.
-                    logger.error("Trawling has been interrupted for this page too many times. Removing from site map.");
-                } else {
-                    // Push the page back on.
-                    pageQueue.push(page);
-                }
-            }
-
-            logger.debug("Warning! Trawling was interrupted. Retrying in 10 seconds: " + e.getMessage());
-
-            // Wait one minute
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException ex) {
-
-            }
-        } catch (RedirectionException e) {
-            // Set this page's URL to the new URL and push it back onto the queue.
-            if (page != null) {
-                logger.info("Redirecting to page " + e.getMessage() + ". I'm going to set this to this page's new URL, push it back onto the queue, and restart.");
-                page.setTagURL(e.getMessage().substring(baseURL.length()));
-                pageQueue.add(page);
-            }
-        }
-
-        // If the number of final pages is higher than some number, write them to file.
-        // This will remove everything from finalPages. Also, it will remove their
-        // html content. Also, run a pass filter.
-        if (writeQueue.size() > site.getInt("WRITE_BUFFER")) {
-            flushToFile();
-        }
-
-        // If there are pages remaining to visit, visit the next one.
-        if (pageQueue.size() != 0) {
-            visitNext(needToLogin);
-        }
-    }
-
     private void flushToFile() {
         // Create regex pattern for final pass
         Pattern passFilter = Pattern.compile(site.getString("PASS_FILTER"));
 
         logger.info("\n\n=== Flushing data to file ====\n\n");
-        
+
         // Run the pass filters
         for (int i = writeQueue.size() - 1; i >= 0; --i) {
             logger.info("Check " + writeQueue.get(i).getTagURL());
@@ -337,9 +325,9 @@ public class Trawler {
         }
 
         Writer.storePages(writeQueue, site.getString("LOCATION") + "/" + outputLocation);
-        
+
         logger.info("\n\n=== Finished flushing data ===\n\n");
-        
+
     }
 
     /**
@@ -457,7 +445,7 @@ public class Trawler {
 
             if (!alreadyFollowed && validURL && !excluded) {
                 logger.debug("Creating new page at URL " + tagURL);
-                Page page = new Page(tagURL, extractPage.getDepth()+1);
+                Page page = new Page(tagURL, extractPage.getDepth() + 1);
                 trawledPages.add(tagURL);
                 pages.add(page);
             }
@@ -476,7 +464,7 @@ public class Trawler {
     }
 
     /**
-     * 
+     *
      * @return The pages which are queued to be written.
      */
     public LinkedList<Page> getWriteQueue() {

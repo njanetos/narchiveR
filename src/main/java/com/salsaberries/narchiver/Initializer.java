@@ -49,7 +49,6 @@ public class Initializer {
      */
     public Initializer(String initialize) throws TerminalException {
 
-        logger.info("\n\n\n");
         logger.info("===========================================================================================================");
         logger.info(",---.   .--.   ____    .-------.        _______   .---.  .---..-./`) ,---.  ,---.   .-''-.  .-------.     ");
         logger.info("|    \\  |  | .'  __ `. |  _ _   \\      /   __  \\  |   |  |_ _|\\ .-.')|   /  |   | .'_ _   \\ |  _ _   \\    ");
@@ -61,31 +60,13 @@ public class Initializer {
         logger.info("|  |    |  |\\ (_ o _) /|  |  \\    /  `-'`-'     / (_{;}_)|   | |   |   \\     /    \\       / |  |  \\    /  ");
         logger.info("'--'    '--' '.(_,_).' ''-'   `'-'     `._____.'  '(_,_) '---' '---'    `---`      `'-..-'  ''-'   `'-'   ");
         logger.info("================Version 1.0================================================================================");
-        logger.info("\n\n\n");
         
-        logger.info("Preparing to use initialization file " + initialize + "\n\n\n");
+        logger.info("Preparing to use initialization file " + initialize);
         
         try {
             // Open initial properties
             FileInputStream is = new FileInputStream(initialize);
             JSONObject initialization = new JSONObject(IOUtils.toString(is));
-
-            // Register shutdown hook for graceful termination.
-            final Thread mainThread = Thread.currentThread();
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    // Email the logs to the specified address.
-                    Alerter alerter = new Alerter();
-                    try {
-                        alerter.alert();
-                    } catch (IOException e) {
-                        // Nothing could be done to prevent hard crash.
-                        logger.error("Unable to send email! " + e.getMessage());
-                        System.exit(1);
-                    }
-                }
-            });
 
             // Loop through all the sites
             JSONArray sites = initialization.getJSONArray("SITES");
@@ -104,7 +85,7 @@ public class Initializer {
             }
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage());
-            throw new TerminalException("Unable to find initialization file initialization.json.");
+            throw new TerminalException("Unable to find initialization file " + initialize);
         } catch (IOException e) {
             throw new TerminalException("IOException: " + e.getMessage());
         }
