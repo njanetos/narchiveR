@@ -24,8 +24,6 @@ import com.salsaberries.narchiver.exceptions.ConnectionException;
 import com.salsaberries.narchiver.exceptions.RedirectionException;
 import com.salsaberries.narchiver.exceptions.TrawlException;
 import com.salsaberries.narchiver.exceptions.TrawlingInterrupt;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -33,8 +31,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -60,9 +58,8 @@ public class Trawler {
     private final String baseURL;
     private final ArrayList<String> exclude;
     private final ArrayList<String> stopAt;
-    private final ArrayList<String> mustInclude;
-    private final ArrayList<String> captchas;
-    private final boolean cookiesEnabled;
+    private final String captcha;
+    private final String captchaImage;
     private final JSONObject site;
     private int loginAttempts;
     private final ArrayList<Cookie> cookies;
@@ -101,20 +98,9 @@ public class Trawler {
             stopAt.add(site.getJSONArray("STOP_AT").getString(j));
         }
 
-        // Create the list of MUST_INCLUDE
-        mustInclude = new ArrayList<>();
-        for (int j = 0; j < site.getJSONArray("MUST_INCLUDE").length(); ++j) {
-            mustInclude.add(site.getJSONArray("MUST_INCLUDE").getString(j));
-        }
-
-        // Create the list of CAPTCHA
-        captchas = new ArrayList<>();
-        for (int j = 0; j < site.getJSONArray("CAPTCHA").length(); ++j) {
-            captchas.add(site.getJSONArray("CAPTCHA").getString(j));
-        }
-
-        // Are cookies enabled?
-        cookiesEnabled = site.getBoolean("COOKIES");
+        // Create the list of CAPTCHA checks
+        captcha = site.getString("CAPTCHA");
+        captchaImage = site.getString("CAPTCHA_IMAGE");
 
         // Set the maximum number of login attempts
         loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
@@ -149,9 +135,6 @@ public class Trawler {
             // html content. Also, run a pass filter.
             if (writeQueue.size() > site.getInt("WRITE_BUFFER")) {
                 flushToFile();
-                logger.info("Page queue: " + pageQueue.size() + ", write queue: " + writeQueue.size() + ". Total sites found: " + trawledPages.size());
-                logger.info("Total memory: " + Long.toString(Runtime.getRuntime().totalMemory()));
-                logger.info("Used memory: " + Long.toString(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
             }
         }
 
@@ -160,21 +143,13 @@ public class Trawler {
         // Finish any final flushing
         flushToFile();
 
-        // Compress the file
-        try {
-            Writer.zipDirectory(site.getString("LOCATION") + "/" + outputLocation, site.getString("LOCATION") + "/" + outputLocation + ".zip");
-            // Remove the original directory
-            FileUtils.deleteDirectory(new File(site.getString("LOCATION") + "/" + outputLocation));
-        } catch (IOException e) {
-            logger.error("Failed to zip " + site.getString("LOCATION") + "/" + outputLocation);
-        }
     }
 
     private void visitNext() throws TrawlException {
 
         // Wait a random time period
         try {
-            Thread.sleep(random.nextInt(site.getInt("LOWER_WAIT_TIME")) + site.getInt("UPPER_WAIT_TIME"));
+            Thread.sleep(random.nextInt(site.getInt("UPPER_WAIT_TIME") - site.getInt("LOWER_WAIT_TIME")) + site.getInt("LOWER_WAIT_TIME"));
         } catch (InterruptedException ex) {
 
         }
@@ -257,12 +232,17 @@ public class Trawler {
             String body = httpRequest.getHtml();
 
             Document doc = Jsoup.parse(body);
-            Element login = doc.getElementById(site.getString("LOGIN_ELEMENT"));
-
-            if (login == null) {
-                throw new TrawlException("Failed to find login form.");
+            Elements logins = doc.getElementsByAttributeValue("action", site.getString("LOGIN_SUBMIT"));
+            
+            if (logins.isEmpty()) {
+                throw new TrawlException("Failed to find login form!");
+            }
+            if (logins.size() > 1) {
+                throw new TrawlException("Found multiple login forms!");
             }
 
+            Element login = logins.get(0);
+            
             // Grab any hidden fields
             Elements hidden = login.getElementsByAttributeValue("type", "hidden");
 
@@ -337,7 +317,7 @@ public class Trawler {
      */
     private void visit(Page page) throws AuthenticationException, TrawlingInterrupt, RedirectionException {
 
-        logger.info(page.getDepth() + ": " + page.getTagURL());
+        logger.info(page.getDepth() + "|" + pageQueue.size() + "|" + writeQueue.size() + "|" + trawledPages.size() + ": " + page.getTagURL());
 
         // Initialize the get request
         HttpMessage httpGet = new HttpMessage(HttpType.GET);
@@ -363,6 +343,8 @@ public class Trawler {
             // Set the html
             page.setHtml(httpRequest.getHtml());
 
+            page.setDate(System.currentTimeMillis()/1000);
+            
             // If we're below the max depth, extract pages from this site
             if (page.getDepth() < maxDepth) {
                 ArrayList<Page> newPages = extractPages(page);
@@ -420,7 +402,7 @@ public class Trawler {
         for (Element link : links) {
 
             String tagURL = "";
-            boolean alreadyFollowed = false;
+            boolean alreadyFollowed;
             boolean validURL = false;
 
             // First format the link
@@ -480,13 +462,9 @@ public class Trawler {
     }
 
     private boolean testForCaptcha(String string) {
-        for (String e : captchas) {
-            if (string.contains(e)) {
-                return true;
-            }
-        }
+        Matcher matcherFindNumber = Pattern.compile(captcha).matcher(string);
 
-        return false;
+        return matcherFindNumber.find();
     }
 
     private void getTempCookies(ArrayList<Header> headers) {

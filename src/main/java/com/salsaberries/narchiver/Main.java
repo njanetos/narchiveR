@@ -38,13 +38,13 @@ public class Main {
     public static void main(String[] args) {
 
         String initialize;
-        //if (ManagementFactory.getRuntimeMXBean().getInputArguments().isEmpty()) {
-        //    logger.info("No initialization file specified! Defaulting to initialize.json.");
-            initialize = "/home/njanetos/Dropbox/Programming/Narchiver/initialize.json";
-        //}
-        //else {
-        //    initialize = ManagementFactory.getRuntimeMXBean().getInputArguments().get(0).split("=")[1];
-        //}
+        if (ManagementFactory.getRuntimeMXBean().getInputArguments().isEmpty()) {
+            logger.info("No initialization file specified! Defaulting to initialize.json.");
+            initialize = "initialize.json";
+        }
+        else {
+            initialize = ManagementFactory.getRuntimeMXBean().getInputArguments().get(0).split("=")[1];
+        }
 
         try {
             Initializer init = new Initializer(initialize);

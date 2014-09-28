@@ -30,8 +30,10 @@ import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.zip.GZIPOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.ZipParameters;
+import net.lingala.zip4j.util.Zip4jConstants;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.io.IOUtils;
@@ -72,7 +74,7 @@ public class Writer {
         while (!pages.isEmpty()) {
             Page page = pages.removeFirst();
             logger.info("Writing to " + location + page.getTagURL());
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + URLEncoder.encode(page.getTagURL())), "utf-8"))) {
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + page.getDate() + "|" + URLEncoder.encode(page.getTagURL())), "utf-8"))) {
                 writer.write(page.getHtml());
             } catch (IOException e) {
                 logger.warn(e.getMessage());
@@ -127,38 +129,25 @@ public class Writer {
      * Zip the contents of the directory, and save it in the zipfile
      *
      * @param dir
-     * @param zipfile
+     * @param destination
      * @throws java.io.IOException
      */
-    public static void zipDirectory(String dir, String zipfile) throws IOException, IllegalArgumentException {
-        // Check that the directory is a directory, and get its contents
-        File d = new File(dir);
-        if (!d.isDirectory()) {
-            throw new IllegalArgumentException("Compress: not a directory:  " + dir);
-        }
-        String[] entries = d.list();
-        byte[] buffer = new byte[4096]; // Create a buffer for copying
-        int bytes_read;
+    public static void zipDirectory(String dir, String destination) throws IOException, IllegalArgumentException {
+        try {
+            ZipFile zipFile = new ZipFile(destination);
+            File inputFileH = new File(dir);
+            ZipParameters parameters = new ZipParameters();
 
-        // Loop through all entries in the directory
-        try ( // Create a stream to compress data and write it to the zipfile
-                ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipfile))) {
-            for (String entrie : entries) {
-                File f = new File(d, entrie);
-                if (f.isDirectory()) {
-                    continue; // Don't zip sub-directories
-                }
-                try (FileInputStream in = new FileInputStream(f) // Stream to read file
-                        ) {
-                    ZipEntry entry = new ZipEntry(f.getPath()); // Make a ZipEntry
-                    out.putNextEntry(entry); // Store entry
-                    while ((bytes_read = in.read(buffer)) != -1) // Copy bytes
-                    {
-                        out.write(buffer, 0, bytes_read);
-                    }
-                } // Make a ZipEntry
-            }
+            parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+            parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_ULTRA);
+
+            // file compressed
+            zipFile.addFile(inputFileH, parameters);
+
+        } catch (ZipException e) {
+            throw new IOException(e.getMessage());
         }
+
     }
 
 }

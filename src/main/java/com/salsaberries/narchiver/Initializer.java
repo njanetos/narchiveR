@@ -23,6 +23,7 @@ import com.salsaberries.narchiver.exceptions.TrawlException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -60,7 +61,7 @@ public class Initializer {
         logger.info("|  |    |  |\\ (_ o _) /|  |  \\    /  `-'`-'     / (_{;}_)|   | |   |   \\     /    \\       / |  |  \\    /  ");
         logger.info("'--'    '--' '.(_,_).' ''-'   `'-'     `._____.'  '(_,_) '---' '---'    `---`      `'-..-'  ''-'   `'-'   ");
         logger.info("================Version 1.0================================================================================");
-        
+        logger.info("Current date: " + (new Date()).toString());
         logger.info("Preparing to use initialization file " + initialize);
         
         try {

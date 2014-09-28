@@ -29,6 +29,7 @@ public class Page {
     private String html;
     private int trawlingInterruptsRemaining;
     private int depth;
+    private long date;
 
     /**
      *
@@ -136,5 +137,12 @@ public class Page {
     public void clear() {
         html = "";
     }   
-    
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
 }
