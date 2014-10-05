@@ -19,11 +19,14 @@
 package com.salsaberries.narchiver;
 
 import com.salsaberries.narchiver.exceptions.ConnectionException;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
@@ -36,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+import javax.imageio.ImageIO;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -49,6 +53,7 @@ public class HttpRequest {
     private String html;
     private ArrayList<Header> headers;
     private int statusCode;
+    private BufferedImage image;
 
     /**
      * Opens a new HTTP connection using the information contained in an
@@ -65,6 +70,8 @@ public class HttpRequest {
      */
     public HttpRequest(HttpMessage message) throws ConnectionException, MalformedURLException, ProtocolException {
 
+        logger.debug(message.getFormattedMessage());
+        
         try {
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8118));
             HttpURLConnection.setFollowRedirects(false);
@@ -99,36 +106,49 @@ public class HttpRequest {
             // Get the status code
             statusCode = connection.getResponseCode();
 
-            // Get the response
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                String input;
-                StringBuilder response = new StringBuilder();
+            // Get the response, if not an image
+            if (!message.isImage()) {
 
-                while ((input = reader.readLine()) != null) {
-                    response.append(input);
-                }
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    String input;
+                    StringBuilder response = new StringBuilder();
 
-                // Unzip if necessary
-                String finalResponse = response.toString();
-                if ("gzip".equals(connection.getContentEncoding())) {
-                    finalResponse = decompress(response.toString().getBytes("UTF-8"));
-                }
-
-                // Get the headers
-                Map<String, List<String>> heads = connection.getHeaderFields();
-                headers = new ArrayList<>();
-
-                for (String headName : heads.keySet()) {
-                    for (String headValue : heads.get(headName)) {
-                        headers.add(new Header(headName, headValue));
+                    while ((input = reader.readLine()) != null) {
+                        response.append(input);
                     }
-                }
 
-                // Get html
-                html = finalResponse;
+                    // Unzip if necessary
+                    String finalResponse = response.toString();
+                    if ("gzip".equals(connection.getContentEncoding())) {
+                        finalResponse = decompress(response.toString().getBytes("UTF-8"));
+                    }
+
+                    // Get the headers
+                    Map<String, List<String>> heads = connection.getHeaderFields();
+                    headers = new ArrayList<>();
+
+                    for (String headName : heads.keySet()) {
+                        for (String headValue : heads.get(headName)) {
+                            headers.add(new Header(headName, headValue));
+                        }
+                    }
+
+                    // Get html
+                    html = finalResponse;
+                    logger.debug(finalResponse);
+                }
+            } else {
+                logger.info("Attempting to download image at " + message.getUrl());
+
+                InputStream is = connection.getInputStream();
+                image = ImageIO.read(is);
+
+                File outputfile = new File("image.jpg");
+                ImageIO.write(image, "jpg", outputfile);
             }
+
         } catch (IOException e) {
-            logger.debug("IOException " + e.getMessage());
+            logger.error("IOException " + e.getMessage());
             throw new ConnectionException(statusCode);
         }
     }
@@ -191,6 +211,14 @@ public class HttpRequest {
             }
         }
         return string.toString();
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 
 }

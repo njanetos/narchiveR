@@ -38,9 +38,8 @@ public class Cookie {
      */
     public static final Logger logger = LoggerFactory.getLogger(Cookie.class);
 
-    private Date expiration;
-    private String value;
-    private String name;
+    private final String value;
+    private final String name;
 
     /**
      * Builds a cookie from the input.
@@ -48,28 +47,8 @@ public class Cookie {
      * @param raw
      */
     public Cookie(String raw) {
-
-        name = raw.substring(0, raw.indexOf(";")).split("=")[0];
-        value = raw.substring(0, raw.indexOf(";")).split("=")[1];
-        raw = raw.substring(raw.indexOf(";") + 2);
-        raw = raw.substring(0, raw.indexOf(";")).split("=")[1];
-
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss zzz");
-
-        try {
-            expiration = formatter.parse(raw);
-        } catch (ParseException e) {
-            logger.debug("Unable to parse cookie date. Assuming it's way in the future.");
-            expiration = new Date(17534932134000L);
-        }
-    }
-
-    /**
-     *
-     * @return The expiration date of this cookie.
-     */
-    public Date getExpiration() {
-        return expiration;
+        name = raw.split("=")[0];
+        value = raw.split("=")[1];
     }
 
     /**

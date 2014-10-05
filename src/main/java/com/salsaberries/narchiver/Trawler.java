@@ -18,12 +18,17 @@
  */
 package com.salsaberries.narchiver;
 
+import com.DeathByCaptcha.Captcha;
+import com.DeathByCaptcha.Exception;
+import com.DeathByCaptcha.SocketClient;
 import com.salsaberries.narchiver.enums.HttpType;
 import com.salsaberries.narchiver.exceptions.AuthenticationException;
 import com.salsaberries.narchiver.exceptions.ConnectionException;
 import com.salsaberries.narchiver.exceptions.RedirectionException;
 import com.salsaberries.narchiver.exceptions.TrawlException;
 import com.salsaberries.narchiver.exceptions.TrawlingInterrupt;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -33,6 +38,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -58,8 +64,6 @@ public class Trawler {
     private final String baseURL;
     private final ArrayList<String> exclude;
     private final ArrayList<String> stopAt;
-    private final String captcha;
-    private final String captchaImage;
     private final JSONObject site;
     private int loginAttempts;
     private final ArrayList<Cookie> cookies;
@@ -83,7 +87,7 @@ public class Trawler {
         // Create the initial beginning pages
         ArrayList<Page> pages = new ArrayList<>();
         for (int j = 0; j < site.getJSONArray("BEGIN").length(); ++j) {
-            pages.add(new Page(site.getJSONArray("BEGIN").getString(j), 0));
+            pages.add(new Page(site.getJSONArray("BEGIN").getString(j)));
         }
 
         // Create the list of EXCLUSIONS
@@ -97,10 +101,6 @@ public class Trawler {
         for (int j = 0; j < site.getJSONArray("STOP_AT").length(); ++j) {
             stopAt.add(site.getJSONArray("STOP_AT").getString(j));
         }
-
-        // Create the list of CAPTCHA checks
-        captcha = site.getString("CAPTCHA");
-        captchaImage = site.getString("CAPTCHA_IMAGE");
 
         // Set the maximum number of login attempts
         loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
@@ -139,7 +139,7 @@ public class Trawler {
         }
 
         logger.info("Trawling has terminated for " + site.getString("BASE_URL") + ". Writing to file.");
-        
+
         // Finish any final flushing
         flushToFile();
 
@@ -157,6 +157,7 @@ public class Trawler {
         Page page = null;
         try {
             // Do we need to log in?
+
             if (needToLogin) {
                 needToLogin = (!login());
             } else {
@@ -190,7 +191,7 @@ public class Trawler {
 
             logger.debug("Warning! Trawling was interrupted. Retrying in 10 seconds: " + e.getMessage());
 
-            // Wait one minute
+            // Wait ten seconds
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException ex) {
@@ -199,13 +200,24 @@ public class Trawler {
         } catch (RedirectionException e) {
             // Set this page's URL to the new URL and push it back onto the queue.
             if (page != null) {
-                logger.info("Redirecting to page " + e.getMessage() + ". I'm going to set this to this page's new URL, push it back onto the queue, and restart.");
-                page.setTagURL(e.getMessage().substring(baseURL.length()));
-                pageQueue.add(page);
+                // Has the redirection already been followed?
+                if (trawledPages.contains(page.getTagURL())) {
+                    logger.info("Redirecting to page " + e.getMessage() + ". It's already been followed, so we're ignoring it.");
+                } else {
+                    logger.info("Redirecting to page " + e.getMessage() + ". I'm going to set this to this page's new URL, push it back onto the queue, and restart.");
+                    page.setTagURL(e.getMessage().substring(baseURL.length()));
+                    pageQueue.add(page);
+                }
             }
         }
     }
 
+    /**
+     * Logs into the site.
+     *
+     * @return
+     * @throws TrawlException
+     */
     private boolean login() throws TrawlException {
         --loginAttempts;
 
@@ -230,10 +242,9 @@ public class Trawler {
             getTempCookies(headers);
 
             String body = httpRequest.getHtml();
-
             Document doc = Jsoup.parse(body);
             Elements logins = doc.getElementsByAttributeValue("action", site.getString("LOGIN_SUBMIT"));
-            
+
             if (logins.isEmpty()) {
                 throw new TrawlException("Failed to find login form!");
             }
@@ -242,7 +253,40 @@ public class Trawler {
             }
 
             Element login = logins.get(0);
-            
+
+            // Extract the captcha image if appropriate
+            String captchaResult = "";
+            if (!site.getString("CAPTCHA").equals("")) {
+                // Download the captcha image
+                HttpMessage getCaptcha = new HttpMessage(HttpType.GET);
+                getCaptcha.setImage(true);
+                if (!site.getString("CAPTCHA_IMAGE").equals("")) {
+                    getCaptcha.setUrl(baseURL + site.getString("CAPTCHA_IMAGE"));
+                } else {
+                    // Just try to get the image
+                    Elements captchas = login.getElementsByTag("img");
+                    if (captchas.size() != 1) {
+                        throw new TrawlException("Failed to find captcha, but the initialization file says there should be one.");
+                    }
+                    Element captchaImage = captchas.get(0);
+                    getCaptcha.setUrl(baseURL + captchaImage.attr("src"));
+                }
+                getCaptcha.initializeDefaultHeaders(site);
+                getCaptcha.addHeader(new Header("Referrer", baseURL + site.getString("LOGIN_URL")));
+                getCaptcha.addCookieHeaders(cookies);
+
+                HttpRequest image = new HttpRequest(getCaptcha);
+
+                // Send it to deathbycaptcha
+                SocketClient client = new SocketClient("njanetos", "2point7182");
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(image.getImage(), "png", os);
+                Captcha result = client.decode(os.toByteArray());
+
+                captchaResult = result.toString();
+                logger.debug("Decoded captcha: " + captchaResult);
+            }
+
             // Grab any hidden fields
             Elements hidden = login.getElementsByAttributeValue("type", "hidden");
 
@@ -255,11 +299,20 @@ public class Trawler {
 
             httpPost.appendContent(site.getString("USERNAME_FIELD"), site.getString("USERNAME"));
             httpPost.appendContent(site.getString("PASSWORD_FIELD"), site.getString("PASSWORD"));
+            if (!captchaResult.equals("")) {
+                httpPost.appendContent(site.getString("CAPTCHA_FIELD"), captchaResult);
+            }
 
             for (int i = 0; i < hidden.size(); ++i) {
                 httpPost.appendContent(hidden.get(i).attr("name"), hidden.get(i).attr("value"));
             }
-            //httpPost.appendContent("commit", "enter");
+
+            // Add the submit info
+            Element submit = login.getElementsByAttributeValue("type", "submit").get(0);
+            httpPost.appendContent(submit.attr("name"), submit.attr("value"));
+
+            // Add the referrer
+            httpPost.addHeader(new Header("Referer", baseURL + site.getString("LOGIN_URL")));
 
             // Log in
             HttpRequest response = new HttpRequest(httpPost);
@@ -268,19 +321,31 @@ public class Trawler {
             getTempCookies(headers);
             logger.info("Successfully logged in, response code: " + response.getStatusCode());
 
-            // Send a GET request to the redirection URL before continuing. 
-            httpGet = new HttpMessage(HttpType.GET);
-            httpGet.initializeDefaultHeaders(site);
-            httpGet.addHeader(new Header("Referer", baseURL + site.getString("LOGIN_URL")));
-            String redirectionURL = getRedirectionURL(headers);
-            httpGet.setUrl(redirectionURL);
-            httpGet.addCookieHeaders(cookies);
+            // Were we redirected? If so, visit the redirection URL before continuing. 
+            if (response.getStatusCode() == 302) {
+                // Send a GET request to the redirection URL before continuing. 
+                httpGet = new HttpMessage(HttpType.GET);
+                httpGet.initializeDefaultHeaders(site);
+                httpGet.addHeader(new Header("Referer", baseURL + site.getString("LOGIN_URL")));
+                String redirectionURL = getRedirectionURL(headers);
+                httpGet.setUrl(redirectionURL);
+                httpGet.addCookieHeaders(cookies);
 
-            httpRequest = new HttpRequest(httpGet);
-            logger.debug("Visited redirected page. Status code " + httpRequest.getStatusCode());
+                httpRequest = new HttpRequest(httpGet);
+                logger.debug("Visited redirected page. Status code " + httpRequest.getStatusCode());
+            }
 
-        } catch (ConnectionException | MalformedURLException | ProtocolException e) {
+        } catch (ConnectionException | MalformedURLException | ProtocolException ex) {
             // Did not successfully log in
+            logger.error(ex.getMessage());
+            return false;
+        } catch (IOException ex) {
+            // Did not successfully log in
+            logger.error(ex.getMessage());
+            return false;
+        } catch (Exception | InterruptedException ex) {
+            // Did not successfully log in
+            logger.error(ex.getMessage());
             return false;
         }
 
@@ -343,8 +408,18 @@ public class Trawler {
             // Set the html
             page.setHtml(httpRequest.getHtml());
 
-            page.setDate(System.currentTimeMillis()/1000);
-            
+            // Test for whether we're at the login page
+            if (!site.isNull("LOGIN_TEST")) {
+                Matcher loginMatch = Pattern.compile(site.getString("LOGIN_TEST")).matcher(page.getHtml());
+                if (loginMatch.find()) {
+                    logger.info("According to LOGIN_TEST, we're at the login page. Attempting to log in...");
+                    needToLogin = true;
+                    throw new TrawlingInterrupt("Log in.");
+                }
+            }
+
+            page.setDate(System.currentTimeMillis() / 1000);
+
             // If we're below the max depth, extract pages from this site
             if (page.getDepth() < maxDepth) {
                 ArrayList<Page> newPages = extractPages(page);
@@ -390,7 +465,6 @@ public class Trawler {
         // Are we at a stop at page?
         for (String e : stopAt) {
             if (extractPage.getTagURL().contains(e)) {
-                logger.info("Stopping at tag URL " + extractPage.getTagURL() + " because it contains " + e + ".");
                 return pages;
             }
         }
@@ -402,15 +476,18 @@ public class Trawler {
         for (Element link : links) {
 
             String tagURL = "";
+            String linkText = "";
             boolean alreadyFollowed;
             boolean validURL = false;
 
             // First format the link
             if (link.attr("href").startsWith(baseURL)) {
                 tagURL = link.attr("href").replace(baseURL, "");
+                linkText = link.html();
                 validURL = true;
             } else if (link.attr("href").startsWith("/")) {
                 tagURL = link.attr("href");
+                linkText = link.html();
                 validURL = true;
             }
 
@@ -427,7 +504,7 @@ public class Trawler {
 
             if (!alreadyFollowed && validURL && !excluded) {
                 logger.debug("Creating new page at URL " + tagURL);
-                Page page = new Page(tagURL, extractPage.getDepth() + 1);
+                Page page = new Page(tagURL, extractPage, linkText);
                 trawledPages.add(tagURL);
                 pages.add(page);
             }
@@ -461,22 +538,42 @@ public class Trawler {
         return baseURL;
     }
 
+    /**
+     * Tests whether the CAPTCHA text appears in the page.
+     *
+     * @param string
+     * @return
+     */
     private boolean testForCaptcha(String string) {
-        Matcher matcherFindNumber = Pattern.compile(captcha).matcher(string);
+        Matcher matcherFindNumber = Pattern.compile(site.getString("CAPTCHA")).matcher(string);
 
         return matcherFindNumber.find();
     }
 
+    /**
+     * Returns a list of cookies from the header
+     *
+     * @param headers
+     */
     private void getTempCookies(ArrayList<Header> headers) {
         for (Header h : headers) {
-            if (h.getName().equals("Set-Cookie")) {
-                Cookie cookie = new Cookie(h.getValue());
-                // Check whether the cookie is already present, if so, replace it
-                // with the newest one.
-                if (!Cookie.isAlreadyIn(cookies, cookie)) {
-                    cookies.add(cookie);
-                } else {
-                    Cookie.replace(cookies, cookie);
+            if (h.getName().toLowerCase().equals("set-cookie")) {
+
+                // Parse out values
+                String[] values = h.getValue().split(";");
+                for (String s : values) {
+                    if (s.contains("=")) {
+                        Cookie cookie = new Cookie(s);
+
+                        // Check whether the cookie is already present, if so, replace it
+                        // with the newest one.
+                        if (!Cookie.isAlreadyIn(cookies, cookie)) {
+                            cookies.add(cookie);
+                        } else {
+                            Cookie.replace(cookies, cookie);
+                        }
+                    }
+
                 }
             }
         }
@@ -527,6 +624,12 @@ public class Trawler {
         return Integer.toString(response.getStatusCode());
     }
 
+    /**
+     * Returns the redirection URL to follow from the headers.
+     *
+     * @param headers
+     * @return
+     */
     private String getRedirectionURL(ArrayList<Header> headers) {
         for (Header h : headers) {
             if (h.getName().equals("Location")) {

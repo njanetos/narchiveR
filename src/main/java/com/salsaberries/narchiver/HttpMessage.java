@@ -23,6 +23,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
+import org.slf4j.LoggerFactory;
 
 /**
  * HttpMessage stores all the information for an HTTP request/response. Send an
@@ -32,17 +33,21 @@ import org.json.JSONObject;
  */
 public class HttpMessage {
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HttpMessage.class);
+
     private HttpType httpType;
     private ArrayList<Header> headers;
     private String content;
     private String url;
+    private boolean image;
 
     /**
-     * 
+     *
      * @param httpType Usually GET or POST.
      */
     public HttpMessage(HttpType httpType) {
         this.httpType = httpType;
+        this.image = false;
     }
 
     /**
@@ -113,11 +118,19 @@ public class HttpMessage {
         this.url = url;
     }
 
+    public boolean isImage() {
+        return image;
+    }
+
+    public void setImage(boolean image) {
+        this.image = image;
+    }
+
     /**
      * Intitializes a set of default headers that we should have to spoof a
      * browser.
      *
-     * @param site The initialization file. 
+     * @param site The initialization file.
      */
     public void initializeDefaultHeaders(JSONObject site) {
         if (headers == null) {
@@ -150,7 +163,6 @@ public class HttpMessage {
         for (int i = 1; i < cookies.size(); ++i) {
             add = add + "; " + cookies.get(i).toString();
         }
-
         headers.add(new Header("Cookie", add));
     }
 
@@ -174,8 +186,9 @@ public class HttpMessage {
 
     /**
      * Appends content onto the end of already existing content and encodes it
-     * properly for sending through a GET or POST method using {@link URLEncoder}. 
-     * 
+     * properly for sending through a GET or POST method using
+     * {@link URLEncoder}.
+     *
      * @param name
      * @param value
      */
@@ -192,7 +205,7 @@ public class HttpMessage {
 
     /**
      * Adds on a header.
-     * 
+     *
      * @param header
      */
     public void addHeader(Header header) {
@@ -218,4 +231,5 @@ public class HttpMessage {
 
         headers.add(header);
     }
+
 }

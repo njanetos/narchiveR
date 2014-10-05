@@ -73,9 +73,11 @@ public class Writer {
         // Write them to the file if they haven't been already written
         while (!pages.isEmpty()) {
             Page page = pages.removeFirst();
-            logger.info("Writing to " + location + page.getTagURL());
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath() + "/" + page.getDate() + "|" + URLEncoder.encode(page.getTagURL())), "utf-8"))) {
-                writer.write(page.getHtml());
+            
+            String fileName = file.getAbsolutePath() + "/" + page.getDate() + "|" + URLEncoder.encode(page.getTagURL());
+            
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf-8"))) {
+                writer.write(page.toString());
             } catch (IOException e) {
                 logger.warn(e.getMessage());
             }

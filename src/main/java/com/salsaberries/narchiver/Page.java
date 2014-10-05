@@ -18,6 +18,8 @@
  */
 package com.salsaberries.narchiver;
 
+import java.util.ArrayList;
+
 /**
  * A Page just stores html info along with the url
  *
@@ -30,16 +32,19 @@ public class Page {
     private int trawlingInterruptsRemaining;
     private int depth;
     private long date;
+    private String path;
 
     /**
      *
      * @param tagURL The end URL, for example, '/items'.
-     * @param depth
+     * @param referringPage
+     * @param clickedLink
      */
-    public Page(String tagURL, int depth) {
+    public Page(String tagURL, Page referringPage, String clickedLink) {
         this.tagURL = tagURL;
         trawlingInterruptsRemaining = 6;
-        this.depth = depth;
+        this.depth = referringPage.getDepth()+1;
+        this.path = referringPage.getPath() + ", " + referringPage.getTagURL() + ": " + clickedLink;
     }
 
     /**
@@ -50,6 +55,7 @@ public class Page {
         trawlingInterruptsRemaining = 6;
         this.tagURL = tagURL;
         depth = 0;
+        this.path = "|";
     }
 
     /**
@@ -145,4 +151,22 @@ public class Page {
     public void setDate(long date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        String output = "";
+        output += path;
+        output += "\n";
+        output += html;
+        return output;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+    
 }
