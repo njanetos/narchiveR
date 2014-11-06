@@ -133,6 +133,12 @@ public class HttpMessage {
      * @param site The initialization file.
      */
     public void initializeDefaultHeaders(JSONObject site) {
+        
+        if (image) {
+            initializeDefaultImageHeaders(site);
+            return;
+        }
+        
         if (headers == null) {
             headers = new ArrayList<>();
         } else {
@@ -146,6 +152,29 @@ public class HttpMessage {
         headers.add(new Header("Accept-Encoding", site.getString("ACCEPT-ENCODING")));
         headers.add(new Header("Connection", site.getString("CONNECTION")));
         headers.add(new Header("Content-Type", "application/x-www-form-urlencoded"));
+    }
+    
+    public void initializeDefaultImageHeaders(JSONObject site) {
+                if (headers == null) {
+            headers = new ArrayList<>();
+        } else {
+            headers.clear();
+        }
+
+        headers.add(new Header("Host", site.getString("BASE_URL").substring(7)));
+        headers.add(new Header("User-Agent", site.getString("USER-AGENT")));
+
+        if (site.isNull("ACCEPT-IMAGE")) {
+            headers.add(new Header("Accept", site.getString("ACCEPT")));
+        }
+        else {
+            headers.add(new Header("Accept", site.getString("ACCEPT-IMAGE")));
+        }
+
+        headers.add(new Header("Accept-Language", site.getString("ACCEPT-LANGUAGE")));
+        headers.add(new Header("Accept-Encoding", site.getString("ACCEPT-ENCODING")));
+        headers.add(new Header("Connection", site.getString("CONNECTION")));
+        //headers.add(new Header("Content-Type", "application/x-www-form-urlencoded"));
     }
 
     /**

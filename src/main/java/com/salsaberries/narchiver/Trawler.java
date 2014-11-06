@@ -27,8 +27,11 @@ import com.salsaberries.narchiver.exceptions.ConnectionException;
 import com.salsaberries.narchiver.exceptions.RedirectionException;
 import com.salsaberries.narchiver.exceptions.TrawlException;
 import com.salsaberries.narchiver.exceptions.TrawlingInterrupt;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -63,6 +66,7 @@ public class Trawler {
     private final int maxDepth;
     private final String baseURL;
     private final ArrayList<String> exclude;
+    private final ArrayList<String> excludeIfEqual;
     private final ArrayList<String> stopAt;
     private final JSONObject site;
     private int loginAttempts;
@@ -94,6 +98,14 @@ public class Trawler {
         exclude = new ArrayList<>();
         for (int j = 0; j < site.getJSONArray("EXCLUDE").length(); ++j) {
             exclude.add(site.getJSONArray("EXCLUDE").getString(j));
+        }
+
+        // Creat the list of EXCLUDE_IF_EQUAL
+        excludeIfEqual = new ArrayList<>();
+        if (!site.isNull("EXCLUDE_IF_EQUAL")) {
+            for (int j = 0; j < site.getJSONArray("EXCLUDE_IF_EQUAL").length(); ++j) {
+                excludeIfEqual.add(site.getJSONArray("EXCLUDE_IF_EQUAL").getString(j));
+            }
         }
 
         // Create the list of STOP_AT
@@ -246,6 +258,10 @@ public class Trawler {
             Elements logins = doc.getElementsByAttributeValue("action", site.getString("LOGIN_SUBMIT"));
 
             if (logins.isEmpty()) {
+                logins = doc.getElementsByAttributeValue("action", site.getString("BASE_URL") + site.getString("LOGIN_SUBMIT"));
+            }
+            
+            if (logins.isEmpty()) {
                 throw new TrawlException("Failed to find login form!");
             }
             if (logins.size() > 1) {
@@ -260,7 +276,7 @@ public class Trawler {
                 // Download the captcha image
                 HttpMessage getCaptcha = new HttpMessage(HttpType.GET);
                 getCaptcha.setImage(true);
-                if (!site.getString("CAPTCHA_IMAGE").equals("")) {
+                if (!site.isNull("CAPTCHA_IMAGE")) {
                     getCaptcha.setUrl(baseURL + site.getString("CAPTCHA_IMAGE"));
                 } else {
                     // Just try to get the image
@@ -269,9 +285,14 @@ public class Trawler {
                         throw new TrawlException("Failed to find captcha, but the initialization file says there should be one.");
                     }
                     Element captchaImage = captchas.get(0);
-                    getCaptcha.setUrl(baseURL + captchaImage.attr("src"));
+                    if (captchaImage.attr("src").contains(baseURL)) {
+                        getCaptcha.setUrl(captchaImage.attr("src"));
+                    }
+                    else {
+                        getCaptcha.setUrl(baseURL + captchaImage.attr("src"));
+                    }
                 }
-                getCaptcha.initializeDefaultHeaders(site);
+                getCaptcha.initializeDefaultImageHeaders(site);
                 getCaptcha.addHeader(new Header("Referrer", baseURL + site.getString("LOGIN_URL")));
                 getCaptcha.addCookieHeaders(cookies);
 
@@ -362,7 +383,7 @@ public class Trawler {
 
         // Run the pass filters
         for (int i = writeQueue.size() - 1; i >= 0; --i) {
-            logger.info("Check " + writeQueue.get(i).getTagURL());
+            logger.debug("Check " + writeQueue.get(i).getTagURL());
             if (!passFilter.matcher(writeQueue.get(i).getTagURL()).find()) {
                 logger.info("Final pass: Removing page " + writeQueue.get(i).getTagURL());
                 writeQueue.remove(i);
@@ -383,6 +404,13 @@ public class Trawler {
     private void visit(Page page) throws AuthenticationException, TrawlingInterrupt, RedirectionException {
 
         logger.info(page.getDepth() + "|" + pageQueue.size() + "|" + writeQueue.size() + "|" + trawledPages.size() + ": " + page.getTagURL());
+        
+        // Write current info to file
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("info/" + site.getString("LOCATION") + outputLocation + ".info", false), "utf-8"))) {
+            writer.write(pageQueue.size() + "|" + trawledPages.size());
+        } catch (IOException e) {
+            logger.warn(e.getMessage());
+        }
 
         // Initialize the get request
         HttpMessage httpGet = new HttpMessage(HttpType.GET);
@@ -434,13 +462,14 @@ public class Trawler {
             writeQueue.add(page);
 
         } catch (ConnectionException e) {
-            switch (e.getMessage()) {
-                // Server timed out. Re-add the page, wait, and restart.
-                case "408":
-                    throw new TrawlingInterrupt("408");
-                case "500":
-                    throw new TrawlingInterrupt("500");
+            // TODO Wait a few seconds
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException ex) {
+
             }
+            throw new TrawlingInterrupt("Error code: " + e);
+
         } catch (MalformedURLException e) {
             // Malformed URL, remove this page from the list
             logger.error("There was a malformed url: " + baseURL + page.getTagURL() + ". This page will not be included in the final pages.");
@@ -498,6 +527,13 @@ public class Trawler {
             boolean excluded = false;
             for (String e : exclude) {
                 if (tagURL.contains(e)) {
+                    excluded = true;
+                }
+            }
+
+            // Does it violate the exclusion equal rule?
+            for (String e : excludeIfEqual) {
+                if (tagURL.equals(e)) {
                     excluded = true;
                 }
             }

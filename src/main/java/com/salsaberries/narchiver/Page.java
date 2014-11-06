@@ -55,7 +55,7 @@ public class Page {
         trawlingInterruptsRemaining = 6;
         this.tagURL = tagURL;
         depth = 0;
-        this.path = "|";
+        this.path = "root";
     }
 
     /**
@@ -155,9 +155,9 @@ public class Page {
     @Override
     public String toString() {
         String output = "";
-        output += path;
-        output += "\n";
         output += html;
+        output += "\n";
+        output += path;
         return output;
     }
 

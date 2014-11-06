@@ -25,9 +25,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
@@ -71,7 +73,7 @@ public class HttpRequest {
     public HttpRequest(HttpMessage message) throws ConnectionException, MalformedURLException, ProtocolException {
 
         logger.debug(message.getFormattedMessage());
-        
+
         try {
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8118));
             HttpURLConnection.setFollowRedirects(false);
@@ -105,6 +107,16 @@ public class HttpRequest {
 
             // Get the status code
             statusCode = connection.getResponseCode();
+
+            // print out the status
+            String result = "";
+            Map<String, List<String>> h = connection.getHeaderFields();
+            for (String header : h.keySet()) {
+                result += header + ": " + h.get(header) + "\n";
+            }
+            logger.debug(result);
+
+            logger.debug(connection.getContentEncoding());
 
             // Get the response, if not an image
             if (!message.isImage()) {
@@ -140,13 +152,22 @@ public class HttpRequest {
             } else {
                 logger.info("Attempting to download image at " + message.getUrl());
 
-                InputStream is = connection.getInputStream();
-                image = ImageIO.read(is);
+                try {
+                    InputStream is;
+                    if ("gzip".equals(connection.getContentEncoding())) {
+                        is = new GZIPInputStream(connection.getInputStream());
+                    } else {
+                        is = connection.getInputStream();
+                    }
+                    
+                    image = ImageIO.read(is);
+                    
+                } catch (IOException e) {
+                    logger.error(e.getMessage());
+                    System.exit(1);
+                }
 
-                File outputfile = new File("image.jpg");
-                ImageIO.write(image, "jpg", outputfile);
             }
-
         } catch (IOException e) {
             logger.error("IOException " + e.getMessage());
             throw new ConnectionException(statusCode);

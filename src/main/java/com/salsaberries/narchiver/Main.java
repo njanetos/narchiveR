@@ -41,8 +41,7 @@ public class Main {
         if (ManagementFactory.getRuntimeMXBean().getInputArguments().isEmpty()) {
             logger.info("No initialization file specified! Defaulting to initialize.json.");
             initialize = "initialize.json";
-        }
-        else {
+        } else {
             initialize = ManagementFactory.getRuntimeMXBean().getInputArguments().get(0).split("=")[1];
         }
 
@@ -51,7 +50,7 @@ public class Main {
         } catch (TerminalException e) {
             logger.info("Encountered a terminal exception: " + e.getMessage());
         }
-        
+
         logger.info("Finished trawling.");
     }
 }
