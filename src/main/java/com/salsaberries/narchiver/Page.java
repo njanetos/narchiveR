@@ -42,7 +42,7 @@ public class Page {
      */
     public Page(String tagURL, Page referringPage, String clickedLink) {
         this.tagURL = tagURL;
-        trawlingInterruptsRemaining = 6;
+        trawlingInterruptsRemaining = 2;
         this.depth = referringPage.getDepth()+1;
         this.path = referringPage.getPath() + ", " + referringPage.getTagURL() + ": " + clickedLink;
     }

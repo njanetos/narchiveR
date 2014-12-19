@@ -6,27 +6,28 @@ d=`date +"%m-%d-%y"`;
 
 mkdir archive"$d";
 
-for file in marketplace hydra silkroad agora
+for file in marketplace hydra silkroad agora evolution blackbank
 do
 	mkdir tmp;
 	cd $file;
-
-	for f in */; do
+	if [ "$?" = "0" ]; then
+		for f in */; do
 	        g=`echo "$f" | cut -d'/' -f1`;
 	        zip -r "$g"".zip" $g;
 	        mv "$g"".zip" /home/ubuntu/narchiver/tmp;
-	done
+		done
 
-	cd ..
+		cd ..
 
-	cd tmp
+		cd tmp
 
-	zip -r "/home/ubuntu/narchiver/""archive""$d""/""$file""$d"".zip" .;
+		zip -r "/home/ubuntu/narchiver/""archive""$d""/""$file""$d"".zip" .;
 
-	cd ..
+		cd ..
 
-	rm -r tmp;
-	rm -r $file;
+		rm -r tmp;
+		rm -r $file;
+	fi
 done
 
 zip -r "archive""$d"".zip" "archive""$d";

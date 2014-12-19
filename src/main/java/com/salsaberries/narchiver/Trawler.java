@@ -42,6 +42,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
+import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -73,7 +74,7 @@ public class Trawler {
     private final ArrayList<Cookie> cookies;
     private final Random random;
     private final String outputLocation;
-    private boolean needToLogin = false;
+    private boolean needToLogin = true;
 
     /**
      * Trawler implements the recursive algorithm to search the web page.
@@ -172,6 +173,15 @@ public class Trawler {
 
             if (needToLogin) {
                 needToLogin = (!login());
+                if (needToLogin) {
+                    // Wait ten seconds
+                    try {
+                        Thread.sleep(60000);
+                    } catch (InterruptedException ex) {
+
+                    }
+                    throw new TrawlingInterrupt("Failed to log in, but this has been detected to be a recoverable error. I've waited a minute and now I'll try again.");
+                }
             } else {
                 // Reset the login attempts
                 loginAttempts = site.getInt("MAX_LOGIN_ATTEMPTS");
@@ -191,6 +201,7 @@ public class Trawler {
             }
             needToLogin = true;
         } catch (TrawlingInterrupt e) {
+            logger.warn("Trawling interrupt: " + e.getMessage());
             if (page != null) {
                 if (!page.registerTrawlInterrupt()) {
                     // Don't do anything: It's been interrupted too many times.
@@ -260,12 +271,15 @@ public class Trawler {
             if (logins.isEmpty()) {
                 logins = doc.getElementsByAttributeValue("action", site.getString("BASE_URL") + site.getString("LOGIN_SUBMIT"));
             }
-            
+            if (logins.isEmpty()) {
+                logins = doc.getElementsByAttributeValue("method", "POST");
+            }
+
             if (logins.isEmpty()) {
                 throw new TrawlException("Failed to find login form!");
             }
             if (logins.size() > 1) {
-                throw new TrawlException("Found multiple login forms!");
+                logger.warn("Found multiple login forms. Picking the first one...");
             }
 
             Element login = logins.get(0);
@@ -281,30 +295,47 @@ public class Trawler {
                 } else {
                     // Just try to get the image
                     Elements captchas = login.getElementsByTag("img");
+
                     if (captchas.size() != 1) {
                         throw new TrawlException("Failed to find captcha, but the initialization file says there should be one.");
                     }
+
                     Element captchaImage = captchas.get(0);
-                    if (captchaImage.attr("src").contains(baseURL)) {
-                        getCaptcha.setUrl(captchaImage.attr("src"));
-                    }
-                    else {
-                        getCaptcha.setUrl(baseURL + captchaImage.attr("src"));
+
+                    // Does it contain base64?
+                    if (captchaImage.attr("src").contains("base64")) {
+                        String src = captchaImage.attr("src").split(",")[1];
+
+                        byte image[] = Base64.decodeBase64(src);
+                        ByteArrayOutputStream os = new ByteArrayOutputStream();
+                        os.write(image);
+
+                        SocketClient client = new SocketClient("njanetos", "2point7182");
+
+                        Captcha result = client.decode(os.toByteArray());
+                        captchaResult = result.toString();
+
+                    } else {
+                        if (captchaImage.attr("src").contains(baseURL)) {
+                            getCaptcha.setUrl(captchaImage.attr("src"));
+                        } else {
+                            getCaptcha.setUrl(baseURL + captchaImage.attr("src"));
+                        }
+
+                        getCaptcha.initializeDefaultImageHeaders(site);
+                        getCaptcha.addHeader(new Header("Referrer", baseURL + site.getString("LOGIN_URL")));
+                        getCaptcha.addCookieHeaders(cookies);
+
+                        // Send it to deathbycaptcha
+                        SocketClient client = new SocketClient("njanetos", "2point7182");
+                        HttpRequest image = new HttpRequest(getCaptcha);
+                        ByteArrayOutputStream os = new ByteArrayOutputStream();
+                        ImageIO.write(image.getImage(), "png", os);
+                        Captcha result = client.decode(os.toByteArray());
+                        captchaResult = result.toString();
                     }
                 }
-                getCaptcha.initializeDefaultImageHeaders(site);
-                getCaptcha.addHeader(new Header("Referrer", baseURL + site.getString("LOGIN_URL")));
-                getCaptcha.addCookieHeaders(cookies);
 
-                HttpRequest image = new HttpRequest(getCaptcha);
-
-                // Send it to deathbycaptcha
-                SocketClient client = new SocketClient("njanetos", "2point7182");
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
-                ImageIO.write(image.getImage(), "png", os);
-                Captcha result = client.decode(os.toByteArray());
-
-                captchaResult = result.toString();
                 logger.debug("Decoded captcha: " + captchaResult);
             }
 
@@ -404,7 +435,7 @@ public class Trawler {
     private void visit(Page page) throws AuthenticationException, TrawlingInterrupt, RedirectionException {
 
         logger.info(page.getDepth() + "|" + pageQueue.size() + "|" + writeQueue.size() + "|" + trawledPages.size() + ": " + page.getTagURL());
-        
+
         // Write current info to file
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("info/" + site.getString("LOCATION") + outputLocation + ".info", false), "utf-8"))) {
             writer.write(pageQueue.size() + "|" + trawledPages.size());
@@ -463,6 +494,7 @@ public class Trawler {
 
         } catch (ConnectionException e) {
             // TODO Wait a few seconds
+
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException ex) {
@@ -518,7 +550,11 @@ public class Trawler {
                 tagURL = link.attr("href");
                 linkText = link.html();
                 validURL = true;
-            }
+            } //else if (!link.attr("href").startsWith("/") && !link.attr("href").startsWith("http")) {
+            //    tagURL = "/" + link.attr("href");
+            //    linkText = link.html();
+            //    validURL = true;
+            //}
 
             // Has it already been followed?
             alreadyFollowed = trawledPages.contains(tagURL);
@@ -633,14 +669,8 @@ public class Trawler {
             // Find the redirection
             for (Header h : headers) {
                 if (h.getName().equals("Location")) {
-                    // Have we been redirected to the login page?
-                    if (h.getValue().contains(site.getString("LOGIN_URL"))) {
-                        logger.info("We've been redirected to the login page! " + h.getValue());
-                        throw new AuthenticationException(h.getValue());
-                    } else {
-                        logger.info("We've been redirected somewhere within the site.");
-                        throw new RedirectionException(h.getValue());
-                    }
+                    logger.info("We've been redirected somewhere within the site.");
+                    throw new RedirectionException(h.getValue());
                 }
             }
         }

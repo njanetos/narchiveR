@@ -24,12 +24,9 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
@@ -169,7 +166,7 @@ public class HttpRequest {
 
             }
         } catch (IOException e) {
-            logger.error("IOException " + e.getMessage());
+            logger.error("IOException " + e.getMessage() + ", " + statusCode);
             throw new ConnectionException(statusCode);
         }
     }
