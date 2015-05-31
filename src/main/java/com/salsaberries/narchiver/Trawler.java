@@ -292,6 +292,18 @@ public class Trawler {
                 getCaptcha.setImage(true);
                 if (!site.isNull("CAPTCHA_IMAGE")) {
                     getCaptcha.setUrl(baseURL + site.getString("CAPTCHA_IMAGE"));
+
+                    getCaptcha.initializeDefaultImageHeaders(site);
+                    getCaptcha.addHeader(new Header("Referrer", baseURL + site.getString("LOGIN_URL")));
+                    getCaptcha.addCookieHeaders(cookies);
+
+                    // Send it to deathbycaptcha
+                    SocketClient client = new SocketClient("njanetos", "2point7182");
+                    HttpRequest image = new HttpRequest(getCaptcha);
+                    ByteArrayOutputStream os = new ByteArrayOutputStream();
+                    ImageIO.write(image.getImage(), "png", os);
+                    Captcha result = client.decode(os.toByteArray());
+                    captchaResult = result.toString();
                 } else {
                     // Just try to get the image
                     Elements captchas = login.getElementsByTag("img");
@@ -550,7 +562,14 @@ public class Trawler {
                 tagURL = link.attr("href");
                 linkText = link.html();
                 validURL = true;
-            } //else if (!link.attr("href").startsWith("/") && !link.attr("href").startsWith("http")) {
+            } else if (link.attr("href").startsWith("./")) {
+                tagURL = link.attr("href").substring(1);
+                linkText = link.html();
+                validURL = true;
+            }
+
+
+//else if (!link.attr("href").startsWith("/") && !link.attr("href").startsWith("http")) {
             //    tagURL = "/" + link.attr("href");
             //    linkText = link.html();
             //    validURL = true;

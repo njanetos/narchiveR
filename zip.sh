@@ -6,7 +6,7 @@ d=`date +"%m-%d-%y"`;
 
 mkdir archive"$d";
 
-for file in marketplace hydra silkroad agora evolution blackbank
+for file in marketplace hydra silkroad agora evolution blackbank nucleus dream
 do
 	mkdir tmp;
 	cd $file;

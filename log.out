@@ -1,491 +1,162 @@
-Preparing to trawl silkroad
-Begun trawling at 1409334441304.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/, current depth: 1
-Unable to parse cookie date. Assuming it's way in the future.
-We've been redirected to the login page! http://silkroad6ownowfk.onion/login
-Waiting some random time before visiting
-Attempting to log in at http://silkroad6ownowfk.onion/login
-Unable to parse cookie date. Assuming it's way in the future.
-Unable to parse cookie date. Assuming it's way in the future.
+No initialization file specified! Defaulting to initialize.json.
+===========================================================================================================
+,---.   .--.   ____    .-------.        _______   .---.  .---..-./`) ,---.  ,---.   .-''-.  .-------.     
+|    \  |  | .'  __ `. |  _ _   \      /   __  \  |   |  |_ _|\ .-.')|   /  |   | .'_ _   \ |  _ _   \    
+|  ,  \ |  |/   '  \  \| ( ' )  |     | ,_/  \__) |   |  ( ' )/ `-' \|  |   |  .'/ ( ` )   '| ( ' )  |    
+|  |\_ \|  ||___|  /  ||(_ o _) /   ,-./  )       |   '-(_{:}_)`-'` `|  | _ |  |. (_ o _)  ||(_ o _) /    
+|  _( )_\  |   _.-`   || (_,_).' __ \  '_ '`)     |      (_,_) .---. |  _( )_  ||  (_,_)___|| (_,_).' __  
+| (_ o _)  |.'   _    ||  |\ \  |  | > (_)  )  __ | _ _--.   | |   | \ (_ o._) /'  \   .---.|  |\ \  |  | 
+|  (_,_)\  ||  _( )_  ||  | \ `'   /(  .  .-'_/  )|( ' ) |   | |   |  \ (_,_) /  \  `-'    /|  | \ `'   / 
+|  |    |  |\ (_ o _) /|  |  \    /  `-'`-'     / (_{;}_)|   | |   |   \     /    \       / |  |  \    /  
+'--'    '--' '.(_,_).' ''-'   `'-'     `._____.'  '(_,_) '---' '---'    `---`      `'-..-'  ''-'   `'-'   
+================Version 1.0================================================================================
+Current date: Sun Sep 28 17:15:24 EDT 2014
+Preparing to use initialization file initialize.json
+Preparing to trawl agora
+Begun trawling at 1411938924109.
+0|0|0|0: /
+
+
+ ========= GET: http://agorahooawayyfoe.onion/ =========
+ Host: agorahooawayyfoe.onion
+ User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Connection: keep-alive
+ Content-Type: application/x-www-form-urlencoded
+ 
+ Content: 
+=======================================================
+ 
+
+
+We've been redirected to the login page! http://agorahooawayyfoe.onion/login
+Attempting to log in at http://agorahooawayyfoe.onion/login
+
+
+ ========= GET: http://agorahooawayyfoe.onion/login =========
+ Host: agorahooawayyfoe.onion
+ User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Connection: keep-alive
+ Content-Type: application/x-www-form-urlencoded
+ Cookie: evidence=d/yVkb/LWzUbLa+FppcDpbbO8WNpbjypjO/SLTCKLL4;  path=/
+ 
+ Content: 
+============================================================
+ 
+
+<!DOCTYPE html><html><head>    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <title>Login</title>    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <link rel="stylesheet" href="/css/FontAwesome.css" type="text/css">    <link rel="stylesheet" href="/css/main.css" type="text/css">    <style type="text/css">        .pgp-verification, .pgp-verification textarea {        font-family: "DejaVu Sans Mono", "Consolas", "Courier", monospace;        font-size: 9px;        color: #222;        text-align: center;    }    .pgp-verification textarea {        display: inline-block;        text-align: left;        width: 400px;        height: 250px;        padding: 15px;    }    </style></head><body style="background-color: white;"><div style="width: 100%; height: 100%; text-align: center; vertical-align: middle;">    <div style="width: 10px; height: 40px;"></div>    <div id="login-bar" style="height: 300px;">        <img src="/images/zorroonbg.jpg" alt="" style="padding-bottom: 20px;" />                <form action="/dologin" method="post" >        <table style="width: 100%; text-align: center;" id="loginpage-table">                            <tr>                    <td style="text-align:right;"><input type="text" name="username" class="loginpage-field" placeholder="User Name" value="" id="username" /></td>                    <td style="width: 10px;"></td>                    <td style="text-align:left;"><input type="password" name="password" class="loginpage-field" placeholder="Password" value="" id="password" /></td>                </tr>                <tr>                    <td style="text-align:right;"><img src="/captcha" style="display: inline; border:1px solid #aaa;" /></td>                    <td style="width: 10px;"></td>                    <td style="text-align:left; vertical-align: top;"><input type="text" style="height: 28px; display: inline;" class="loginpage-field" name="enterCaptcha" id="enterCaptcha" value="" placeholder="Captcha code" /></td>                </tr>                <tr>                    <td style="text-align:right;"><div class="button-blue" style="display: inline-block;"><i class="fa fa-magic"></i> <a href="/register">Register</a></div></td>                    <td style="width: 10px;"></td>                    <td style="text-align:left;"><div class="button-red"><i class="fa fa-unlock-alt"></i> <input type="submit" name="submit" class="input-in-button" value="Log In" id="submit" /></div></td>                </tr>                                </table>        </form>    </div></div></body></html>
+
+
+ ========= GET: http://agorahooawayyfoe.onion/captcha =========
+ Host: agorahooawayyfoe.onion
+ User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Connection: keep-alive
+ Content-Type: application/x-www-form-urlencoded
+ Referrer: http://agorahooawayyfoe.onion/login
+ Cookie: evidence=d/yVkb/LWzUbLa+FppcDpbbO8WNpbjypjO/SLTCKLL4;  path=/
+ 
+ Content: 
+==============================================================
+ 
+
+Attempting to download image at http://agorahooawayyfoe.onion/captcha
+Adding captcha info: 8abyw to enterCaptcha
+
+
+ ========= POST: http://agorahooawayyfoe.onion/dologin =========
+ Host: agorahooawayyfoe.onion
+ User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Connection: keep-alive
+ Content-Type: application/x-www-form-urlencoded
+ Cookie: evidence=d/yVkb/LWzUbLa+FppcDpbbO8WNpbjypjO/SLTCKLL4;  path=/
+ Content-Length: 92
+ Referer: http://agorahooawayyfoe.onion/login
+ 
+ Content: username=archiver&password=c9a906e78accdb84d0bb31e062a1e904&enterCaptcha=8abyw&submit=Log+In
+===============================================================
+ 
+
+
 Successfully logged in, response code: 302
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/, current depth: 1
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/liberty, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-stimulants/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-psychedelics/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-prescription/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-precursors/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-other/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-opioids/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-ecstasy/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-dissociatives/items, current depth: 2
-IOException Server returned HTTP response code: 500 for URL: http://silkroad6ownowfk.onion/categories/drugs-dissociatives/items
-Warning! Trawling was interrupted. Retrying in 30 seconds: 500
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-cannabis/items, current depth: 2
-IOException Server returned HTTP response code: 500 for URL: http://silkroad6ownowfk.onion/categories/drugs-cannabis/items
-Warning! Trawling was interrupted. Retrying in 30 seconds: 500
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-steriodpeds/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Flushing information to file.
-Check 11
-Check /categories/drugs-steriodpeds/items
-Check /categories/drugs-ecstasy/items
-Check /categories/drugs-opioids/items
-Check /categories/drugs-other/items
-Check /categories/drugs-precursors/items
-Check /categories/drugs-prescription/items
-Check /categories/drugs-psychedelics/items
-Check /categories/drugs-stimulants/items
-Check /categories/drugs/items
-Check /liberty
-Final pass: Removing page /liberty
-Check /
-Final pass: Removing page /
-Storing pages.
-Dumping 9 pages to file at silkroad/1409334441304/
-Directory /home/njanetos/Dropbox/Programming/Narchiver/silkroad/1409334441304 does not exist, creating.
-Writing to silkroad/1409334441304.categories.drugs.items referer /
 
 
-Writing to silkroad/1409334441304.categories.drugs-stimulants.items referer /
+ ========= GET: http://agorahooawayyfoe.onion/ =========
+ Host: agorahooawayyfoe.onion
+ User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Connection: keep-alive
+ Content-Type: application/x-www-form-urlencoded
+ Referer: http://agorahooawayyfoe.onion/login
+ Cookie: evidence=d/yVkb/LWzUbLa+FppcDpbbO8WNpbjypjO/SLTCKLL4;  path=/
+ 
+ Content: 
+=======================================================
+ 
+
+<!DOCTYPE html><html>	<head>		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">		<title>Agora</title>		<meta name="viewport" content="width=device-width, initial-scale=1.0">        <link rel="stylesheet" href="/css/FontAwesome.css" type="text/css">        <link rel="stylesheet" href="/css/main.css" type="text/css">		          <style type="text/css">                </style>	</head>	<body>            <div id="topmost">        <table style="width: 100%; height: 100%;" cellpadding="0" cellspacing="0">            <tr>                <td id="smalllogo-td">Ag</td>                <td style="width: 20px; overflow: hidden;">&nbsp;</td>                <td id="topmost-middlecontent">                    <div id="page-heading">Agora <span style="color: #ccc;">Beta</span></div>                    <div id="topmenu-container">                                                    <a class="topmenu-element" href="/">Listings</a>                            <a class="topmenu-element" href="/profile">Profile</a>                            <a class="topmenu-element" href="/wallet">Wallet</a>                                                                                                <a class="topmenu-element" href="/orders">Orders</a>                                                                                                                                                <a class="topmenu-element" href="http://lacbzxobeprssrfx.onion" target="_blank">Forums</a>                                                                                                                                <a class="topmenu-element" href="/info">Info/Help</a>                    </div>                </td>                <td style="text-align: right; padding-right: 40px;">                    <div id="login-info-bar">                                                    Welcome                                                        archiver                            :: <a href="/wallet">Wallet 0.00000000 BTC</a>                                                        :: <i class="fa fa-btc"></i> 380.11 USD                                            </div>                    <div id="login-buttons-bar">                                                                                                                <div class="button-grey">                                                            <a href="/messagelist"><i class="fa fa-comments"></i>&nbsp;&nbsp;0 new messages</a>                            </div>                            <div class="button-red"><a href="/logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></div>                                            </div>                </td>            </tr>        </table>    </div>    <div style="width: 100%; height: 1px; background-color: #d9d9d9; overflow: hidden;">&nbsp;</div>    <div style="width: 100%; height: 1px; background-color: #FFFFFF; overflow: hidden;">&nbsp;</div>    <div id="top-navigation">            <div class="topnav-element"><a href="/">Listings</a></div><div class="topnav-divider-element">&gt;</div>        <div style="clear: both;"></div>    </div>    <div id="aftertopnav-divider-1"></div>    <div id="aftertopnav-divider-2"></div>    <div id="middlestuff" style="margin: 0 20px;">                    <table class="mainpagedivider" cellpadding="0" style="border: 0; padding: 0; margin: 0;"><tr><td style="width: 160px;" class="mainpagedividertd">            <div id="leftmenu">                <form action="/search" method="post" >                    <input type="text" name="s" style="width: 100%; margin-bottom: 15px;" placeholder="Search"/>                    <input type="submit" style="display: none;" value="Submit"/>                </form>                            <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/iagjMlD0Cr">Counterfeits<span class="extra-caption"> (700+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/sqxrhAitt4">Data<span class="extra-caption"> (400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/VK5iK8xY0i">Drug paraphernalia<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/vheN9d2mMr">Drugs<span class="extra-caption"> (12900+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/nL0oges5ZX">Electronics<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/uJM18V1Fyy">Forgeries<span class="extra-caption"> (300+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/PfjGSF75ez">Information<span class="extra-caption"> (1400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/EKbrBV7frb">Jewelry<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/sYqAB5BE46">Services<span class="extra-caption"> (400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/tFCxKyZhJm">Tobacco<span class="extra-caption"> (200+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/eD8l7PYEK3">Weapons<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/evljk7AG11">Other<span class="extra-caption"> (100+)</span></a></div>            </div> </td><td class="mainpagedividertd">                <div style="float: left;">                                                                                                                                        <div id="product-index" class="nofirstmargin">    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/AJXMA4b5Ph"><img src="/liabilities/preview/AJXMA4b5Ph.jpg" style="display: block; margin: auto;" alt="Fentanyl Hydrochloride (HCL) 99.8% PURE- 100mg (0.10 gram)"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/AJXMA4b5Ph">                Fentanyl Hydrochloride (HCL) 99.8% PURE- 100mg (0.10 gram)            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.49459367 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/J9pSDeyoYN"><img src="/liabilities/preview/J9pSDeyoYN.jpg" style="display: block; margin: auto;" alt="1/10 Ounce (3.11g) Gold Coin American Eagle Bullion"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/J9pSDeyoYN">                1/10 Ounce (3.11g) Gold Coin American Eagle Bullion            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.40251506 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/l9gpK2LyWs"><img src="/liabilities/preview/l9gpK2LyWs.jpg" style="display: block; margin: auto;" alt="10x Yellow Warner Bro&amp;acute;s 180-230MG MDMA"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/l9gpK2LyWs">                10x Yellow Warner Bro&amp;acute;s 180-230MG MDMA            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.19204966 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/jy2hZMzCEB"><img src="/liabilities/preview/jy2hZMzCEB.jpg" style="display: block; margin: auto;" alt="2g 84%+ MDA"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/jy2hZMzCEB">                2g 84%+ MDA            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.32872063 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/NyjoUUJAhN"><img src="/liabilities/preview/NyjoUUJAhN.jpg" style="display: block; margin: auto;" alt="UK Payday Loan Fraud Guide"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/NyjoUUJAhN">                UK Payday Loan Fraud Guide            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.07892452 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/AV1FYoj5md"><img src="/liabilities/preview/AV1FYoj5md.jpg" style="display: block; margin: auto;" alt="Chanel - Jewelry Watch J4281 [Replica]"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/AV1FYoj5md">                Chanel - Jewelry Watch J4281 [Replica]            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52353266 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/qjx6LG2fxM"><img src="/liabilities/preview/qjx6LG2fxM.jpg" style="display: block; margin: auto;" alt="350 Pills Rivotril 2 MG"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/qjx6LG2fxM">                350 Pills Rivotril 2 MG            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.72347478 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/MxJu9jbxJN"><img src="/liabilities/preview/MxJu9jbxJN.jpg" style="display: block; margin: auto;" alt="1 Gramm Cocaine ***high quality***"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/MxJu9jbxJN">                1 Gramm Cocaine ***high quality***            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.26308173 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/PvtCbxsq4q"><img src="/liabilities/preview/PvtCbxsq4q.jpg" style="display: block; margin: auto;" alt="Halotestin Hubei 50 tabs [5mg/tab] fluoxymesterolone"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/PvtCbxsq4q">                Halotestin Hubei 50 tabs [5mg/tab] fluoxymesterolone            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.15784904 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/wm1RfsuPxA"><img src="/liabilities/preview/wm1RfsuPxA.jpg" style="display: block; margin: auto;" alt="eBook How to Make $100 - $370 + Daily - How To Make Money PDF"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/wm1RfsuPxA">                eBook How to Make $100 - $370 + Daily - How To Make Money PDF            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.05261634 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/iuh2zgc988"><img src="/liabilities/preview/iuh2zgc988.jpg" style="display: block; margin: auto;" alt="2 hits @ 250mcg - Pure and Clean LSD - white fluff [Ants print]"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/iuh2zgc988">                2 hits @ 250mcg - Pure and Clean LSD - white fluff [Ants print]            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.05787798 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/qXa0Mhlw0y"><img src="/liabilities/preview/qXa0Mhlw0y.jpg" style="display: block; margin: auto;" alt="A-grade Girl Scout Cookies 0.5g"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/qXa0Mhlw0y">                A-grade Girl Scout Cookies 0.5g            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.01973113 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/s21thaCySi"><img src="/liabilities/preview/s21thaCySi.jpg" style="display: block; margin: auto;" alt="100 gram pure Cocaine Flakes -- Grade A Quality"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/s21thaCySi">                100 gram pure Cocaine Flakes -- Grade A Quality            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">20.25729394 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/VoAq33pZul"><img src="/liabilities/preview/VoAq33pZul.jpg" style="display: block; margin: auto;" alt="MDPV...!! 100 GRAM"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/VoAq33pZul">                MDPV...!! 100 GRAM            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">2.34142748 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/kAN5zqqwU2"><img src="/liabilities/preview/kAN5zqqwU2.jpg" style="display: block; margin: auto;" alt="Gucci leatherbelt(black/brown)G1-118"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/kAN5zqqwU2">                Gucci leatherbelt(black/brown)G1-118            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.23151193 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Va8EtBh3dA"><img src="/liabilities/preview/Va8EtBh3dA.jpg" style="display: block; margin: auto;" alt="Anonymous land in Panama"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Va8EtBh3dA">                Anonymous land in Panama            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">21985.00000000 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/VYtMTA8WXJ"><img src="/liabilities/preview/VYtMTA8WXJ.jpg" style="display: block; margin: auto;" alt="meth pipes"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/VYtMTA8WXJ">                meth pipes            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.26045092 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Lvr4P8DWL1"><img src="/liabilities/preview/Lvr4P8DWL1.jpg" style="display: block; margin: auto;" alt="Omega Lady Constellation Replica"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Lvr4P8DWL1">                Omega Lady Constellation Replica            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52616347 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/C2t3sixGgJ"><img src="/liabilities/preview/C2t3sixGgJ.jpg" style="display: block; margin: auto;" alt="Burberry London Winter Down Jacket replica"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/C2t3sixGgJ">                Burberry London Winter Down Jacket replica            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.29202073 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/np85eeAdbT"><img src="/liabilities/preview/np85eeAdbT.jpg" style="display: block; margin: auto;" alt="BERATT TAX FREE CIGARETTES CHEAP CIGARETTES"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/np85eeAdbT">                BERATT TAX FREE CIGARETTES CHEAP CIGARETTES            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.08944779 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Tpu0zlJS34"><img src="/liabilities/preview/Tpu0zlJS34.jpg" style="display: block; margin: auto;" alt="Plants of the Gods: Their Sacred, Healing, and Hallucinogenic Powers"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Tpu0zlJS34">                Plants of the Gods: Their Sacred, Healing, and Hallucinogenic Powers            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.00394622 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/g47BRjDANJ"><img src="/liabilities/preview/g47BRjDANJ.jpg" style="display: block; margin: auto;" alt="Cypionate (LA Pharma), 1ml, 200mg/ml"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/g47BRjDANJ">                Cypionate (LA Pharma), 1ml, 200mg/ml            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.03420062 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/hokKukhA1o"><img src="/liabilities/preview/hokKukhA1o.jpg" style="display: block; margin: auto;" alt="25 x Dutch quality LSD Shiva 130ug"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/hokKukhA1o">                25 x Dutch quality LSD Shiva 130ug            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.48143958 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/UjwCUBfawL"><img src="/liabilities/preview/UjwCUBfawL.jpg" style="display: block; margin: auto;" alt="MACHINE ELVES Connoisseur Quality 500mg ** MOST POTENT NN-DMT **"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/UjwCUBfawL">                MACHINE ELVES Connoisseur Quality 500mg ** MOST POTENT NN-DMT **            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.21046539 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/dRNS2zAJP9"><img src="/liabilities/preview/dRNS2zAJP9.jpg" style="display: block; margin: auto;" alt="Atmos Optimus cartomizer clear"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/dRNS2zAJP9">                Atmos Optimus cartomizer clear            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.03946226 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/T6iZzEMBSn"><img src="/liabilities/preview/T6iZzEMBSn.jpg" style="display: block; margin: auto;" alt="Sample 0.2 COCAINE 89%purity"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/T6iZzEMBSn">                Sample 0.2 COCAINE 89%purity            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.06212000 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/JA3ZcBmCE4"><img src="/liabilities/preview/JA3ZcBmCE4.jpg" style="display: block; margin: auto;" alt="0.5 GRAMS |||| Extreme Uncut ROCKY MOUNTIAN BROWN ||||"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/JA3ZcBmCE4">                0.5 GRAMS |||| Extreme Uncut ROCKY MOUNTIAN BROWN ||||            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.27623582 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/nzSZ0WYS7n"><img src="/liabilities/preview/nzSZ0WYS7n.jpg" style="display: block; margin: auto;" alt="25 gr Afghani Soft Hash - Dutch Coffeeshop Quality"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/nzSZ0WYS7n">                25 gr Afghani Soft Hash - Dutch Coffeeshop Quality            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52616347 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/oJkBuWCouo"><img src="/liabilities/preview/oJkBuWCouo.jpg" style="display: block; margin: auto;" alt="4-FMC...!! 500 GRAM"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/oJkBuWCouo">                4-FMC...!! 500 GRAM            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">5.76149009 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/GKTiXTfoou"><img src="/liabilities/preview/GKTiXTfoou.jpg" style="display: block; margin: auto;" alt="SECURING &amp;#87;INDOWS"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/GKTiXTfoou">                SECURING &amp;#87;INDOWS            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.01315408 BTC</span></div>    </div>        <div style="clear: both;"></div></div>        </div>                    </td></tr></table>            </div>    <div style="clear: both;"></div>   	</body></html>
+0|0|0|0: /
+
+
+ ========= GET: http://agorahooawayyfoe.onion/ =========
+ Host: agorahooawayyfoe.onion
+ User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Connection: keep-alive
+ Content-Type: application/x-www-form-urlencoded
+ Cookie: evidence=d/yVkb/LWzUbLa+FppcDpbbO8WNpbjypjO/SLTCKLL4;  path=/
+ 
+ Content: 
+=======================================================
+ 
+
+<!DOCTYPE html><html>	<head>		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">		<title>Agora</title>		<meta name="viewport" content="width=device-width, initial-scale=1.0">        <link rel="stylesheet" href="/css/FontAwesome.css" type="text/css">        <link rel="stylesheet" href="/css/main.css" type="text/css">		          <style type="text/css">                </style>	</head>	<body>            <div id="topmost">        <table style="width: 100%; height: 100%;" cellpadding="0" cellspacing="0">            <tr>                <td id="smalllogo-td">Ag</td>                <td style="width: 20px; overflow: hidden;">&nbsp;</td>                <td id="topmost-middlecontent">                    <div id="page-heading">Agora <span style="color: #ccc;">Beta</span></div>                    <div id="topmenu-container">                                                    <a class="topmenu-element" href="/">Listings</a>                            <a class="topmenu-element" href="/profile">Profile</a>                            <a class="topmenu-element" href="/wallet">Wallet</a>                                                                                                <a class="topmenu-element" href="/orders">Orders</a>                                                                                                                                                <a class="topmenu-element" href="http://lacbzxobeprssrfx.onion" target="_blank">Forums</a>                                                                                                                                <a class="topmenu-element" href="/info">Info/Help</a>                    </div>                </td>                <td style="text-align: right; padding-right: 40px;">                    <div id="login-info-bar">                                                    Welcome                                                        archiver                            :: <a href="/wallet">Wallet 0.00000000 BTC</a>                                                        :: <i class="fa fa-btc"></i> 380.11 USD                                            </div>                    <div id="login-buttons-bar">                                                                                                                <div class="button-grey">                                                            <a href="/messagelist"><i class="fa fa-comments"></i>&nbsp;&nbsp;0 new messages</a>                            </div>                            <div class="button-red"><a href="/logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></div>                                            </div>                </td>            </tr>        </table>    </div>    <div style="width: 100%; height: 1px; background-color: #d9d9d9; overflow: hidden;">&nbsp;</div>    <div style="width: 100%; height: 1px; background-color: #FFFFFF; overflow: hidden;">&nbsp;</div>    <div id="top-navigation">            <div class="topnav-element"><a href="/">Listings</a></div><div class="topnav-divider-element">&gt;</div>        <div style="clear: both;"></div>    </div>    <div id="aftertopnav-divider-1"></div>    <div id="aftertopnav-divider-2"></div>    <div id="middlestuff" style="margin: 0 20px;">                    <table class="mainpagedivider" cellpadding="0" style="border: 0; padding: 0; margin: 0;"><tr><td style="width: 160px;" class="mainpagedividertd">            <div id="leftmenu">                <form action="/search" method="post" >                    <input type="text" name="s" style="width: 100%; margin-bottom: 15px;" placeholder="Search"/>                    <input type="submit" style="display: none;" value="Submit"/>                </form>                            <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/iagjMlD0Cr">Counterfeits<span class="extra-caption"> (700+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/sqxrhAitt4">Data<span class="extra-caption"> (400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/VK5iK8xY0i">Drug paraphernalia<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/vheN9d2mMr">Drugs<span class="extra-caption"> (12900+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/nL0oges5ZX">Electronics<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/uJM18V1Fyy">Forgeries<span class="extra-caption"> (300+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/PfjGSF75ez">Information<span class="extra-caption"> (1400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/EKbrBV7frb">Jewelry<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/sYqAB5BE46">Services<span class="extra-caption"> (400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/tFCxKyZhJm">Tobacco<span class="extra-caption"> (200+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/eD8l7PYEK3">Weapons<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/evljk7AG11">Other<span class="extra-caption"> (100+)</span></a></div>            </div> </td><td class="mainpagedividertd">                <div style="float: left;">                                                                                                                                        <div id="product-index" class="nofirstmargin">    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/AJXMA4b5Ph"><img src="/liabilities/preview/AJXMA4b5Ph.jpg" style="display: block; margin: auto;" alt="Fentanyl Hydrochloride (HCL) 99.8% PURE- 100mg (0.10 gram)"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/AJXMA4b5Ph">                Fentanyl Hydrochloride (HCL) 99.8% PURE- 100mg (0.10 gram)            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.49459367 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/J9pSDeyoYN"><img src="/liabilities/preview/J9pSDeyoYN.jpg" style="display: block; margin: auto;" alt="1/10 Ounce (3.11g) Gold Coin American Eagle Bullion"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/J9pSDeyoYN">                1/10 Ounce (3.11g) Gold Coin American Eagle Bullion            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.40251506 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/l9gpK2LyWs"><img src="/liabilities/preview/l9gpK2LyWs.jpg" style="display: block; margin: auto;" alt="10x Yellow Warner Bro&amp;acute;s 180-230MG MDMA"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/l9gpK2LyWs">                10x Yellow Warner Bro&amp;acute;s 180-230MG MDMA            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.19204966 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/jy2hZMzCEB"><img src="/liabilities/preview/jy2hZMzCEB.jpg" style="display: block; margin: auto;" alt="2g 84%+ MDA"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/jy2hZMzCEB">                2g 84%+ MDA            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.32872063 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/NyjoUUJAhN"><img src="/liabilities/preview/NyjoUUJAhN.jpg" style="display: block; margin: auto;" alt="UK Payday Loan Fraud Guide"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/NyjoUUJAhN">                UK Payday Loan Fraud Guide            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.07892452 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/AV1FYoj5md"><img src="/liabilities/preview/AV1FYoj5md.jpg" style="display: block; margin: auto;" alt="Chanel - Jewelry Watch J4281 [Replica]"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/AV1FYoj5md">                Chanel - Jewelry Watch J4281 [Replica]            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52353266 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/qjx6LG2fxM"><img src="/liabilities/preview/qjx6LG2fxM.jpg" style="display: block; margin: auto;" alt="350 Pills Rivotril 2 MG"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/qjx6LG2fxM">                350 Pills Rivotril 2 MG            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.72347478 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/MxJu9jbxJN"><img src="/liabilities/preview/MxJu9jbxJN.jpg" style="display: block; margin: auto;" alt="1 Gramm Cocaine ***high quality***"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/MxJu9jbxJN">                1 Gramm Cocaine ***high quality***            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.26308173 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/PvtCbxsq4q"><img src="/liabilities/preview/PvtCbxsq4q.jpg" style="display: block; margin: auto;" alt="Halotestin Hubei 50 tabs [5mg/tab] fluoxymesterolone"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/PvtCbxsq4q">                Halotestin Hubei 50 tabs [5mg/tab] fluoxymesterolone            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.15784904 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/wm1RfsuPxA"><img src="/liabilities/preview/wm1RfsuPxA.jpg" style="display: block; margin: auto;" alt="eBook How to Make $100 - $370 + Daily - How To Make Money PDF"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/wm1RfsuPxA">                eBook How to Make $100 - $370 + Daily - How To Make Money PDF            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.05261634 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/iuh2zgc988"><img src="/liabilities/preview/iuh2zgc988.jpg" style="display: block; margin: auto;" alt="2 hits @ 250mcg - Pure and Clean LSD - white fluff [Ants print]"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/iuh2zgc988">                2 hits @ 250mcg - Pure and Clean LSD - white fluff [Ants print]            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.05787798 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/qXa0Mhlw0y"><img src="/liabilities/preview/qXa0Mhlw0y.jpg" style="display: block; margin: auto;" alt="A-grade Girl Scout Cookies 0.5g"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/qXa0Mhlw0y">                A-grade Girl Scout Cookies 0.5g            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.01973113 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/s21thaCySi"><img src="/liabilities/preview/s21thaCySi.jpg" style="display: block; margin: auto;" alt="100 gram pure Cocaine Flakes -- Grade A Quality"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/s21thaCySi">                100 gram pure Cocaine Flakes -- Grade A Quality            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">20.25729394 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/VoAq33pZul"><img src="/liabilities/preview/VoAq33pZul.jpg" style="display: block; margin: auto;" alt="MDPV...!! 100 GRAM"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/VoAq33pZul">                MDPV...!! 100 GRAM            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">2.34142748 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/kAN5zqqwU2"><img src="/liabilities/preview/kAN5zqqwU2.jpg" style="display: block; margin: auto;" alt="Gucci leatherbelt(black/brown)G1-118"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/kAN5zqqwU2">                Gucci leatherbelt(black/brown)G1-118            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.23151193 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Va8EtBh3dA"><img src="/liabilities/preview/Va8EtBh3dA.jpg" style="display: block; margin: auto;" alt="Anonymous land in Panama"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Va8EtBh3dA">                Anonymous land in Panama            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">21985.00000000 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/VYtMTA8WXJ"><img src="/liabilities/preview/VYtMTA8WXJ.jpg" style="display: block; margin: auto;" alt="meth pipes"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/VYtMTA8WXJ">                meth pipes            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.26045092 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Lvr4P8DWL1"><img src="/liabilities/preview/Lvr4P8DWL1.jpg" style="display: block; margin: auto;" alt="Omega Lady Constellation Replica"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Lvr4P8DWL1">                Omega Lady Constellation Replica            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52616347 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/C2t3sixGgJ"><img src="/liabilities/preview/C2t3sixGgJ.jpg" style="display: block; margin: auto;" alt="Burberry London Winter Down Jacket replica"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/C2t3sixGgJ">                Burberry London Winter Down Jacket replica            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.29202073 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/np85eeAdbT"><img src="/liabilities/preview/np85eeAdbT.jpg" style="display: block; margin: auto;" alt="BERATT TAX FREE CIGARETTES CHEAP CIGARETTES"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/np85eeAdbT">                BERATT TAX FREE CIGARETTES CHEAP CIGARETTES            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.08944779 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Tpu0zlJS34"><img src="/liabilities/preview/Tpu0zlJS34.jpg" style="display: block; margin: auto;" alt="Plants of the Gods: Their Sacred, Healing, and Hallucinogenic Powers"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Tpu0zlJS34">                Plants of the Gods: Their Sacred, Healing, and Hallucinogenic Powers            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.00394622 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/g47BRjDANJ"><img src="/liabilities/preview/g47BRjDANJ.jpg" style="display: block; margin: auto;" alt="Cypionate (LA Pharma), 1ml, 200mg/ml"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/g47BRjDANJ">                Cypionate (LA Pharma), 1ml, 200mg/ml            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.03420062 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/hokKukhA1o"><img src="/liabilities/preview/hokKukhA1o.jpg" style="display: block; margin: auto;" alt="25 x Dutch quality LSD Shiva 130ug"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/hokKukhA1o">                25 x Dutch quality LSD Shiva 130ug            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.48143958 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/UjwCUBfawL"><img src="/liabilities/preview/UjwCUBfawL.jpg" style="display: block; margin: auto;" alt="MACHINE ELVES Connoisseur Quality 500mg ** MOST POTENT NN-DMT **"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/UjwCUBfawL">                MACHINE ELVES Connoisseur Quality 500mg ** MOST POTENT NN-DMT **            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.21046539 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/dRNS2zAJP9"><img src="/liabilities/preview/dRNS2zAJP9.jpg" style="display: block; margin: auto;" alt="Atmos Optimus cartomizer clear"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/dRNS2zAJP9">                Atmos Optimus cartomizer clear            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.03946226 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/T6iZzEMBSn"><img src="/liabilities/preview/T6iZzEMBSn.jpg" style="display: block; margin: auto;" alt="Sample 0.2 COCAINE 89%purity"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/T6iZzEMBSn">                Sample 0.2 COCAINE 89%purity            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.06212000 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/JA3ZcBmCE4"><img src="/liabilities/preview/JA3ZcBmCE4.jpg" style="display: block; margin: auto;" alt="0.5 GRAMS |||| Extreme Uncut ROCKY MOUNTIAN BROWN ||||"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/JA3ZcBmCE4">                0.5 GRAMS |||| Extreme Uncut ROCKY MOUNTIAN BROWN ||||            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.27623582 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/nzSZ0WYS7n"><img src="/liabilities/preview/nzSZ0WYS7n.jpg" style="display: block; margin: auto;" alt="25 gr Afghani Soft Hash - Dutch Coffeeshop Quality"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/nzSZ0WYS7n">                25 gr Afghani Soft Hash - Dutch Coffeeshop Quality            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52616347 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/oJkBuWCouo"><img src="/liabilities/preview/oJkBuWCouo.jpg" style="display: block; margin: auto;" alt="4-FMC...!! 500 GRAM"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/oJkBuWCouo">                4-FMC...!! 500 GRAM            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">5.76149009 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/GKTiXTfoou"><img src="/liabilities/preview/GKTiXTfoou.jpg" style="display: block; margin: auto;" alt="SECURING &amp;#87;INDOWS"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/GKTiXTfoou">                SECURING &amp;#87;INDOWS            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.01315408 BTC</span></div>    </div>        <div style="clear: both;"></div></div>        </div>                    </td></tr></table>            </div>    <div style="clear: both;"></div>   	</body></html>
+1|32|1|33: /
+
+
+ ========= GET: http://agorahooawayyfoe.onion/ =========
+ Host: agorahooawayyfoe.onion
+ User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Connection: keep-alive
+ Content-Type: application/x-www-form-urlencoded
+ Cookie: evidence=d/yVkb/LWzUbLa+FppcDpbbO8WNpbjypjO/SLTCKLL4;  path=/
+ 
+ Content: 
+=======================================================
+ 
+
+<!DOCTYPE html><html>	<head>		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">		<title>Agora</title>		<meta name="viewport" content="width=device-width, initial-scale=1.0">        <link rel="stylesheet" href="/css/FontAwesome.css" type="text/css">        <link rel="stylesheet" href="/css/main.css" type="text/css">		          <style type="text/css">                </style>	</head>	<body>            <div id="topmost">        <table style="width: 100%; height: 100%;" cellpadding="0" cellspacing="0">            <tr>                <td id="smalllogo-td">Ag</td>                <td style="width: 20px; overflow: hidden;">&nbsp;</td>                <td id="topmost-middlecontent">                    <div id="page-heading">Agora <span style="color: #ccc;">Beta</span></div>                    <div id="topmenu-container">                                                    <a class="topmenu-element" href="/">Listings</a>                            <a class="topmenu-element" href="/profile">Profile</a>                            <a class="topmenu-element" href="/wallet">Wallet</a>                                                                                                <a class="topmenu-element" href="/orders">Orders</a>                                                                                                                                                <a class="topmenu-element" href="http://lacbzxobeprssrfx.onion" target="_blank">Forums</a>                                                                                                                                <a class="topmenu-element" href="/info">Info/Help</a>                    </div>                </td>                <td style="text-align: right; padding-right: 40px;">                    <div id="login-info-bar">                                                    Welcome                                                        archiver                            :: <a href="/wallet">Wallet 0.00000000 BTC</a>                                                        :: <i class="fa fa-btc"></i> 380.11 USD                                            </div>                    <div id="login-buttons-bar">                                                                                                                <div class="button-grey">                                                            <a href="/messagelist"><i class="fa fa-comments"></i>&nbsp;&nbsp;0 new messages</a>                            </div>                            <div class="button-red"><a href="/logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></div>                                            </div>                </td>            </tr>        </table>    </div>    <div style="width: 100%; height: 1px; background-color: #d9d9d9; overflow: hidden;">&nbsp;</div>    <div style="width: 100%; height: 1px; background-color: #FFFFFF; overflow: hidden;">&nbsp;</div>    <div id="top-navigation">            <div class="topnav-element"><a href="/">Listings</a></div><div class="topnav-divider-element">&gt;</div>        <div style="clear: both;"></div>    </div>    <div id="aftertopnav-divider-1"></div>    <div id="aftertopnav-divider-2"></div>    <div id="middlestuff" style="margin: 0 20px;">                    <table class="mainpagedivider" cellpadding="0" style="border: 0; padding: 0; margin: 0;"><tr><td style="width: 160px;" class="mainpagedividertd">            <div id="leftmenu">                <form action="/search" method="post" >                    <input type="text" name="s" style="width: 100%; margin-bottom: 15px;" placeholder="Search"/>                    <input type="submit" style="display: none;" value="Submit"/>                </form>                            <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/iagjMlD0Cr">Counterfeits<span class="extra-caption"> (700+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/sqxrhAitt4">Data<span class="extra-caption"> (400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/VK5iK8xY0i">Drug paraphernalia<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/vheN9d2mMr">Drugs<span class="extra-caption"> (12900+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/nL0oges5ZX">Electronics<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/uJM18V1Fyy">Forgeries<span class="extra-caption"> (300+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/PfjGSF75ez">Information<span class="extra-caption"> (1400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/EKbrBV7frb">Jewelry<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/sYqAB5BE46">Services<span class="extra-caption"> (400+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/tFCxKyZhJm">Tobacco<span class="extra-caption"> (200+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/eD8l7PYEK3">Weapons<span class="extra-caption"> (100+)</span></a></div>        <div class="leftmenu-element "><div class="drawer"></div><a href="/cat/evljk7AG11">Other<span class="extra-caption"> (100+)</span></a></div>            </div> </td><td class="mainpagedividertd">                <div style="float: left;">                                                                                                                                        <div id="product-index" class="nofirstmargin">    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/AJXMA4b5Ph"><img src="/liabilities/preview/AJXMA4b5Ph.jpg" style="display: block; margin: auto;" alt="Fentanyl Hydrochloride (HCL) 99.8% PURE- 100mg (0.10 gram)"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/AJXMA4b5Ph">                Fentanyl Hydrochloride (HCL) 99.8% PURE- 100mg (0.10 gram)            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.49459367 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/J9pSDeyoYN"><img src="/liabilities/preview/J9pSDeyoYN.jpg" style="display: block; margin: auto;" alt="1/10 Ounce (3.11g) Gold Coin American Eagle Bullion"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/J9pSDeyoYN">                1/10 Ounce (3.11g) Gold Coin American Eagle Bullion            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.40251506 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/l9gpK2LyWs"><img src="/liabilities/preview/l9gpK2LyWs.jpg" style="display: block; margin: auto;" alt="10x Yellow Warner Bro&amp;acute;s 180-230MG MDMA"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/l9gpK2LyWs">                10x Yellow Warner Bro&amp;acute;s 180-230MG MDMA            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.19204966 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/jy2hZMzCEB"><img src="/liabilities/preview/jy2hZMzCEB.jpg" style="display: block; margin: auto;" alt="2g 84%+ MDA"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/jy2hZMzCEB">                2g 84%+ MDA            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.32872063 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/NyjoUUJAhN"><img src="/liabilities/preview/NyjoUUJAhN.jpg" style="display: block; margin: auto;" alt="UK Payday Loan Fraud Guide"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/NyjoUUJAhN">                UK Payday Loan Fraud Guide            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.07892452 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/AV1FYoj5md"><img src="/liabilities/preview/AV1FYoj5md.jpg" style="display: block; margin: auto;" alt="Chanel - Jewelry Watch J4281 [Replica]"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/AV1FYoj5md">                Chanel - Jewelry Watch J4281 [Replica]            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52353266 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/qjx6LG2fxM"><img src="/liabilities/preview/qjx6LG2fxM.jpg" style="display: block; margin: auto;" alt="350 Pills Rivotril 2 MG"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/qjx6LG2fxM">                350 Pills Rivotril 2 MG            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.72347478 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/MxJu9jbxJN"><img src="/liabilities/preview/MxJu9jbxJN.jpg" style="display: block; margin: auto;" alt="1 Gramm Cocaine ***high quality***"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/MxJu9jbxJN">                1 Gramm Cocaine ***high quality***            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.26308173 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/PvtCbxsq4q"><img src="/liabilities/preview/PvtCbxsq4q.jpg" style="display: block; margin: auto;" alt="Halotestin Hubei 50 tabs [5mg/tab] fluoxymesterolone"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/PvtCbxsq4q">                Halotestin Hubei 50 tabs [5mg/tab] fluoxymesterolone            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.15784904 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/wm1RfsuPxA"><img src="/liabilities/preview/wm1RfsuPxA.jpg" style="display: block; margin: auto;" alt="eBook How to Make $100 - $370 + Daily - How To Make Money PDF"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/wm1RfsuPxA">                eBook How to Make $100 - $370 + Daily - How To Make Money PDF            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.05261634 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/iuh2zgc988"><img src="/liabilities/preview/iuh2zgc988.jpg" style="display: block; margin: auto;" alt="2 hits @ 250mcg - Pure and Clean LSD - white fluff [Ants print]"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/iuh2zgc988">                2 hits @ 250mcg - Pure and Clean LSD - white fluff [Ants print]            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.05787798 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/qXa0Mhlw0y"><img src="/liabilities/preview/qXa0Mhlw0y.jpg" style="display: block; margin: auto;" alt="A-grade Girl Scout Cookies 0.5g"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/qXa0Mhlw0y">                A-grade Girl Scout Cookies 0.5g            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.01973113 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/s21thaCySi"><img src="/liabilities/preview/s21thaCySi.jpg" style="display: block; margin: auto;" alt="100 gram pure Cocaine Flakes -- Grade A Quality"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/s21thaCySi">                100 gram pure Cocaine Flakes -- Grade A Quality            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">20.25729394 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/VoAq33pZul"><img src="/liabilities/preview/VoAq33pZul.jpg" style="display: block; margin: auto;" alt="MDPV...!! 100 GRAM"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/VoAq33pZul">                MDPV...!! 100 GRAM            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">2.34142748 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/kAN5zqqwU2"><img src="/liabilities/preview/kAN5zqqwU2.jpg" style="display: block; margin: auto;" alt="Gucci leatherbelt(black/brown)G1-118"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/kAN5zqqwU2">                Gucci leatherbelt(black/brown)G1-118            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.23151193 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Va8EtBh3dA"><img src="/liabilities/preview/Va8EtBh3dA.jpg" style="display: block; margin: auto;" alt="Anonymous land in Panama"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Va8EtBh3dA">                Anonymous land in Panama            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">21985.00000000 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/VYtMTA8WXJ"><img src="/liabilities/preview/VYtMTA8WXJ.jpg" style="display: block; margin: auto;" alt="meth pipes"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/VYtMTA8WXJ">                meth pipes            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.26045092 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Lvr4P8DWL1"><img src="/liabilities/preview/Lvr4P8DWL1.jpg" style="display: block; margin: auto;" alt="Omega Lady Constellation Replica"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Lvr4P8DWL1">                Omega Lady Constellation Replica            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52616347 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/C2t3sixGgJ"><img src="/liabilities/preview/C2t3sixGgJ.jpg" style="display: block; margin: auto;" alt="Burberry London Winter Down Jacket replica"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/C2t3sixGgJ">                Burberry London Winter Down Jacket replica            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.29202073 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/np85eeAdbT"><img src="/liabilities/preview/np85eeAdbT.jpg" style="display: block; margin: auto;" alt="BERATT TAX FREE CIGARETTES CHEAP CIGARETTES"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/np85eeAdbT">                BERATT TAX FREE CIGARETTES CHEAP CIGARETTES            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.08944779 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/Tpu0zlJS34"><img src="/liabilities/preview/Tpu0zlJS34.jpg" style="display: block; margin: auto;" alt="Plants of the Gods: Their Sacred, Healing, and Hallucinogenic Powers"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/Tpu0zlJS34">                Plants of the Gods: Their Sacred, Healing, and Hallucinogenic Powers            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.00394622 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/g47BRjDANJ"><img src="/liabilities/preview/g47BRjDANJ.jpg" style="display: block; margin: auto;" alt="Cypionate (LA Pharma), 1ml, 200mg/ml"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/g47BRjDANJ">                Cypionate (LA Pharma), 1ml, 200mg/ml            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.03420062 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/hokKukhA1o"><img src="/liabilities/preview/hokKukhA1o.jpg" style="display: block; margin: auto;" alt="25 x Dutch quality LSD Shiva 130ug"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/hokKukhA1o">                25 x Dutch quality LSD Shiva 130ug            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.48143958 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/UjwCUBfawL"><img src="/liabilities/preview/UjwCUBfawL.jpg" style="display: block; margin: auto;" alt="MACHINE ELVES Connoisseur Quality 500mg ** MOST POTENT NN-DMT **"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/UjwCUBfawL">                MACHINE ELVES Connoisseur Quality 500mg ** MOST POTENT NN-DMT **            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.21046539 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/dRNS2zAJP9"><img src="/liabilities/preview/dRNS2zAJP9.jpg" style="display: block; margin: auto;" alt="Atmos Optimus cartomizer clear"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/dRNS2zAJP9">                Atmos Optimus cartomizer clear            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.03946226 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/T6iZzEMBSn"><img src="/liabilities/preview/T6iZzEMBSn.jpg" style="display: block; margin: auto;" alt="Sample 0.2 COCAINE 89%purity"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/T6iZzEMBSn">                Sample 0.2 COCAINE 89%purity            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.06212000 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/JA3ZcBmCE4"><img src="/liabilities/preview/JA3ZcBmCE4.jpg" style="display: block; margin: auto;" alt="0.5 GRAMS |||| Extreme Uncut ROCKY MOUNTIAN BROWN ||||"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/JA3ZcBmCE4">                0.5 GRAMS |||| Extreme Uncut ROCKY MOUNTIAN BROWN ||||            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.27623582 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/nzSZ0WYS7n"><img src="/liabilities/preview/nzSZ0WYS7n.jpg" style="display: block; margin: auto;" alt="25 gr Afghani Soft Hash - Dutch Coffeeshop Quality"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/nzSZ0WYS7n">                25 gr Afghani Soft Hash - Dutch Coffeeshop Quality            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.52616347 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/oJkBuWCouo"><img src="/liabilities/preview/oJkBuWCouo.jpg" style="display: block; margin: auto;" alt="4-FMC...!! 500 GRAM"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/oJkBuWCouo">                4-FMC...!! 500 GRAM            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">5.76149009 BTC</span></div>    </div>    <div class="product-index-floater">        <a style="display: block; height: 105px;" href="/p/GKTiXTfoou"><img src="/liabilities/preview/GKTiXTfoou.jpg" style="display: block; margin: auto;" alt="SECURING &amp;#87;INDOWS"/></a>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-caption">            <a href="/p/GKTiXTfoou">                SECURING &amp;#87;INDOWS            </a>        </span>        </div>        <div style="height: 15px; overflow: hidden;"><span class="product-index-floater-price">0.01315408 BTC</span></div>    </div>        <div style="clear: both;"></div></div>        </div>                    </td></tr></table>            </div>    <div style="clear: both;"></div>   	</body></html>
+1|31|2|33: /cat/vheN9d2mMr
+
+
+ ========= GET: http://agorahooawayyfoe.onion/cat/vheN9d2mMr =========
+ Host: agorahooawayyfoe.onion
+ User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Connection: keep-alive
+ Content-Type: application/x-www-form-urlencoded
+ Cookie: evidence=d/yVkb/LWzUbLa+FppcDpbbO8WNpbjypjO/SLTCKLL4;  path=/
+ 
+ Content: 
+=====================================================================
+ 
 
-
-Writing to silkroad/1409334441304.categories.drugs-psychedelics.items referer /
-
-
-Writing to silkroad/1409334441304.categories.drugs-prescription.items referer /
-
-
-Writing to silkroad/1409334441304.categories.drugs-precursors.items referer /
-
-
-Writing to silkroad/1409334441304.categories.drugs-other.items referer /
-
-
-Writing to silkroad/1409334441304.categories.drugs-opioids.items referer /
-
-
-Writing to silkroad/1409334441304.categories.drugs-ecstasy.items referer /
-
-
-Writing to silkroad/1409334441304.categories.drugs-steriodpeds.items referer /
-
-
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs-other-intoxicants-alcohol/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/medical/items, current depth: 2
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/liberty, current depth: 3
-IOException Server returned HTTP response code: 408 for URL: http://silkroad6ownowfk.onion/liberty
-Warning! Trawling was interrupted. Retrying in 30 seconds: 408
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/categories/drugs/items, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-platinum-standard-pure-fire-mdma, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-platinum-standard-pure-fire-mdma#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/platinum-standard, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/200mg-high-quality-dmt, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/200mg-high-quality-dmt#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/ringo-deathstarr, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-of-pure-uncut-peruvian-cocaine, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-of-pure-uncut-peruvian-cocaine#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Flushing information to file.
-Check 11
-Check /items/1g-of-pure-uncut-peruvian-cocaine#feedback
-Check /items/1g-of-pure-uncut-peruvian-cocaine
-Check /users/ringo-deathstarr
-Final pass: Removing page /users/ringo-deathstarr
-Check /items/200mg-high-quality-dmt#feedback
-Check /items/200mg-high-quality-dmt
-Check /users/platinum-standard
-Final pass: Removing page /users/platinum-standard
-Check /items/1g-platinum-standard-pure-fire-mdma#feedback
-Check /items/1g-platinum-standard-pure-fire-mdma
-Check /categories/drugs/items
-Check /categories/medical/items
-Check /categories/drugs-other-intoxicants-alcohol/items
-Storing pages.
-Dumping 9 pages to file at silkroad/1409334441304/
-Writing to silkroad/1409334441304.categories.drugs-other-intoxicants-alcohol.items referer /
-
-
-Writing to silkroad/1409334441304.categories.medical.items referer /
-
-
-Writing to silkroad/1409334441304.categories.drugs.items referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1g-platinum-standard-pure-fire-mdma referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1g-platinum-standard-pure-fire-mdma#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.200mg-high-quality-dmt referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.200mg-high-quality-dmt#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1g-of-pure-uncut-peruvian-cocaine referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1g-of-pure-uncut-peruvian-cocaine#feedback referer /categories/drugs/items
-
-
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/fredthebaker, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1gr-pure-flake-cocaine, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1gr-pure-flake-cocaine#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/lostheaven, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-white-widow-dutchmagic, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-white-widow-dutchmagic#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/dutchmagic, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-of-speed-paste-80, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-of-speed-paste-80#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/xanax-2mg-quad-bar, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/xanax-2mg-quad-bar#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Flushing information to file.
-Check 11
-Check /items/xanax-2mg-quad-bar#feedback
-Check /items/xanax-2mg-quad-bar
-Check /items/5g-of-speed-paste-80#feedback
-Check /items/5g-of-speed-paste-80
-Check /users/dutchmagic
-Final pass: Removing page /users/dutchmagic
-Check /items/5g-white-widow-dutchmagic#feedback
-Check /items/5g-white-widow-dutchmagic
-Check /users/lostheaven
-Final pass: Removing page /users/lostheaven
-Check /items/1gr-pure-flake-cocaine#feedback
-Check /items/1gr-pure-flake-cocaine
-Check /users/fredthebaker
-Final pass: Removing page /users/fredthebaker
-Storing pages.
-Dumping 8 pages to file at silkroad/1409334441304/
-Writing to silkroad/1409334441304.items.1gr-pure-flake-cocaine referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1gr-pure-flake-cocaine#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.5g-white-widow-dutchmagic referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.5g-white-widow-dutchmagic#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.5g-of-speed-paste-80 referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.5g-of-speed-paste-80#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.xanax-2mg-quad-bar referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.xanax-2mg-quad-bar#feedback referer /categories/drugs/items
-
-
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/domesticdoode, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/marcelketman, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/ketamine-1g, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/ketamine-1g#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/project4, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/tripwithscience, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-high-quality-dmt, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Flushing information to file.
-Check 11
-Check /items/5g-high-quality-dmt
-Check /users/tripwithscience
-Final pass: Removing page /users/tripwithscience
-Check /items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details#feedback
-Check /items/liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details
-Check /users/project4
-Final pass: Removing page /users/project4
-Check /items/ketamine-1g#feedback
-Check /items/ketamine-1g
-Check /users/marcelketman
-Final pass: Removing page /users/marcelketman
-Check /items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4#feedback
-Check /items/ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4
-Check /users/domesticdoode
-Final pass: Removing page /users/domesticdoode
-Storing pages.
-Dumping 7 pages to file at silkroad/1409334441304/
-Writing to silkroad/1409334441304.items.ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4 referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.ketamine-1g-c64897dc-9ab4-43e6-8d93-a9e38dccc8e4#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.ketamine-1g referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.ketamine-1g#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.liquid-mushrooms-pure-psilocybin-no-nausea-faster-trip-cleaner-feel-than-dried-shrooms-click-for-details#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.5g-high-quality-dmt referer /categories/drugs/items
-
-
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/5g-high-quality-dmt#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-dmt-freebase, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-dmt-freebase#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-beautiful-mdma-80, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1g-beautiful-mdma-80#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/angelina-s-daze-straspberry-suckers-1x, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/angelina-s-daze-straspberry-suckers-1x#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/angelina, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/dahbome, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Flushing information to file.
-Check 11
-Check /users/dahbome
-Final pass: Removing page /users/dahbome
-Check /items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome#feedback
-Check /items/10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome
-Check /users/angelina
-Final pass: Removing page /users/angelina
-Check /items/angelina-s-daze-straspberry-suckers-1x#feedback
-Check /items/angelina-s-daze-straspberry-suckers-1x
-Check /items/1g-beautiful-mdma-80#feedback
-Check /items/1g-beautiful-mdma-80
-Check /items/1g-dmt-freebase#feedback
-Check /items/1g-dmt-freebase
-Check /items/5g-high-quality-dmt#feedback
-Storing pages.
-Dumping 9 pages to file at silkroad/1409334441304/
-Writing to silkroad/1409334441304.items.5g-high-quality-dmt#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1g-dmt-freebase referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1g-dmt-freebase#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1g-beautiful-mdma-80 referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1g-beautiful-mdma-80#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.angelina-s-daze-straspberry-suckers-1x referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.angelina-s-daze-straspberry-suckers-1x#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.10-x-1000ug-25i-nbome-blotters-hpbcd-complexed-dahbome#feedback referer /categories/drugs/items
-
-
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/cornettos, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/10gr-badass-mdma-crystals-80, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/10gr-badass-mdma-crystals-80#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/power-plant-3gr, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/power-plant-3gr#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/online-cannabis-king, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1000mg-of-mescaline-hcl, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/1000mg-of-mescaline-hcl#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/gammagoblin, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Flushing information to file.
-Check 11
-Check /users/gammagoblin
-Final pass: Removing page /users/gammagoblin
-Check /items/1000mg-of-mescaline-hcl#feedback
-Check /items/1000mg-of-mescaline-hcl
-Check /users/online-cannabis-king
-Final pass: Removing page /users/online-cannabis-king
-Check /items/power-plant-3gr#feedback
-Check /items/power-plant-3gr
-Check /items/10gr-badass-mdma-crystals-80#feedback
-Check /items/10gr-badass-mdma-crystals-80
-Check /users/cornettos
-Final pass: Removing page /users/cornettos
-Check /items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer#feedback
-Check /items/intro-offer-0-5g-uncut-90-cocaine-one-per-customer
-Storing pages.
-Dumping 8 pages to file at silkroad/1409334441304/
-Writing to silkroad/1409334441304.items.intro-offer-0-5g-uncut-90-cocaine-one-per-customer referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.intro-offer-0-5g-uncut-90-cocaine-one-per-customer#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.10gr-badass-mdma-crystals-80 referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.10gr-badass-mdma-crystals-80#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.power-plant-3gr referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.power-plant-3gr#feedback referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1000mg-of-mescaline-hcl referer /categories/drugs/items
-
-
-Writing to silkroad/1409334441304.items.1000mg-of-mescaline-hcl#feedback referer /categories/drugs/items
-
-
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/durban-poison-1g, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/durban-poison-1g#feedback, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/users/carlos-lopez, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting
-Downloading and analyzing http://silkroad6ownowfk.onion/items/beautiful-creamy-high-grade-pollen-14g-listing-import, current depth: 3
-Unable to parse cookie date. Assuming it's way in the future.
-Waiting some random time before visiting

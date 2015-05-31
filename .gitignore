@@ -1,1 +1,10 @@
-/target/
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!*.json
+!*.java
+
+# ...even if they are in subdirectories
+!*/
