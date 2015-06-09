@@ -5,4 +5,5 @@
 inst/doc
 drugs.Rproj
 *_cache/
+man/
 __packages
