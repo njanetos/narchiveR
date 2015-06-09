@@ -11,7 +11,7 @@ vignette: >
 
 # Introduction
 
-Beginning in September, 2014, I began to archive price data on illicit drugs from deep web marketplaces, such as the Silk Road. This document describes the process with which I cleaned the data and the process through which I construct price indices.
+This document describes the process with which I construct price indices using microdata scraped from various 'Deep Web' illicit drug marketplaces. 
 
 ## Data
 
