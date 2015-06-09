@@ -78,7 +78,7 @@ get.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices 
     }
     
     if (is.na(get.selected.database())) {
-        stop("Not using to a database. Call select.database() before running queries.");
+        stop("Not using a database. Call select.database() before running queries.");
     }
     
     rs <- dbSendQuery(mysql.connection, query);
@@ -99,4 +99,24 @@ get.selected.database = function() {
         mysql.connection, "select database();"
     )))
     
+}
+
+get.date.range = function() {
+    if (!exists("mysql.connection")) {
+        connect.database()
+    }
+    
+    if (is.na(get.selected.database())) {
+        stop("Not using a database. Call select.database() before running queries.");
+    }
+    
+    rs <- dbSendQuery(mysql.connection, "SELECT MIN(date) FROM Listing_prices");
+    resultMin <- dbFetch(rs, n = -1)$"MIN(date)";
+    dbClearResult(rs);
+    
+    rs <- dbSendQuery(mysql.connection, "SELECT MAX(date) FROM Listing_prices");
+    resultMax <- dbFetch(rs, n = -1)$"MAX(date)";
+    dbClearResult(rs);
+
+    return(c(resultMin, resultMax));
 }
