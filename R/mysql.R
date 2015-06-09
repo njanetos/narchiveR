@@ -9,9 +9,9 @@ show.databases = function() {
     
 }
 
-#' Connect to a particular database.
+#' Opens a connection to the SQL server, and optionally connects to the database.
 #'
-#' @param dbname The name of the database. A complete list of names can be found using show.databases.
+#' @param dbname The name of the database. A complete list of names can be found using show.databases after running connect.database().
 #' @examples
 #' connect.database("drugs_agora")
 connect.database = function(dbname = NULL) {
@@ -31,6 +31,11 @@ connect.database = function(dbname = NULL) {
     
 }
 
+#' Connects to the database.
+#'
+#' @param dbname The name of the database. A complete list of names can be found using show.databases after running connect.database().
+#' @examples
+#' select.database("drugs_agora")
 select.database = function(dbname) {
     if (!exists("mysql.connection")) {
         connect.database()
@@ -45,6 +50,7 @@ select.database = function(dbname) {
     
 }
 
+#' Disconnects from the SQL server.
 disconnect.database = function() {
     if (!exists("mysql.connection")) {
         return(TRUE)
@@ -55,7 +61,12 @@ disconnect.database = function() {
     
 }
 
-get.prices.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id") {
+#' Returns the results of a SQL query. By default, performs an inner join on listings and prices and returns everything.
+#'
+#' @param query The SQL query to run.
+#' @examples
+#' get.query("SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id")
+get.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id") {
     rs <- dbSendQuery(mysql.connection, query);
     result <- dbFetch(rs, n = -1);
     dbClearResult(rs);
@@ -64,13 +75,14 @@ get.prices.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_
     
 }
 
+#' Returns the database currently connected to.
 get.selected.database = function() {
     if (!exists("mysql.connection")) {
         connect.database()
     }
     
-    dat = as.character(dbGetQuery(mysql.connection, "select database();"));
-    
-    return(dat)
+    return(as.character(dbGetQuery(
+        mysql.connection, "select database();"
+    )))
     
 }
