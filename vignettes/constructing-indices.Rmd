@@ -1,0 +1,175 @@
+---
+title: "Illicit drug price indices"
+author: "Nick Janetos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+Beginning in September, 2014, I began to archive price data on illicit drugs from deep web marketplaces, such as the Silk Road. This document describes the process with which I cleaned the data and the process through which I construct price indices.
+
+## Data
+
+```{r packages, echo=FALSE, message=FALSE}
+setwd("~/Research/Deep web markets/descriptive");
+library(sqldf);
+library(fields);
+library(drugs);
+```
+
+The file `all_data.RData` contains the raw, unprocessed data. It consists of two parts, `listings` and `listings_prices`. `listings` has a complete list of all listings that were archived, along with the site of origin, and a (sometimes missing) classification of the type of drug. `listings_prices` contains a complete list of what I call 'price points'. A price point is a record of a particular price that the listing was offered for at a particular time. It contains the number of items offered at that time, some measurement of the amount of drug per item, the price, and the parent listing. 
+
+```{r load_data, cache=TRUE}
+con = connect("drugs_all");
+
+rs <- dbSendQuery(con, "SELECT * FROM Listing L
+                                 INNER JOIN Listing_prices P
+                                 ON L.id = P.Listing_id
+                                 WHERE category = 2361707
+                                 AND denomination = 'USD'
+                                 AND units = 'mg'");
+d1 <- dbFetch(rs);
+# clear result
+dbClearResult(rs);
+print(d1);
+
+# disconnect
+disconnect(con)
+```
+
+## Constructing price indices
+
+In this section I describe the process by which I construct the price indices. Each drug index presents different challenges, and is handled in a different way.
+
+### Ecstasy
+
+To begin with, let's extract all listings for the drug Ecstasy, whose price is in US dollars, and which is measured in milligrams. Ecstasy is one of the easiest drugs to track, because it has a relatively standard name (either 'mdma', 'ecstasy', or 'xtc'), a universally accepted unit of measurement, milligrams, and is a relatively homogeneous good. (Compare it to cannibus, which has thousands of different strains.) The column `mult` in the data encodes how much each unit of the good listed measured, and `amount` encodes the total number of those units that were offered. For example, the listing '10x XTC 220mg' would result in `mult = 220`, `units = mg`, and `amount = 10`. The column `price_mdma$normalized` therefore encodes the price per milligram of each individual listing. 
+
+```{r getdata, message=FALSE, cache=TRUE}
+price_mdma = fn$sqldf("select * from listings L 
+                               inner join listings_prices P 
+                               on L.id = P.Listing_id 
+                               where category = 2361707 
+                               and denomination = 'USD'
+                               and units = 'mg'");
+
+price_mdma$normalized = price_mdma$price / (price_mdma$mult * price_mdma$amount);
+```
+
+Let's begin by looking at a raw plot of prices at various points in time.
+
+```{r, echo=FALSE}
+dates <- seq(min(price_mdma$date), max(price_mdma$date), 200000);
+plot(price_mdma$date, price_mdma$normalized, axes=F, xlab="", ylab="", type='p', pch=4);
+axis(1, at=seq(min(dates), max(dates),length=20), lab=format(as.POSIXct(seq(min(dates), max(dates),length=20), origin="1970-01-01"), "%m-%d"), lwd=2, mtext(1, text="Date", line=2.5))
+axis(2, lwd=2, las=1, mtext(2, text="$ / mg", line=3));
+title("Listed price per mg of Ecstasy, raw");
+```
+
+Notice that there are many extreme outliers. This is an unfortunate consequence of the fact that many deep web markets lack some crucial features, in this case, the ability for a seller to 'deactivate' a listing. As a result, many sellers who run out of inventory, but are unwilling to delete their listing because they expect to be in business soon, will simply take the offered price and add zeros to the end. 
+
+Now, let's look at a density map for the distribution of prices over time. The following two graphs split listings into 'small' listings and 'large' listings. Large listings are listings for large numbers of ecstasy pills. Presumably, they are intended for resale. Small listings are everything else. 
+
+```{r, echo=FALSE}
+price_mdma <- price_mdma[order(price_mdma$date),]
+
+dates <- seq(min(price_mdma$date), max(price_mdma$date), 200000);
+range <- seq(0, 0.1, 0.002);
+
+xgroup <- cut(price_mdma$date[price_mdma$normalized < 0.1 & price_mdma$amount<15],       dates, include.lowest=TRUE)
+ygroup <- cut(price_mdma$normalized[price_mdma$normalized < 0.1 & price_mdma$amount<15], range, include.lowest=TRUE)
+xy <- table(xgroup, ygroup)
+
+for (i in 1:dim(xy)[1]) {
+  if (sum(xy[i,]) > 20) {
+    xy[i,] = xy[i,]/(sum(xy[i,]));
+  } else {
+    xy[i,] = 0*xy[i,];
+  }
+}
+
+plot.new()
+image.plot(xy, axes=F, xlab="Date", ylab="Price (USD / mg)")
+axis(1, at=(dates - min(dates))/(max(dates)-min(dates)), lab=format(as.POSIXct(dates, origin="1970-01-01"), "%m-%d"))
+axis(2, at=(range - min(range))/(max(range)-min(range)), label=range);
+title("Price / mg for small amounts of Ecstasy (<15 pills)");
+axis(1, at=(dates - min(dates))/(max(dates)-min(dates)), lab=format(as.POSIXct(dates, origin="1970-01-01"), "%m-%d"))
+axis(2, at=(range - min(range))/(max(range)-min(range)), label=range);
+```
+
+```{r, echo=FALSE}
+price_mdma <- price_mdma[order(price_mdma$date),]
+
+dates <- seq(min(price_mdma$date), max(price_mdma$date), 200000);
+range <- seq(0, 0.1, 0.001);
+
+xgroup <- cut(price_mdma$date[price_mdma$normalized < 0.1 & price_mdma$amount>50],       dates, include.lowest=TRUE)
+ygroup <- cut(price_mdma$normalized[price_mdma$normalized < 0.1 & price_mdma$amount>50], range, include.lowest=TRUE)
+xy <- table(xgroup, ygroup)
+
+for (i in 1:dim(xy)[1]) {
+  if (sum(xy[i,]) > 20) {
+    xy[i,] = xy[i,]/(sum(xy[i,]));
+  } else {
+    xy[i,] = 0*xy[i,];
+  }
+}
+
+plot.new()
+image.plot(xy, axes=F, xlab="Date", ylab="Price (USD / mg)")
+axis(1, at=(dates - min(dates))/(max(dates)-min(dates)), lab=format(as.POSIXct(dates, origin="1970-01-01"), "%m-%d"))
+axis(2, at=(range - min(range))/(max(range)-min(range)), label=range);
+title("Price / mg for bulk orders of Ecstasy (>50 pills)");
+axis(1, at=(dates - min(dates))/(max(dates)-min(dates)), lab=format(as.POSIXct(dates, origin="1970-01-01"), "%m-%d"))
+axis(2, at=(range - min(range))/(max(range)-min(range)), label=range);
+```
+
+The features to notice are the following: First, there are some dates for which no data were collected. This is a consequence of the fact that these markets are often offline. Second, there is clear evidence of a quantity discount. Third, the data for small listings are quite noisy, while the data for large listings are less noisy. One can imagine any number of explanations for this, the most obvious being that the denominator for the normalized price of large listings is larger, another being that bulk listings are intended for professionals who have a better sense of price. 
+
+To construct price indices, I simply bin the data, and look at the percentiles for the prices in each bin.
+
+```{r}
+  cutY = price_mdma$normalized[price_mdma$amount<15];
+  cutX = price_mdma$date[price_mdma$amount<15];
+  cuts = 100*tapply(cutY, cut(cutX, 30), median);
+```
+
+and similarly for large listings. 
+
+```{r, echo=FALSE}
+range = seq(4.5, 7.75, 0.25);
+
+plot(seq(min(dates), max(dates),length=30), cuts, type = 'l', ylab="", xlab = "", lwd=3, axes = F, ylim = c(4.5, 7.75), main="Median price of ecstasy, small listings", col="blue");
+axis(1, at=seq(min(dates), max(dates),length=30), lab=format(as.POSIXct(seq(min(dates), max(dates),length=30), origin="1970-01-01"), "%m-%d"), lwd=2, mtext(1, text="Date", line=2.5))
+axis(2, at=range, label=range, lwd=2, las=2, mtext(2, text="$ / 100 mg", line=3));
+```
+
+```{r, echo=FALSE}
+cutY = price_mdma$normalized[price_mdma$amount>50];
+cutX = price_mdma$date[price_mdma$amount>50];
+cuts = 100*tapply(cutY, cut(cutX, 30), median);
+
+range = seq(1.0, 2.25, 0.25);
+
+plot(seq(min(dates), max(dates),length=30), cuts, type = 'l', ylab="", xlab = "", lwd=3, axes = F, ylim = c(1.0, 2.25), main="Median price of ecstasy, large listings", col="blue");
+axis(1, at=seq(min(dates), max(dates),length=30), lab=format(as.POSIXct(seq(min(dates), max(dates),length=30), origin="1970-01-01"), "%m-%d"), lwd=2, mtext(1, text="Date", line=2.5))
+axis(2, at=range, label=range, lwd=2, las=2, mtext(2, text="$ / 100 mg", line=3));
+```
+
+### Heroin
+
+```{r, message=FALSE, cache=TRUE}
+price_heroin = fn$sqldf("select * from listings L 
+                               inner join listings_prices P 
+                               on L.id = P.Listing_id 
+                               where category = 18 
+                               and denomination = 'USD'
+                               and units = 'mg'");
+
+price_heroin$normalized = price_heroin$price / (price_heroin$mult * price_heroin$amount);
+```
