@@ -9,9 +9,11 @@ show.databases = function() {
     
 }
 
-#' Opens a connection to the SQL server, and optionally connects to the database.
-#'
-#' @param dbname The name of the database. A complete list of names can be found using show.databases after running connect.database().
+#' Opens a connection to the SQL server, and optionally connects to the
+#' database.
+#' 
+#' @param dbname The name of the database. A complete list of names can be found
+#'   using show.databases after running connect.database().
 #' @examples
 #' connect.database("drugs_agora")
 connect.database = function(dbname = NULL) {
@@ -32,8 +34,9 @@ connect.database = function(dbname = NULL) {
 }
 
 #' Connects to the database.
-#'
-#' @param dbname The name of the database. A complete list of names can be found using show.databases after running connect.database().
+#' 
+#' @param dbname The name of the database. A complete list of names can be found
+#'   using show.databases after running connect.database().
 #' @examples
 #' select.database("drugs_agora")
 select.database = function(dbname) {
@@ -61,12 +64,22 @@ disconnect.database = function() {
     
 }
 
-#' Returns the results of a SQL query. By default, performs an inner join on listings and prices and returns everything.
-#'
+#' Returns the results of a SQL query. By default, performs an inner join on
+#' listings and prices and returns everything.
+#' 
 #' @param query The SQL query to run.
 #' @examples
 #' get.query("SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id")
 get.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id") {
+    
+    if (!exists("mysql.connection")) {
+        connect.database()
+    }
+    
+    if (is.na(get.selected.database())) {
+        throw("Not using to a database. Call select.database() before running queries.");
+    }
+    
     rs <- dbSendQuery(mysql.connection, query);
     result <- dbFetch(rs, n = -1);
     dbClearResult(rs);
