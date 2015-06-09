@@ -1,18 +1,41 @@
-connect = function(dbname = NULL) {
-    con <- dbConnect(RMySQL::MySQL(), username = "R", dbname = dbname,
-                     password = "R", host = "njanetos.econ.upenn.edu")
-    return(con)
-}
+show.databases = function() {
 
-show.databases = function(con) {
-    databases.list = dbGetQuery(con, 'show databases;')$Database
+    if (!exists("mysql.connection")) {
+        connect.database()
+    }
+
+    databases.list = dbGetQuery(mysql.connection, 'show databases;')$Database
     return(databases.list[grep("drugs_", databases.list)])
+
 }
 
-select.database = function(con, dbname) {
-    return(dbGetQuery(con, sprintf("use %s", dbname)))
+connect.database = function(dbname = NULL) {
+
+    dbConnect(RMySQL::MySQL(), username = "R",
+              password = "R",
+              dbname = dbname,
+              host = "njanetos.econ.upenn.edu")
+
 }
 
-disconnect = function(con) {
-    return(dbDisconnect(con))
+select.database = function(dbname) {
+
+    if (!exists("mysql.connection")) {
+       connect.database()
+    }
+
+    if (any(dbname == show.databases())) {
+        dbGetQuery(mysql.connection, sprintf("use %s", dbname))
+        return(TRUE)
+    } else {
+        stop(sprintf("database '%s' does not exist", dbname))
+    }
+
+}
+
+disconnect.database = function() {
+
+    dbDisconnect(mysql.connection)
+    rm(mysql.connection, envir = .GlobalEnv)
+
 }

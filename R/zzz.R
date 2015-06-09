@@ -1,3 +1,7 @@
 .onLoad = function(libname, pkgname) {
-    message("Connect to mysql database by typing connect()")
+
+    print("connecting to database ...")
+    mysql.connection = connect.database()
+    assign("mysql.connection", mysql.connection, envir = .GlobalEnv)
+
 }
