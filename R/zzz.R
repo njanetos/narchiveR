@@ -1,6 +1,6 @@
 .onLoad = function(libname, pkgname) {
 
-    print("connecting to database ...")
+    print("Connecting to database ...")
     mysql.connection = connect.database()
 
 }
