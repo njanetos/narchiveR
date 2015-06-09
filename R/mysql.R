@@ -129,9 +129,10 @@ get.selected.database = function() {
 }
 
 get.date.range = function() {
-    if (!exists("mysql.connection")) {
+    if (is.null(get.connection())) {
         connect.database()
     }
+    mysql.connection = get.connection()
     
     if (is.na(get.selected.database())) {
         stop("Not using a database. Call select.database() before running queries.");
