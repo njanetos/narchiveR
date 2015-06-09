@@ -10,7 +10,7 @@ Authors@R: as.person(c(
 Maintainer: Nick Janetos <njanetos@comcast.net>
 Description: Drug Prices on Online Market Places
 License: GPL-2
-Depends: RMySQL
+Imports: RMySQL
 LazyData: TRUE
 Suggests: knitr
 VignetteBuilder: knitr
