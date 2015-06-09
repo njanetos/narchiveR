@@ -11,10 +11,12 @@ show.databases = function() {
 
 connect.database = function(dbname = NULL) {
 
-    dbConnect(RMySQL::MySQL(), username = "R",
-              password = "R",
-              dbname = dbname,
-              host = "njanetos.econ.upenn.edu")
+    mysql.connection = dbConnect(RMySQL::MySQL(), username = "R",
+                        password = "R",
+                        dbname = dbname,
+                        host = "njanetos.econ.upenn.edu")
+    
+    assign("mysql.connection", mysql.connection, envir = .GlobalEnv)
 
 }
 

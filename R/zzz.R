@@ -2,6 +2,5 @@
 
     print("connecting to database ...")
     mysql.connection = connect.database()
-    assign("mysql.connection", mysql.connection, envir = .GlobalEnv)
 
 }
