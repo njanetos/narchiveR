@@ -4,3 +4,6 @@
 .Rbuildignore
 inst/doc
 drugs.Rproj
+.rdb
+.rdx
+__packages

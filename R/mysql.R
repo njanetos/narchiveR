@@ -45,3 +45,13 @@ disconnect.database = function() {
     rm(mysql.connection, envir = .GlobalEnv)
 
 }
+
+get.prices = function(query = FALSE, category = FALSE, denomination = FALSE, units = FALSE) {
+  
+    # Construct a SQL query.
+    if (!query) {
+        query = "test";
+        print(query);
+    }
+  
+}
