@@ -7,7 +7,7 @@ show.databases()
 select.database("drugs_evolution")
 
 # get listings from selected database
-rs <- dbSendQuery(mysql.connection, "SELECT * FROM Listing_prices")
+rs <- dbSendQuery(get.connection(), "SELECT * FROM Listing_prices")
 d1 <- dbFetch(rs, n = 10)
 # clear results
 dbClearResult(rs)

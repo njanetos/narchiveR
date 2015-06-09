@@ -31,13 +31,18 @@ construct.index = function(market = "agora", cutNum = 20, category = '2361707', 
 }
 
 plot.index = function(market = "agora", cutNum = 20, category = '2361707', units = NULL, additionalQuery="") {
-    all = matrix(nrow = length(market), ncol = cutNum);
-
+    allcuts = list();
+    
     for (i in 1:length(market)) {
-        all[i,] = cuts = construct.index(market = market[i], cutNum = cutNum, category = category, units = units, additionalQuery="")
+        allcuts[[length(allcuts)+1]] <- construct.index(market = market[i], cutNum = cutNum, category = category, units = units, additionalQuery="");
     }
     
-    matplot(t(all), type = 'l', ylab="", xlab = "", lwd=4, lty=1, axes = F, col=c('#7e468b', '#397ab3', '#d9863a'))
+    # Find max/min dates
+    stDate = -Inf;
+    enDate = Inf;
+    for (i in 1:length(market)) {
+        dates = get.date.range();
+    }
 
 }
 

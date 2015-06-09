@@ -3,14 +3,13 @@ Type: Package
 Title: Drug Prices on Online Market Places
 Version: 0.1
 Date: 2015-06-09
-Authors@R: as.person(c(
-                "Nick Janetos <njanetos@sas.upenn.edu> [aut, cre]",
-                "Jan Tilly <jtilly@econ.upenn.edu> [dub]" # http://www.loc.gov/marc/relators/relaterm.html
-            ))
+Authors@R: c(person("Nick", "Janetos", email = "njanetos@sas.upenn.edu", rol = c("aut", "cre")),
+             person("Jan", "Tilly", email = "jtilly@econ.upenn.edu", rol = "dub"))
 Maintainer: Nick Janetos <njanetos@sas.upenn.edu>
 Description: Drug Prices on Online Market Places
 License: GPL-2
 Depends: RMySQL
+Imports: DBI
 LazyData: TRUE
 Suggests: knitr
 VignetteBuilder: knitr
