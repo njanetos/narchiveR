@@ -1,0 +1,12 @@
+base
+DBI
+drugs
+fields
+gsubfn
+maps
+proto
+RMySQL
+RSQLite
+RSQLite.extfuns
+spam
+sqldf
