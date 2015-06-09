@@ -69,7 +69,8 @@ disconnect.database = function() {
 #' 
 #' @param query The SQL query to run.
 #' @examples
-#' get.query("SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id")
+#' select.database("drugs_agora")
+#' get.query("SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id LIMIT 10")
 get.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id") {
     
     if (!exists("mysql.connection")) {
@@ -77,7 +78,7 @@ get.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices 
     }
     
     if (is.na(get.selected.database())) {
-        throw("Not using to a database. Call select.database() before running queries.");
+        stop("Not using to a database. Call select.database() before running queries.");
     }
     
     rs <- dbSendQuery(mysql.connection, query);
