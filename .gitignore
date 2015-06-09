@@ -4,6 +4,5 @@
 .Rbuildignore
 inst/doc
 drugs.Rproj
-*.rdb
-*.rdx
+*_cache/
 __packages
