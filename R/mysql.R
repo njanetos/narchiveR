@@ -6,12 +6,7 @@ assign("mysql.connection", NULL, envir = pkg.env)
 get.connection = function() {
 
     mysql.connection = get("mysql.connection", envir = pkg.env)
-
-    if (is.null(mysql.connection)) {
-        return(NULL)
-    } else {
-        return(mysql.connection)
-    }
+    return(mysql.connection)
 }
 
 #' Lists all available databases.
