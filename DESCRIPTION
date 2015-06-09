@@ -12,3 +12,5 @@ Description: Drug Prices on Online Market Places
 License: GPL-2
 Imports: RMySQL
 LazyData: TRUE
+Suggests: knitr
+VignetteBuilder: knitr
