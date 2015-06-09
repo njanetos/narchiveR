@@ -35,6 +35,10 @@ select.database = function(dbname) {
 
 disconnect.database = function() {
 
+    if (!exists("mysql.connection")) {
+        return(TRUE)
+    }
+
     dbDisconnect(mysql.connection)
     rm(mysql.connection, envir = .GlobalEnv)
 

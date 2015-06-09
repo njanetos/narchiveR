@@ -1,28 +1,17 @@
-# connect to agora
-con = connect()
+library("drugs")
 
 # show databases
-show.databases(con)
+show.databases()
 
 # select database
-select.database(con, "drugs_all")
+select.database("drugs_evolution")
 
 # get listings from selected database
-rs <- dbSendQuery(con, "SELECT * FROM Listing_prices")
+rs <- dbSendQuery(mysql.connection, "SELECT * FROM Listing_prices")
 d1 <- dbFetch(rs, n = 10)
 # clear results
 dbClearResult(rs)
 print(d1)
 
-# select another database
-select.database(con, "drugs_evolution")
-
-# get listings from selected database
-rs <- dbSendQuery(con, "SELECT * FROM Listing_prices")
-d2 <- dbFetch(rs, n = 10)
-# clear results
-dbClearResult(rs)
-print(d2)
-
 # disconnect
-disconnect(con)
+disconnect.database()
