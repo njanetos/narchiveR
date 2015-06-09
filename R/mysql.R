@@ -1,5 +1,5 @@
 connect = function() {
-    con <- dbConnect(RMySQL::MySQL(), username = "R",
+    con = dbConnect(RMySQL::MySQL(), username = "R",
                      password = "R", host = "njanetos.econ.upenn.edu")
     return(con)
 }

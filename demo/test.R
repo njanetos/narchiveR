@@ -1,5 +1,3 @@
-require("RMySQL")
-
 # connect to agora
 con = connect()
 
