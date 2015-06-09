@@ -65,7 +65,7 @@ disconnect.database = function() {
 }
 
 #' Returns the results of a SQL query. By default, performs an inner join on
-#' listings and prices and returns everything.
+#' listings and prices and returns the first 10 results.
 #' 
 #' @param query The SQL query to run.
 #' @examples
