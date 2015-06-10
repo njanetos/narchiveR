@@ -22,11 +22,13 @@ construct.index = function(market = "agora",
                            scale = 1) {
     select.database(paste("drugs_", market, sep = ""))
     
+    require("Quandl");
+    
     if (is.na(units)) {
         stop("Required field 'units' missing.");
     }
     
-    if (is.na(dates)[1]) {
+    if (is.na(dates)) {
         stop("Required field 'dates' missing");
     }
     
@@ -35,7 +37,6 @@ construct.index = function(market = "agora",
         INNER JOIN Listing_prices P
         ON L.id = P.Listing_id
         WHERE category = %s
-        AND denomination = 'USD'
         AND units = '%s'", category, units
     )
     
@@ -44,8 +45,20 @@ construct.index = function(market = "agora",
     }
     
     price <- get.query(query)
-    
+
     price$normalized = as.numeric(price$price) / (price$mult * price$amount)
+    
+    # Convert BTC to USD, if necessary
+    btcData = Quandl("BITCOIN/BTC24USD");
+    
+    btcData$unixDate = as.numeric(as.POSIXct(btcData$Date, format="%Y-%m-%d"));
+    
+    for (i in 1:length(price$normalized)) {
+        if (price$denomination[i] == "BTC") {
+            conv = which.min(abs(btcData$unixDate - price$normalized[i]))
+            price$normalized = price$normalized * btcData$"Weighted Price"[conv];
+        }
+    }
     
     cuts = scale*tapply(price$normalized, cut(price$date, dates), median)
     
@@ -114,6 +127,7 @@ plot.index = function(market = "agora",
         type = 'l',
         ylab = "",
         xlab = "",
+        xlim = c(min(dateRange), max(dateRange)),
         lwd = 4,
         axes = F,
         col = col[1]

@@ -128,7 +128,7 @@ To construct price indices, I bin the data, and look at the percentiles for the 
 and similarly for large listings. The figures show both the data for the Agora marketplace as well as the Silk Road and Evolution marketplaces, for which the same procedure was followed.
 
 ```{r, echo=FALSE}
-plot.index(market = c("agora", "evolution"),
+plot.index(market = c("agora", "evolution", "silkroad"),
            category = '2361707',
            units = 'mg',
            additionalQuery = 'amount > 50',
