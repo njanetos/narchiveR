@@ -3,20 +3,25 @@
 \name{get.query}
 \alias{get.query}
 \title{Returns the results of a SQL query. By default, performs an inner join on
-listings and prices and returns everything.}
+listings and prices and returns the first 10 results.}
 \usage{
 
-  get.query(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id")
+  get.query(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id LIMIT 10")
 }
 \arguments{
 \item{query}{The SQL query to run.}
 }
 \description{
 Returns the results of a SQL query. By default, performs an inner join on
-listings and prices and returns everything.
+listings and prices and returns the first 10 results.
 }
 \examples{
 select.database("drugs_agora")
-get.query("SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id LIMIT 10")
+get.query("SELECT * FROM Listing L
+                 INNER JOIN Listing_prices P
+                 ON L.id = P.Listing_id
+                 WHERE category = '2361707'
+                 AND denomination = 'USD'
+                 AND units = 'mg'")
 }
 
