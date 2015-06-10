@@ -117,7 +117,7 @@ get.date.range = function() {
 #'                  WHERE category = '2361707'
 #'                  AND denomination = 'USD'
 #'                  AND units = 'mg'")
-get.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id") {
+get.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id LIMIT 10") {
 
     if (is.null(get.connection())) {
         connect.database()

@@ -128,36 +128,10 @@ To construct price indices, I bin the data, and look at the percentiles for the 
 and similarly for large listings. The figures show both the data for the Agora marketplace as well as the Silk Road and Evolution marketplaces, for which the same procedure was followed.
 
 ```{r, echo=FALSE}
-range = seq(4.5, 7.75, 0.25);
-
-plot(seq(min(dates), max(dates),length=20), cuts, type = 'l', ylab="", xlab = "", lwd=3, axes = F, ylim = c(4.5, 7.75), main="Median price of ecstasy, small listings", col="blue");
-axis(1, at=seq(min(dates), max(dates),length=20), lab=format(as.POSIXct(seq(min(dates), max(dates),length=20), origin="1970-01-01"), "%m-%d"), lwd=2, mtext(1, text="Date", line=2.5))
-axis(2, at=range, label=range, lwd=2, las=2, mtext(2, text="$ / 100 mg", line=3));
-```
-
-```{r, echo=FALSE}
-cuts = 100*construct.index(units = 'mg', additionalQuery = "amount > 50");
-
-range = seq(1.0, 2.25, 0.25);
-
-# Get evolution data
-select.database("drugs_evolution");
-price_mdma <- get.query("SELECT * FROM Listing L
-                            INNER JOIN Listing_prices P
-                            ON L.id = P.Listing_id
-                            WHERE category = 2361707
-                            AND denomination = 'USD'
-                            AND units = 'mg'");
-
-price_mdma$price = as.numeric(price_mdma$price);
-price_mdma$normalized = price_mdma$price / (price_mdma$mult * price_mdma$amount);
-
-cutY = price_mdma$normalized[price_mdma$amount>50];
-cutX = price_mdma$date[price_mdma$amount>50];
-cutsEvo = 100*tapply(cutY, cut(cutX, 20), median);
-
-plot(seq(min(dates), max(dates),length=20), cuts, type = 'l', ylab="", xlab = "", lwd=3, axes = F, ylim = c(1.0, 2.25), main="Median price of ecstasy, large listings", col="blue");
-lines(seq(min(dates), max(dates),length=20), cutsEvo, type='l', lwd=3);
-axis(1, at=seq(min(dates), max(dates),length=20), lab=format(as.POSIXct(seq(min(dates), max(dates),length=20), origin="1970-01-01"), "%m-%d"), lwd=2, mtext(1, text="Date", line=2.5))
-axis(2, at=range, label=range, lwd=2, las=2, mtext(2, text="$ / 100 mg", line=3));
+plot.index(market = c("agora", "evolution"),
+           category = '2361707',
+           units = 'mg',
+           additionalQuery = 'amount > 50',
+           dateRange = 30,
+           scale = 100)
 ```
