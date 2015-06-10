@@ -36,7 +36,7 @@ prices.by.bin = data.frame(c(mdma.dt[,list(median = median(price.normalized)), b
                              mdma.dt[,list(bin.day = min(day)), by = bin]))
 
 # plot prices by bin
-plot(as.Date(prices.by.bin$bin.day), prices.by.bin$median, type = "l",  xlab = "Date",
+plot(as.Date(prices.by.bin$bin.day), prices.by.bin$median, type = "b",  xlab = "Date",
      ylab = "Price in Dollars per 100mg", ylim = c(1.5,5))
 
 # plot weekly prices

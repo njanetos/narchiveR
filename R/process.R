@@ -18,18 +18,16 @@ construct.index = function(market = "agora",
                            category = '2361707',
                            units = NULL,
                            additionalQuery = "",
-                           dates = NULL,
+                           binsize = 1000,
                            scale = 1) {
     select.database(paste("drugs_", market, sep = ""))
     
-    require("Quandl");
+    require("Quandl")
+    require("data.table")
+    library("data.table")
     
     if (is.na(units)) {
-        stop("Required field 'units' missing.");
-    }
-    
-    if (is.na(dates)) {
-        stop("Required field 'dates' missing");
+        stop("Required field 'units' missing.")
     }
     
     query = sprintf(
@@ -44,25 +42,37 @@ construct.index = function(market = "agora",
         query = paste(query, " AND ", additionalQuery, ";")
     }
     
-    price <- get.query(query)
-
-    price$normalized = as.numeric(price$price) / (price$mult * price$amount)
+    prices <- get.query(query)
+    prices$normalized = as.numeric(prices$price) / (prices$mult * prices$amount)
     
     # Convert BTC to USD, if necessary
     btcData = Quandl("BITCOIN/BTC24USD");
-    
     btcData$unixDate = as.numeric(as.POSIXct(btcData$Date, format="%Y-%m-%d"));
-    
-    for (i in 1:length(price$normalized)) {
-        if (price$denomination[i] == "BTC") {
-            conv = which.min(abs(btcData$unixDate - price$normalized[i]))
-            price$normalized = price$normalized * btcData$"Weighted Price"[conv];
+    for (i in 1:length(prices$normalized)) {
+        if (prices$denomination[i] == "BTC") {
+            conv = which.min(abs(btcData$unixDate - prices$normalized[i]))
+            prices$normalized = prices$normalized * btcData$"Weighted Price"[conv];
         }
     }
     
-    cuts = scale*tapply(price$normalized, cut(price$date, dates), median)
     
-    return(cuts)
+    prices$day = as.Date(as.POSIXct(prices$date, origin = "1970-01-01"))
+    
+    # sort by date
+    prices = prices[order(prices$date),]
+    
+    # group the data with binsize k
+    n = length(prices$price)
+    prices$bin = rep(1:ceiling(n/binsize), each = binsize)[1:n]
+    
+    # create data table
+    prices.dt = data.table(prices)
+    
+    # create prices by bin
+    prices.by.bin = data.frame(c(prices.dt[,list(median = median(normalized)), by = bin],
+                                 prices.dt[,list(bin.day = min(day)), by = bin]))
+
+    return(prices.by.bin)
     
 }
 
