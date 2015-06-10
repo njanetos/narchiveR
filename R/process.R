@@ -21,11 +21,7 @@ construct.index = function(market = "agora",
                            binsize = 1000,
                            scale = 1) {
     select.database(paste("drugs_", market, sep = ""))
-    
-    require("Quandl")
-    require("data.table")
-    library("data.table")
-    
+
     if (is.na(units)) {
         stop("Required field 'units' missing.")
     }
@@ -43,17 +39,17 @@ construct.index = function(market = "agora",
     }
     
     prices <- get.query(query)
-    prices$normalized = as.numeric(prices$price) / (prices$mult * prices$amount)
+    prices$normalized = scale*as.numeric(prices$price) / (prices$mult * prices$amount)
     
     # Convert BTC to USD, if necessary
-    btcData = Quandl("BITCOIN/BTC24USD");
-    btcData$unixDate = as.numeric(as.POSIXct(btcData$Date, format="%Y-%m-%d"));
-    for (i in 1:length(prices$normalized)) {
-        if (prices$denomination[i] == "BTC") {
-            conv = which.min(abs(btcData$unixDate - prices$normalized[i]))
-            prices$normalized = prices$normalized * btcData$"Weighted Price"[conv];
-        }
-    }
+    # btcData = Quandl("BITCOIN/BTC24USD");
+    # btcData$unixDate = as.numeric(as.POSIXct(btcData$Date, format="%Y-%m-%d"));
+    # for (i in 1:length(prices$normalized)) {
+    #    if (prices$denomination[i] == "BTC") {
+    #        conv = which.min(abs(btcData$unixDate - prices$normalized[i]))
+    #        prices$normalized = prices$normalized * btcData$"Weighted Price"[conv];
+    #    }
+    #}
     
     
     prices$day = as.Date(as.POSIXct(prices$date, origin = "1970-01-01"))
@@ -88,95 +84,64 @@ construct.index = function(market = "agora",
 #'   number.
 #' @param scale Optional scaling factor.
 #' @examples
-#' plot.index(market = "agora",
+#' plot.index(market = c("agora", "evolution",
 #'                 category = "2361707",
 #'                 units = "mg",
-#'                 additionalQuery = "amount > 50",
-#'                 dates = 20)
+#'                 additionalQuery = "amount > 50")
 plot.index = function(market = "agora",
                       category = '2361707',
                       units = NULL,
                       additionalQuery = "",
-                      dateRange = 20,
-                      scale = 1) {
-    allcuts = list();
-    
-    # If no date range is provided, find the minimum and maximum dates and bin the data.
-    if (length(dateRange) == 1) {
-        tempRange = c(Inf,-Inf);
-        for (i in 1:length(market)) {
-            select.database(paste("drugs_", market[i], sep = ""));
-            dates = get.date.range();
-            if (dates[1] < tempRange[1])
-                tempRange[1] = dates[1];
-            if (dates[2] > tempRange[2])
-                tempRange[2] = dates[2];
-        }
-        
-        dateRange = seq(tempRange[1], tempRange[2], length = dateRange);
-    }
-    
+                      binsize = 1000,
+                      dateRange = NULL,
+                      scale = 1,
+                      type = 'l') {
+    all.indices = list();
+
     # Fetch all the binned data
     for (i in 1:length(market)) {
-        allcuts[[length(allcuts) + 1]] <-
+        all.indices[[length(all.indices) + 1]] <-
             construct.index(
                 market = market[i],
                 category = category,
                 units = units,
-                additionalQuery = "",
-                dates = dateRange,
+                additionalQuery = additionalQuery,
+                binsize = binsize,
                 scale = scale
             );
     }
-
-    col = c('#397ab3', '#d9863a', '#7e468b');
     
-    plot(
-        dateRange[1:(length(dateRange)-1)],
-        allcuts[[1]],
-        type = 'l',
-        ylab = "",
-        xlab = "",
-        xlim = c(min(dateRange), max(dateRange)),
-        lwd = 4,
-        axes = F,
-        col = col[1]
-    );
-    
-    for (i in 2:length(allcuts)) {
-        lines(dateRange[1:(length(dateRange)-1)],
-              allcuts[[i]],
-              type = 'l',
-              lwd = 4,
-              col = col[i])
+    # Find min and max values
+    priceRange = c(Inf, -Inf)
+    for (i in 1:length(market)) {
+        if (priceRange[1] > min(all.indices[[i]]$median)) priceRange[1] = min(all.indices[[i]]$median)
+        if (priceRange[2] < max(all.indices[[i]]$median)) priceRange[2] = max(all.indices[[i]]$median)
     }
     
-    axis(
-        1,
-        at = seq(min(dateRange),
-                 max(dateRange),
-                 length = 20),
-        lab = format(as.POSIXct(seq(
-            min(dates),
-            max(dates),
-            length = 20
-        ),
-        origin = "1970-01-01"),
-        "%m-%d"),
-        lwd = 2,
-        mtext(1,
-              text = "Date",
-              line = 2.5)
-    )
+    plot(as.Date(all.indices[[1]]$bin.day), 
+         all.indices[[1]]$median, 
+         type = type, 
+         lwd = 4,
+         ylim = priceRange,
+         xlab = "Date",
+         ylab = paste(c("$ / ", scale, " ", units), collapse = ""),
+         col = 2);
     
-    axis(
-        2,
-        lwd = 2,
-        las = 2,
-        mtext(
-            2,
-            text = paste(c("$ / ", scale, " ", units), collapse = ""),
-            line = 3)
-    )
+    for (i in 2:length(all.indices)) {
+        lines(as.Date(all.indices[[i]]$bin.day), 
+              all.indices[[i]]$median, 
+              type = type, 
+              lwd = 4,
+              col = i+1);
+    }
+    
+    legend("topright", 
+           bty = "n", 
+           legend = market, 
+           col = 2:(length(market)+1), 
+           lwd=3, 
+           cex=1, 
+           xpd=TRUE, 
+           ncol=1);
     
 }
