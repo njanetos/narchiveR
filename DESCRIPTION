@@ -3,7 +3,7 @@ Type: Package
 Title: Drug Prices on Online Market Places
 Version: 0.1
 Date: 2015-06-09
-Authors@R: c(person("Nick", "Janetos", email = "njanetos@sas.upenn.edu", rol = c("aut", "cre")),
+Authors@R: c(person("Nick", "Janetos", email = "njanetos@econ.upenn.edu", rol = c("aut", "cre")),
              person("Jan", "Tilly", email = "jtilly@econ.upenn.edu", rol = "dub"))
 Maintainer: Nick Janetos <njanetos@sas.upenn.edu>
 Description: Drug Prices on Online Market Places
