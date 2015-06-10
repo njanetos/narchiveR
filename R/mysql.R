@@ -14,8 +14,8 @@ connect.database = function(dbname = NULL) {
     if (is.null(get.connection())) {
         mysql.connection = dbConnect(
             RMySQL::MySQL(), username = "R",
-            password = "R",
-            host = "njanetos.econ.upenn.edu"
+            password = "yaQYhnRsypwSDKvL",
+            host = "narchiverdatabase.cswralfao6vc.us-west-1.rds.amazonaws.com"
         )
         
         # store the connection in the package environment
