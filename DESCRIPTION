@@ -5,7 +5,7 @@ Version: 0.1
 Date: 2015-06-09
 Authors@R: c(person("Nick", "Janetos", email = "njanetos@econ.upenn.edu", rol = c("aut", "cre")),
              person("Jan", "Tilly", email = "jtilly@econ.upenn.edu", rol = "dub"))
-Maintainer: Nick Janetos <njanetos@sas.upenn.edu>
+Maintainer: Nick Janetos <njanetos@econ.upenn.edu>
 Description: Drug Prices on Online Market Places
 License: GPL-2
 Depends: RMySQL, data.table, Quandl
