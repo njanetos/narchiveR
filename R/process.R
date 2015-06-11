@@ -40,17 +40,10 @@ construct.index = function(market = "agora",
     
     prices <- get.query(query)
     prices$normalized = scale*as.numeric(prices$price) / (prices$mult * prices$amount)
-    
-    # Convert BTC to USD, if necessary
-    # btcData = Quandl("BITCOIN/BTC24USD");
-    # btcData$unixDate = as.numeric(as.POSIXct(btcData$Date, format="%Y-%m-%d"));
-    # for (i in 1:length(prices$normalized)) {
-    #    if (prices$denomination[i] == "BTC") {
-    #        conv = which.min(abs(btcData$unixDate - prices$normalized[i]))
-    #        prices$normalized = prices$normalized * btcData$"Weighted Price"[conv];
-    #    }
-    #}
-    
+
+    # Throw away prices which are 2 orders of magnitude away from the median.
+    med.price = median(prices$normalized);
+    prices = prices[prices$normalized > med.price*0.01 & prices$normalized < med.price*100,]
     
     prices$day = as.Date(as.POSIXct(prices$date, origin = "1970-01-01"))
     
