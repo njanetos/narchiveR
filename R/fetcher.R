@@ -10,7 +10,6 @@ assign("mysql.connection", NULL, envir = pkg.env)
 #' @examples
 #' connect.database("drugs_agora")
 connect.database = function(dbname = NULL) {
-    
     if (is.null(get.connection())) {
         mysql.connection = dbConnect(
             RMySQL::MySQL(), username = "R",
@@ -30,7 +29,6 @@ connect.database = function(dbname = NULL) {
 
 #' Disconnects from the SQL server.
 disconnect.database = function() {
-    
     if (is.null(get.connection())) {
         return(TRUE)
     }
@@ -43,7 +41,6 @@ disconnect.database = function() {
 
 #' Get database connection from the package environment
 get.connection = function() {
-
     mysql.connection = get("mysql.connection", envir = pkg.env)
     return(mysql.connection)
 }
@@ -55,7 +52,6 @@ get.connection = function() {
 #' @examples
 #' select.database("drugs_agora")
 select.database = function(dbname) {
-    
     if (is.null(get.connection())) {
         connect.database()
     }
@@ -72,15 +68,14 @@ select.database = function(dbname) {
 
 #' Lists all available databases.
 show.databases = function() {
-
     if (is.null(get.connection())) {
         connect.database()
     }
     mysql.connection = get.connection()
-
+    
     databases.list = dbGetQuery(mysql.connection, 'show databases;')$Database
     return(databases.list[grep("drugs_", databases.list)])
-
+    
 }
 
 #' Returns the date that scraping began and ended for this marketplace.
@@ -94,11 +89,13 @@ get.date.range = function() {
         stop("Not using a database. Call select.database() before running queries.");
     }
     
-    rs <- dbSendQuery(mysql.connection, "SELECT MIN(date) FROM Listing_prices");
+    rs <-
+        dbSendQuery(mysql.connection, "SELECT MIN(date) FROM Listing_prices");
     resultMin <- dbFetch(rs, n = -1)$"MIN(date)";
     dbClearResult(rs);
     
-    rs <- dbSendQuery(mysql.connection, "SELECT MAX(date) FROM Listing_prices");
+    rs <-
+        dbSendQuery(mysql.connection, "SELECT MAX(date) FROM Listing_prices");
     resultMax <- dbFetch(rs, n = -1)$"MAX(date)";
     dbClearResult(rs);
     
@@ -118,34 +115,51 @@ get.date.range = function() {
 #'                  AND denomination = 'USD'
 #'                  AND units = 'mg'")
 get.query = function(query = "SELECT * FROM Listing L INNER JOIN Listing_prices P ON L.id = P.Listing_id LIMIT 10") {
-
     if (is.null(get.connection())) {
         connect.database()
     }
     mysql.connection = get.connection()
-
+    
     if (is.na(get.selected.database())) {
         stop("Not using a database. Call select.database() before running queries.");
     }
-
+    
     rs <- dbSendQuery(mysql.connection, query);
     result <- dbFetch(rs, n = -1);
     dbClearResult(rs);
-
+    
     return(result);
-
+    
 }
 
 #' Returns the database currently connected to.
 get.selected.database = function() {
-
     if (is.null(get.connection())) {
         connect.database()
     }
     mysql.connection = get.connection()
-
+    
     return(as.character(dbGetQuery(
         mysql.connection, "select database();"
     )))
+    
+}
 
+#' Downloads from the STRIDE database. Currently supports 
+download.stride = function(category = "cocaine") {
+    base.url = "http://www.dea.gov/resource-center/stride_";
+    
+    download.file(
+        url = paste(c(base.url, category, ".xls"), collapse = ""), destfile = "temp", method = "auto"
+    )
+    
+    res = read.xls("temp")
+    fin.res = data.frame(category = integer(length(res$Drug)))
+    fin.res$category = res$Drug
+    fin.res$state = res$State
+    fin.res$country =- res$Country
+    fin.res$potency = res$Potency
+    fin.res$weight = res$Nt.Wt
+    
+    return(fin.res)
 }

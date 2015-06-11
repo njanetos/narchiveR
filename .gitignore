@@ -6,3 +6,6 @@ inst/doc
 drugs.Rproj
 *_cache/
 __packages
+*.png
+*.html
+temp
