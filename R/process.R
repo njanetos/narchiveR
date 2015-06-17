@@ -8,13 +8,12 @@
 #'   number, then the full date range is used, and evenly split according to the
 #'   number.
 #' @param scale Optional scaling factor.
-#' @oaran percentile The percentile to use, e.g., 0.5 returns the median price.
+#' @param percentile The percentile to use, e.g., 0.5 returns the median price.
 #' @examples
 #' construct.index(market = "agora",
 #'                 category = "2361707",
 #'                 units = "mg",
-#'                 additionalQuery = "amount > 50",
-#'                 dates = 20)
+#'                 additionalQuery = "amount > 50")
 construct.index = function(market = "agora",
                            category = '2361707',
                            units = NULL,
@@ -80,7 +79,7 @@ construct.index = function(market = "agora",
 #'   number.
 #' @param scale Optional scaling factor.
 #' @examples
-#' plot.index(market = c("agora", "evolution",
+#' plot.index(market = c("agora", "evolution"),
 #'                 category = "2361707",
 #'                 units = "mg",
 #'                 additionalQuery = "amount > 50")

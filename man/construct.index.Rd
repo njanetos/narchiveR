@@ -5,7 +5,7 @@
 \title{Constructs a price index by binning price data.}
 \usage{
 construct.index(market = "agora", category = "2361707", units = NULL,
-  additionalQuery = "", binsize = 1000, scale = 1)
+  additionalQuery = "", binsize = 1000, scale = 1, percentile = 0.5)
 }
 \arguments{
 \item{market}{The name of the marketplace to draw data from.}
@@ -18,6 +18,8 @@ construct.index(market = "agora", category = "2361707", units = NULL,
 
 \item{scale}{Optional scaling factor.}
 
+\item{percentile}{The percentile to use, e.g., 0.5 returns the median price.}
+
 \item{dates}{The dates which form the endpoints of the bins. If a single
 number, then the full date range is used, and evenly split according to the
 number.}
@@ -29,7 +31,6 @@ Constructs a price index by binning price data.
 construct.index(market = "agora",
                 category = "2361707",
                 units = "mg",
-                additionalQuery = "amount > 50",
-                dates = 20)
+                additionalQuery = "amount > 50")
 }
 

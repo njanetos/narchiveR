@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{index}(market = "agora", category = "2361707", units = NULL,
   additionalQuery = "", binsize = 1000, dateRange = NULL, scale = 1,
-  type = "l")
+  percentile = 0.5, type = "l")
 }
 \arguments{
 \item{market}{The name of the marketplace to draw data from, if a vector,
@@ -28,7 +28,7 @@ number.}
 Plots price indices.
 }
 \examples{
-plot.index(market = c("agora", "evolution",
+plot.index(market = c("agora", "evolution"),
                 category = "2361707",
                 units = "mg",
                 additionalQuery = "amount > 50")
