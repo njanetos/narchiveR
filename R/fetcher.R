@@ -149,19 +149,24 @@ get.selected.database = function() {
 #' 
 #' @oaran category Either 'cocaine' or 'meth'.
 download.stride = function(category = "cocaine") {
+    
     base.url = "http://www.dea.gov/resource-center/stride_";
+    destfile = tempfile(fileext = ".xls")
     
     download.file(
-        url = paste(c(base.url, category, ".xls"), collapse = ""), destfile = "temp", method = "auto"
+        url = paste(c(base.url, category, ".xls"), collapse = ""), 
+        destfile = destfile, method = "auto"
     )
     
-    res = read.xls("temp")
-    fin.res = data.frame(category = integer(length(res$Drug)))
-    fin.res$category = res$Drug
-    fin.res$state = res$State
-    fin.res$country =- res$Country
-    fin.res$potency = res$Potency
-    fin.res$weight = res$Nt.Wt
+    res = read.xls(destfile, stringsAsFactors = FALSE)
+    
+    fin.res = data.frame(
+        category = res$Drug,
+        state = res$State,
+        country =  res$Country,
+        potency = as.numeric(res$Potency),
+        weight = as.numeric(gsub(",", "", res$Nt.Wt)), stringsAsFactors = FALSE
+    )
     
     return(fin.res)
 }
