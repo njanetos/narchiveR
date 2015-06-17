@@ -145,7 +145,9 @@ get.selected.database = function() {
     
 }
 
-#' Downloads from the STRIDE database. Currently supports 
+#' Downloads from the STRIDE database. Supports cocaine and meth, the only two datasets publicly available.
+#' 
+#' @oaran category Either 'cocaine' or 'meth'.
 download.stride = function(category = "cocaine") {
     base.url = "http://www.dea.gov/resource-center/stride_";
     
