@@ -22,6 +22,7 @@ library("drugs")
 
 ### Example
 
+```
 construct.index(market = c("evolution"),
            category = get.code('heroin'),
            units = "g")
