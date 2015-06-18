@@ -121,7 +121,7 @@ To construct price indices, the data are binned into groups of 1000 listings eac
 
 ```{r}
 plot.index(market = c("agora", "evolution"),
-           category = "2361707",
+           category = get.code('mdma'),
            units = "mg",
            additionalQuery = "amount > 50",
            binsize = 1000,
@@ -129,7 +129,7 @@ plot.index(market = c("agora", "evolution"),
 title("Price of bulk orders of Ecstasy.")
 
 plot.index(market = c("agora", "evolution"),
-       category = "2361707",
+       category = get.code('mdma'),
        units = "mg",
        additionalQuery = "amount < 20",
        binsize = 1000,
@@ -138,3 +138,19 @@ title("Price of small orders of Ecstasy.")
 ```
 
 The plots split prices into bulk and small listings.
+
+```{r}
+plot.index(market = c("evolution"),
+           category = get.code('heroin'),
+           units = "g",
+           binsize = 1000)
+title("Price of heroin")
+```
+
+```{r}
+plot.index(market = c("evolution"),
+           category = get.code('cocaine'),
+           units = "g",
+           binsize = 1000)
+title("Price of cocaine")
+```
