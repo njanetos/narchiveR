@@ -21,6 +21,7 @@ library("drugs")
 * [Vignette: Constructing price indices](http://htmlpreview.github.io/?https://github.com/njanetos/drugs/master/vignettes/illicit_drug_price_indices.html)
 
 ### Example
+------------
 
 ```
 construct.index(market = c("evolution"),
