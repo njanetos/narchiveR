@@ -1,7 +1,7 @@
 Package: drugs
 Type: Package
 Title: Drug Prices on Online Market Places
-Version: 0.1
+Version: 0.5
 Date: 2015-06-09
 Authors@R: c(person("Nick", "Janetos", email = "njanetos@econ.upenn.edu", rol = c("aut", "cre")),
              person("Jan", "Tilly", email = "jtilly@econ.upenn.edu", rol = "dub"))
