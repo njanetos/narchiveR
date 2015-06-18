@@ -150,5 +150,16 @@ plot.index = function(market = "agora",
         xpd = TRUE,
         ncol = 1
     );
-    
+}
+
+get.code = function(id) {
+    switch(id, 
+            mdma = {return('2361707')},
+            heroin = {return('1658792374')},
+            cocaine = {return('2127542943')},
+            cannabis = {return('669483177')},
+            lsd = {return('75677')},
+            amphetamine = {return('-1443047135')},
+            ketamine = {return('1142244890')}
+        )
 }
