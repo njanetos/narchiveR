@@ -137,7 +137,9 @@ plot.index(market = c("agora", "evolution"),
 title("Price of small orders of Ecstasy.")
 ```
 
-The plots split prices into bulk and small listings.
+The plot splits prices into bulk and small listings. There is evidence of a bulk discount, and bulk prices are lower, more stable, and dropping. 
+
+In the remainder of the vignette, I'll use `plot.index` to produce plots of the prices of more drugs. 
 
 ```{r}
 plot.index(market = c("evolution"),
@@ -153,4 +155,13 @@ plot.index(market = c("evolution"),
            units = "g",
            binsize = 1000)
 title("Price of cocaine")
+```
+
+```{r}
+plot.index(market = c("agora", "evolution"),
+           category = get.code('lsd'),
+           units = "ug",
+           binsize = 1000,
+           scale = 100)
+title("Price of LSD")
 ```
