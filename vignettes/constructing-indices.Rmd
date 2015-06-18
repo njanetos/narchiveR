@@ -1,12 +1,10 @@
 ---
 title: "Illicit drug price indices"
 author: "Nick Janetos"
-date: "`r Sys.Date()`"
+date: '`r Sys.Date()`'
 output: html_document
-vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+vignette: |
+  %\VignetteIndexEntry{Vignette Title} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
 ---
 
 # Introduction
@@ -37,7 +35,9 @@ price_mdma <- get.query("SELECT * FROM Listing L
                             WHERE category = 2361707
                             AND denomination = 'USD'
                             AND units = 'mg'");
+```
 
+```{r, results="hide", message=FALSE, echo=FALSE}
 price_mdma$price = as.numeric(price_mdma$price);
 ```
 
@@ -117,21 +117,24 @@ axis(2, at=(range - min(range))/(max(range)-min(range)), label=range);
 
 The features to notice are the following: First, there are some dates for which no data were collected. This is a consequence of the fact that these markets are often offline. Second, there is clear evidence of a quantity discount. Third, the data for small listings are quite noisy, while the data for large listings are less noisy. One can imagine any number of explanations for this, the most obvious being that the denominator for the normalized price of large listings is larger, another being that bulk listings are intended for professionals who have a better sense of price. 
 
-To construct price indices, I bin the data, and look at the percentiles for the prices in each bin.
+To construct price indices, the data are binned into groups of 1000 listings each, and then I plot the median. This is done using `construct.index`, and `plot.index` produces the plots.
 
 ```{r}
-  cutY = price_mdma$normalized[price_mdma$amount<15];
-  cutX = price_mdma$date[price_mdma$amount<15];
-  cuts = 100*tapply(cutY, cut(cutX, 20), median);
-```
-
-and similarly for large listings. The figures show both the data for the Agora marketplace as well as the Silk Road and Evolution marketplaces, for which the same procedure was followed.
-
-```{r, echo=FALSE}
-plot.index(market = c("agora", "evolution", "silkroad"),
-           category = '2361707',
-           units = 'mg',
-           additionalQuery = 'amount > 50',
-           dateRange = 30,
+plot.index(market = c("agora", "evolution"),
+           category = "2361707",
+           units = "mg",
+           additionalQuery = "amount > 50",
+           binsize = 1000,
            scale = 100)
+title("Price of bulk orders of Ecstasy.")
+
+plot.index(market = c("agora", "evolution"),
+       category = "2361707",
+       units = "mg",
+       additionalQuery = "amount < 20",
+       binsize = 1000,
+       scale = 100)
+title("Price of small orders of Ecstasy.")
 ```
+
+The plots split prices into bulk and small listings.
