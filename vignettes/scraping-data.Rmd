@@ -1,0 +1,25 @@
+---
+title: "Scraping data from deep web markets"
+author: "Nick Janetos"
+date: '`r Sys.Date()`'
+output: html_document
+vignette: |
+  %\VignetteIndexEntry{Vignette Title} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+This document describes the process through which I archive and scrape data from the 'Deep Web'. Broadly, the process consists of three steps:
+
+1. An automated archiver connects, using the [Tor network](https://www.torproject.org/), to a list of online marketplaces on a weekly basis, and for each marketplace, crawls through the links, storing any relevant pages, and archives the raw HTML source for the page along with the date it was downloaded and the site path it took to get to the page. The source code for this narcotics archiver, or 'narchiver', can be found [here](https://github.com/njanetos/narchiver). 
+2. A data scraping program is later used to go through the archives of HTML pages. It attempts to categorize each listing by searching for keywords (e.g., finding 'mdma', 'xtc', 'ecstasy', and 'molly' in the page will result in a categorization of 'mdma'), and creates a list of 'price points'. Each price point represents a particular price for a particular listing at a particular time for some particular amount. The source code for the data scraping program can be found [here](https://github.com/njanetos/dataextractor). 
+
+## Connecting to Tor
+
+## Marketplaces scraped
+
+## Raw data
+
+## Categorizing listings
+
+## Scraping prices
