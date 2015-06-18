@@ -6,13 +6,12 @@
 
 language: c
 sudo: required
+branches:
+  only: master
 before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
-  - sudo apt-get install libmysqlclient-dev
-  - sudo iptables -A OUTPUT -o eth0 -p tcp --dport 3306 -m state --state NEW,ESTABLISHED -j ACCEPT
-  - sudo iptables -A INPUT -i eth0 -p tcp --sport 3306 -m state --state ESTABLISHED -j ACCEPT
 install:
   - ./travis-tool.sh install_deps
 script: ./travis-tool.sh run_tests

@@ -7,7 +7,7 @@ An R package that fetches and processes data on the prices of illicit drugs, scr
 ### Installation
 ------------
 
-```
+```{r}
 install.packages("devtools")
 library("devtools")
 install_github("njanetos/drugs")
@@ -23,20 +23,20 @@ library("drugs")
 ### Example
 ------------
 
-```
+```{r}
 construct.index(market = c("evolution"),
            category = get.code('heroin'),
            units = "g")
 ```
 Returns a price index for heroin computed by binning the data then finding the median price.
-```
+```{r}
 plot.index(market = c("evolution"),
            category = get.code('heroin'),
            units = "g")
 title("Price of heroin")
 ```
 Constructs and plots the price of heroin on the 'Evolution' drug marketplace, measured in grams.
-```
+```{r}
 connect.database("drugs_agora")
 get.query("SELECT * FROM Listing L 
 					INNER JOIN Listing_prices P 
