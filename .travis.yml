@@ -11,6 +11,8 @@ before_install:
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
   - sudo apt-get install libmysqlclient-dev
+  - sudo iptables -A OUTPUT -o eth0 -p tcp --dport 3306 -m state --state NEW,ESTABLISHED -j ACCEPT
+  - sudo iptables -A INPUT -i eth0 -p tcp --sport 3306 -m state --state ESTABLISHED -j ACCEPT
 install:
   - ./travis-tool.sh install_deps
 script: ./travis-tool.sh run_tests
