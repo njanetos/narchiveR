@@ -14,9 +14,8 @@ This document describes the process with which I construct price indices using m
 ## Data
 
 ```{r packages, echo=FALSE, message=FALSE}
-library(sqldf);
-library(fields);
-library(drugs);
+library(fields)
+library(drugs)
 ```
 
 Connect directly to the SQL database containing the microdata using `connect`, and connecting to `drugs_all`, which contains the complete set of data. There are two relevant fields in `drugs_all`: `Listing` and `Listing_prices`. The field `Listing` contains a complete set of all listings that were scraped, while `Listing_prices` contains a complete set of all prices that were scraped. For example, someone may have offered Ecstasy for sale under the heading '200mg XTC 10x TOP QUALITY' during the months of January and Febuary, during which the site was scraped 8 times. Then there will be a corresponding single entry under `Listing`, and 8 entries under `Listing_prices`, one for each time the price of the listing was recorded.
