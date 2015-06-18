@@ -25,8 +25,8 @@ library("drugs")
 
 ```{r}
 construct.index(market = c("evolution"),
-           category = get.code('heroin'),
-           units = "g")
+           		category = get.code('heroin'),
+           		units = "g")
 ```
 Returns a price index for heroin computed by binning the data then finding the median price.
 ```{r}
