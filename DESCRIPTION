@@ -4,7 +4,7 @@ Title: Drug Prices on Online Market Places
 Version: 0.5
 Date: 2015-06-09
 Authors@R: c(person("Nick", "Janetos", email = "njanetos@econ.upenn.edu", rol = c("aut", "cre")),
-             person("Jan", "Tilly", email = "jtilly@econ.upenn.edu", rol = c("aut", "dub")))
+             person("Jan", "Tilly", email = "jtilly@econ.upenn.edu", rol = c("aut", "dub", "frg")))
 Maintainer: Nick Janetos <njanetos@econ.upenn.edu>
 Description: Drug Prices on Online Market Places
 License: GPL-2
