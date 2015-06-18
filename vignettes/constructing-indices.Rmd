@@ -14,7 +14,6 @@ This document describes the process with which I construct price indices using m
 ## Data
 
 ```{r packages, echo=FALSE, message=FALSE}
-setwd("~/Research/Deep web markets/descriptive");
 library(sqldf);
 library(fields);
 library(drugs);
