@@ -24,6 +24,7 @@ after_success:
   - sudo apt-get install texinfo texlive-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
   - cd /home/travis/build/njanetos/
   - R CMD Rd2pdf drugs
+  - Rscript -e "library('knitr'); for(file.name in dir(path = 'drugs/vignettes/', pattern = '*.Rmd')) { knit(paste('drugs/vignettes', file.name, sep='/'), output = gsub('Rmd', 'html', file.name)) }"
   - git clone https://${GH_TOKEN}@github.com/njanetos/drugs.git drugs-doc
   - cd drugs-doc
   - git config user.name "Jan Tilly"
@@ -31,8 +32,9 @@ after_success:
   - git checkout gh-pages
   - git pull origin gh-pages
   - mv ../drugs.pdf .
-  - git add drugs.pdf
-  - git commit -m "updated reference manual"
+  - mv ../*.html .
+  - git add drugs.pdf *.html
+  - git commit -m "updated reference manual and vignettes"
   - git push origin gh-pages
 notifications:
   email:
