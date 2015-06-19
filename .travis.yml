@@ -26,7 +26,7 @@ after_success:
   - R CMD Rd2pdf drugs
   - git config user.name "jtilly"
   - git config user.email "jantilly@gmail.com"
-  - git clone https://${GH_TOKEN}@github.com:njanetos/drugs.git drugs-doc
+  - git clone https://${GH_TOKEN}@github.com/njanetos/drugs.git drugs-doc
   - cd drugs-doc
   - git checkout gh-pages
   - mv ../drugs.pdf .
