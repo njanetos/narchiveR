@@ -21,6 +21,7 @@ script: ./travis-tool.sh run_tests
 after_failure:
   - ./travis-tool.sh dump_logs
 after_success:
+  - sudo apt-get install texinfo
   - cd /home/travis/build/njanetos/
   - R CMD Rd2pdf drugs
   - git config user.name "jtilly"
