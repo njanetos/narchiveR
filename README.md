@@ -18,7 +18,7 @@ library("drugs")
 
 
 * [Reference manual](http://njanetos.github.io/drugs/drugs.pdf)
-* [Vignette: Constructing price indices](http://htmlpreview.github.io/?https://github.com/njanetos/drugs/master/vignettes/illicit_drug_price_indices.html)
+* [Vignette: Constructing price indices](http://njanetos.github.io/drugs/vignettes/constructing-indices.html)
 
 ### Example
 
