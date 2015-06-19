@@ -60,7 +60,10 @@ construct.index = function(market = "agora",
     prices.dt = data.table(prices)
     
     # create prices by bin
-    prices.by.bin = data.frame(c(prices.dt[,list(percentile = quantile(normalized, percentile)), by = bin],
+    prices.by.bin = data.frame(c(prices.dt[,list(percentile = quantile(normalized, percentile), 
+                                                    first.quartile = quantile(normalized, 0.25),
+                                                    second.quartile = quantile(normalized, 0.5),
+                                                    third.quartile = quantile(normalized, 0.75)), by = bin],
                                  prices.dt[,list(bin.day = min(day)), by = bin]))
     
     return(prices.by.bin)
@@ -78,6 +81,8 @@ construct.index = function(market = "agora",
 #'   number, then the full date range is used, and evenly split according to the
 #'   number.
 #' @param scale Optional scaling factor.
+#' @param type The plot type, defaults to lines.
+#' @param quantiles Whether to plot 25% and 75% quantiles. 
 #' @examples
 #' plot.index(market = c("agora", "evolution"),
 #'                 category = "2361707",
@@ -91,7 +96,8 @@ plot.index = function(market = "agora",
                       dateRange = NULL,
                       scale = 1,
                       percentile = 0.5,
-                      type = 'l') {
+                      type = 'l',
+                      quantiles = TRUE) {
     all.indices = list();
     
     # Fetch all the binned data
@@ -111,10 +117,10 @@ plot.index = function(market = "agora",
     # Find min and max values
     priceRange = c(Inf,-Inf)
     for (i in 1:length(market)) {
-        if (priceRange[1] > min(all.indices[[i]]$percentile))
-            priceRange[1] = min(all.indices[[i]]$percentile)
-        if (priceRange[2] < max(all.indices[[i]]$percentile))
-            priceRange[2] = max(all.indices[[i]]$percentile)
+        if (priceRange[1] > min(all.indices[[i]]$first.quartile))
+            priceRange[1] = min(all.indices[[i]]$first.quartile)
+        if (priceRange[2] < max(all.indices[[i]]$third.quartile))
+            priceRange[2] = max(all.indices[[i]]$third.quartile)
     }
     
     plot(
@@ -126,7 +132,24 @@ plot.index = function(market = "agora",
         xlab = "Date",
         ylab = paste(c("$ / ", scale, " ", units), collapse = ""),
         col = 2
-    );
+    )
+    
+    
+    if (quantiles) {
+        lines(as.Date(all.indices[[1]]$bin.day),
+              all.indices[[1]]$first.quartile,
+              type = type,
+              lwd = 2,
+              lty = 2,
+              col = 2)
+        
+        lines(as.Date(all.indices[[1]]$bin.day),
+              all.indices[[1]]$third.quartile,
+              type = type,
+              lwd = 2,
+              lty = 2,
+              col = 2)
+    }
     
     if (length(all.indices) > 1) {
         for (i in 2:length(all.indices)) {
@@ -137,6 +160,22 @@ plot.index = function(market = "agora",
                 lwd = 4,
                 col = i + 1
             );
+            
+            if (quantiles) {
+                lines(as.Date(all.indices[[i]]$bin.day),
+                      all.indices[[i]]$first.quartile,
+                      type = type,
+                      lwd = 2,
+                      lty = 2,
+                      col = i + 1)
+                
+                lines(as.Date(all.indices[[i]]$bin.day),
+                      all.indices[[i]]$third.quartile,
+                      type = type,
+                      lwd = 2,
+                      lty = 2,
+                      col = i + 1)
+            }
         }
     }
     
