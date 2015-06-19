@@ -25,7 +25,7 @@ after_success:
   - cd /home/travis/build/njanetos/
   - R CMD Rd2pdf drugs
   - R CMD INSTALL drugs
-  - Rscript -e "install.packages('rmarkdown')"
+  - ./travis-tool.sh RInstall rmarkdown
   - Rscript -e "library('rmarkdown'); for(file.name in dir(path = 'drugs/vignettes/', pattern = '*.Rmd')) { render(paste('drugs/vignettes', file.name, sep='/'), output_file = gsub('Rmd', 'html', file.name), output_format = 'html_document') }"
   - git clone https://${GH_TOKEN}@github.com/njanetos/drugs.git drugs-doc
   - cd drugs-doc
