@@ -25,10 +25,11 @@ after_success:
   - cd /home/travis/build/njanetos/
   - R CMD Rd2pdf drugs
   - git clone https://${GH_TOKEN}@github.com/njanetos/drugs.git drugs-doc
-  - git config user.name "jtilly"
-  - git config user.email "jantilly@gmail.com"
   - cd drugs-doc
+  - git config user.name "Jan Tilly"
+  - git config user.email "jantilly@gmail.com"
   - git checkout gh-pages
+  - git pull origin gh-pages
   - mv ../drugs.pdf .
   - git add drugs.pdf
   - git commit -m "updated reference manual"
