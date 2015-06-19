@@ -18,8 +18,8 @@ library("drugs")
 
 
 * [Reference manual](http://njanetos.github.io/drugs/drugs.pdf)
-* [Vignette: Scraping data from deep web markets](http://njanetos.github.io/drugs/vignettes/scraping-data.html)
-* [Vignette: Constructing illicit drug price indices](http://njanetos.github.io/drugs/vignettes/constructing-indices.html)
+* [Vignette: Scraping data from deep web markets](http://njanetos.github.io/drugs/scraping-data.html)
+* [Vignette: Constructing illicit drug price indices](http://njanetos.github.io/drugs/constructing-indices.html)
 
 ### Example
 
