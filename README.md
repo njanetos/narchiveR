@@ -1,6 +1,7 @@
 # drugs: Illicit drug data package for R
 
 [![Build Status](https://travis-ci.org/njanetos/drugs.svg?branch=master)](https://travis-ci.org/njanetos/drugs) 
+[![Coverage Status](https://coveralls.io/repos/njanetos/drugs/badge.svg?branch=master)](https://coveralls.io/r/njanetos/drugs?branch=master)
 
 An R package that fetches and processes data on the prices of illicit drugs, scraped from deep web marketplaces. Also provides access to the STRIDE dataset in R. Despite its policy relevance, data on illicit drug prices is difficult to find. 
 
