@@ -35,7 +35,7 @@ after_success:
   - mv ../drugs.pdf .
   - mv ../drugs/vignettes/*.html .
   - git add drugs.pdf *.html
-  - git commit -m "updated reference manual and vignettes"
+  - git commit -m "Automatic Travis update of PDF documentation and vignettes"
   - git push origin gh-pages
 notifications:
   email:
