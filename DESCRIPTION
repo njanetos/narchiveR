@@ -11,5 +11,5 @@ License: GPL-2
 Depends: RMySQL, data.table, gdata
 Imports: DBI
 LazyData: TRUE
-Suggests: knitr, fields, rmarkdown, testthat
+Suggests: fields, rmarkdown, testthat
 VignetteBuilder: knitr
