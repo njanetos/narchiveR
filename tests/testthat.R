@@ -1,3 +1,4 @@
-library("testthat")
-library("drugs")
+library(testthat)
+library(drugs)
+
 test_check("drugs")

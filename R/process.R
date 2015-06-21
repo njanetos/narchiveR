@@ -201,4 +201,6 @@ get.code = function(id) {
             amphetamine = {return('-1443047135')},
             ketamine = {return('1142244890')}
         )
+    
+    stop("Unrecognized category.")
 }
