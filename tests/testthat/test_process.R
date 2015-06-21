@@ -15,6 +15,12 @@ test_that("Process errors", {
 })
 
 test_that("Category code conversions", { 
+    expect_true(get.code('mdma') == '2361707')
+    expect_true(get.code('heroin') == '1658792374')
+    expect_true(get.code('cocaine') == '2127542943')
+    expect_true(get.code('cannabis') == '669483177')
+    expect_true(get.code('lsd') == '75677')
+    expect_true(get.code('amphetamine') == '-1443047135')
     expect_true(get.code('ketamine') == '1142244890')
     expect_error(get.code('hotdogs'))
 })

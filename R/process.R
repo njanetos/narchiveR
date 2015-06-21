@@ -21,10 +21,6 @@ construct.index = function(market = "agora",
                            percentile = 0.5) {
     select.database(paste("drugs_", market, sep = ""))
     
-    if (is.na(units)) {
-        stop("Required field 'units' missing.")
-    }
-    
     query = sprintf(
         "SELECT * FROM Listing L
         INNER JOIN Listing_prices P

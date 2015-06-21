@@ -52,9 +52,8 @@ get.connection = function() {
 #' @examples
 #' select.database("drugs_agora")
 select.database = function(dbname) {
-    if (is.null(get.connection())) {
-        connect.database()
-    }
+
+    connect.database()
     mysql.connection = get.connection()
     
     if (any(dbname == show.databases())) {
