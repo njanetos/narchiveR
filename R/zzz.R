@@ -1,6 +1,6 @@
 .onLoad = function(libname, pkgname) {
 
     # connect to the database
-    connect.database()
+    connect.database() # nocov
 
 }
