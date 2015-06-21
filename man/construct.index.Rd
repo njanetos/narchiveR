@@ -16,13 +16,11 @@ construct.index(market = "agora", category = "2361707", units = NULL,
 
 \item{additionalQuery}{Any additional SQL constraints on the price data.}
 
+\item{binsize}{The size of the bins used to compute median prices.}
+
 \item{scale}{Optional scaling factor.}
 
 \item{percentile}{The percentile to use, e.g., 0.5 returns the median price.}
-
-\item{dates}{The dates which form the endpoints of the bins. If a single
-number, then the full date range is used, and evenly split according to the
-number.}
 }
 \description{
 Constructs a price index by binning price data.

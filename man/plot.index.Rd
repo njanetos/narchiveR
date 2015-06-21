@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{index}(market = "agora", category = "2361707", units = NULL,
   additionalQuery = "", binsize = 1000, dateRange = NULL, scale = 1,
-  percentile = 0.5, type = "l")
+  percentile = 0.5, type = "l", quantiles = TRUE)
 }
 \arguments{
 \item{market}{The name of the marketplace to draw data from, if a vector,
@@ -18,11 +18,19 @@ then plots multiple lines.}
 
 \item{additionalQuery}{Any additional SQL constraints on the price data.}
 
+\item{binsize}{The size of the bins used to compute median prices.}
+
 \item{dateRange}{The dates which form the endpoints of the bins. If a single
 number, then the full date range is used, and evenly split according to the
 number.}
 
 \item{scale}{Optional scaling factor.}
+
+\item{percentile}{Defaults to 0.5, the median.}
+
+\item{type}{The plot type, defaults to lines.}
+
+\item{quantiles}{Whether to plot 25\% and 75\% quantiles.}
 }
 \description{
 Plots price indices.

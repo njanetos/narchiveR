@@ -16,13 +16,13 @@ test_that("Check if we can run a query", {
     expect_equal(10, NROW(listings))
 })
 
-#test_that("Make sure we don't have write access to any of the database", {
-#    databases.list = show.databases()
-#    for(database.name in databases.list) {
-#        select.database(database.name)
-#        listings1 = get.query(query = "SELECT * FROM Listing L LIMIT 1")    
-#        mysql.connection = get.connection()
-#        expect_error(dbSendQuery(mysql.connection, sprintf("DELETE FROM Listing WHERE id=%.0d", listings1$id)),
-#                     "* DELETE command denied *")
-#    }
-#})
+test_that("Make sure we don't have write access to any of the database", {
+    databases.list = show.databases()
+    for(database.name in databases.list) {
+        select.database(database.name)
+        listings1 = get.query(query = "SELECT * FROM Listing L LIMIT 1")    
+        mysql.connection = get.connection()
+        expect_error(dbSendQuery(mysql.connection, sprintf("DELETE FROM Listing WHERE id=%.0d", listings1$id)),
+                     "* DELETE command denied *")
+    }
+})

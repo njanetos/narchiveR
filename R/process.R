@@ -4,9 +4,7 @@
 #' @param category The category of drug to use.
 #' @param units Units the drug is measured in.
 #' @param additionalQuery Any additional SQL constraints on the price data.
-#' @param dates The dates which form the endpoints of the bins. If a single
-#'   number, then the full date range is used, and evenly split according to the
-#'   number.
+#' @param binsize The size of the bins used to compute median prices.
 #' @param scale Optional scaling factor.
 #' @param percentile The percentile to use, e.g., 0.5 returns the median price.
 #' @examples
@@ -77,12 +75,14 @@ construct.index = function(market = "agora",
 #' @param category The category of drug to use.
 #' @param units Units the drug is measured in.
 #' @param additionalQuery Any additional SQL constraints on the price data.
+#' @param binsize The size of the bins used to compute median prices.
 #' @param dateRange The dates which form the endpoints of the bins. If a single
 #'   number, then the full date range is used, and evenly split according to the
 #'   number.
 #' @param scale Optional scaling factor.
+#' @param percentile Defaults to 0.5, the median.
 #' @param type The plot type, defaults to lines.
-#' @param quantiles Whether to plot 25% and 75% quantiles. 
+#' @param quantiles Whether to plot 25\% and 75\% quantiles. 
 #' @examples
 #' plot.index(market = c("agora", "evolution"),
 #'                 category = "2361707",
