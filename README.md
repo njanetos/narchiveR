@@ -1,9 +1,9 @@
-# drugs: Illicit drug data package for R
+# narchiveR: Illicit drug data package for R
 
 [![Build Status](https://travis-ci.org/njanetos/drugs.svg?branch=master)](https://travis-ci.org/njanetos/drugs) 
 [![Coverage Status](https://coveralls.io/repos/njanetos/drugs/badge.svg?branch=master)](https://coveralls.io/r/njanetos/drugs?branch=master)
 
-An R package that fetches and processes data on the prices of illicit drugs, scraped from deep web marketplaces. Also provides access to the STRIDE dataset in R. Despite its policy relevance, data on illicit drug prices is difficult to find. 
+An R package that fetches and processes data on the prices of illicit drugs, scraped from deep web marketplaces. Also provides access to the STRIDE dataset in R. Despite its policy relevance, data on illicit drug prices is difficult to find, `narchiveR` is intended to make it easier. 
 
 ### Installation
 
@@ -45,3 +45,5 @@ get.query("SELECT * FROM Listing L
 					ON L.id = P.Listing_id LIMIT 10")
 ```
 Connects to the database containing data on the 'Agora' marketplace, and downloads the first 10 price listings. 
+
+### Download the data in other formats
