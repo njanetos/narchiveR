@@ -1,7 +1,7 @@
 # narchiveR: Illicit drug data package for R
 
-[![Build Status](https://travis-ci.org/njanetos/drugs.svg?branch=master)](https://travis-ci.org/njanetos/narchiveR) 
-[![Coverage Status](https://coveralls.io/repos/njanetos/drugs/badge.svg?branch=master)](https://coveralls.io/r/njanetos/narchiveR?branch=master)
+[![Build Status](https://travis-ci.org/njanetos/narchiveR.svg?branch=master)](https://travis-ci.org/njanetos/narchiveR) 
+[![Coverage Status](https://coveralls.io/repos/njanetos/narchiveR/badge.svg?branch=master)](https://coveralls.io/r/njanetos/narchiveR?branch=master)
 
 An R package that fetches and processes data on the prices of illicit drugs, scraped from deep web marketplaces. Also provides access to the STRIDE dataset in R. Despite its policy relevance, data on illicit drug prices is difficult to find, `narchiveR` is intended to make it easier. 
 
@@ -18,7 +18,7 @@ library("narchiveR")
 ### Documentation
 
 
-* [Reference manual](http://njanetos.github.io/narchiveR/drugs.pdf)
+* [Reference manual](http://njanetos.github.io/narchiveR/narchiveR.pdf)
 * [Vignette: Scraping data from deep web markets](http://njanetos.github.io/narchiveR/scraping-data.html)
 * [Vignette: Constructing illicit drug price indices](http://njanetos.github.io/narchiveR/constructing-indices.html)
 

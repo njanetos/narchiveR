@@ -1,4 +1,4 @@
-library("drugs")
+library("narchiveR")
 
 # show databases
 show.databases()

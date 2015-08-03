@@ -1,4 +1,4 @@
-library(testthat)
-library(drugs)
+library("testthat")
+library("narchiveR")
 
-test_check("drugs")
+test_check("narchiveR")

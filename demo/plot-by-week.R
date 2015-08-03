@@ -1,6 +1,6 @@
 # test2
 rm(list = ls())
-library("drugs")
+library("narchiveR")
 library("data.table")
 select.database("drugs_agora");
 
