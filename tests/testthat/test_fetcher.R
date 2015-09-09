@@ -29,11 +29,6 @@ test_that("Check if we can run a query", {
     get.selected.database()
 })
 
-test_that("STRIDE data downloads", {
-    res = download.stride()
-    expect_true(length(res) == 5)
-})
-
 test_that("Make sure we don't have write access to any of the database", {
     databases.list = show.databases()
     for(database.name in databases.list) {

@@ -45,5 +45,3 @@ get.query("SELECT * FROM Listing L
 					ON L.id = P.Listing_id LIMIT 10")
 ```
 Connects to the database containing data on the 'Agora' marketplace, and downloads the first 10 price listings. 
-
-### Download the data in other formats
