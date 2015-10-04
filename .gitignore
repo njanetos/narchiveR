@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore everything
 *
 
@@ -10,3 +11,16 @@
 # ...even if they are in subdirectories
 !*/
 /target/
+=======
+.Rproj.user
+.Rhistory
+.RData
+.Rbuildignore
+inst/doc
+drugs.Rproj
+*_cache/
+__packages
+*.png
+temp
+*.js
+>>>>>>> 4e85979f9041a11372ea475b2dba93778f333b10
