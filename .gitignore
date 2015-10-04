@@ -5,6 +5,8 @@
 !.gitignore
 !*.json
 !*.java
+!*.properties
 
 # ...even if they are in subdirectories
 !*/
+/target/

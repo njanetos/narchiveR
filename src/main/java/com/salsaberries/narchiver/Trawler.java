@@ -251,13 +251,43 @@ public class Trawler {
 
         logger.info("Attempting to log in at " + baseURL + site.getString("LOGIN_URL"));
 
-        HttpMessage httpGet = new HttpMessage(HttpType.GET);
-        httpGet.setUrl(baseURL + site.getString("LOGIN_URL"));
-        httpGet.initializeDefaultHeaders(site);
-        httpGet.addCookieHeaders(cookies);
-
         try {
-            HttpRequest httpRequest = new HttpRequest(httpGet);
+
+            // follow redirects until you get it right
+            HttpRequest httpRequest;
+            HttpMessage httpGet;
+            String url = baseURL + site.getString("LOGIN_URL");
+            
+            while (true) {
+                httpGet = new HttpMessage(HttpType.GET);
+                httpGet.setUrl(url);
+                httpGet.initializeDefaultHeaders(site);
+                httpGet.addCookieHeaders(cookies);
+
+                httpRequest = new HttpRequest(httpGet);
+                
+                if (httpRequest.getStatusCode() != 200) {
+                    getTempCookies(httpRequest.getHeaders());
+                    
+                    // Find the header I want
+                    boolean found = false;
+                    for (Header h : httpRequest.getHeaders()) {
+                        if (h.getName().equals("Location")) {
+                            url = h.getValue();
+                            found = true;
+                        }
+                    }
+                    
+                    if (!found) {
+                        throw new TrawlException("Redirect loop.");
+                    }
+                    
+                } else {
+                    break;
+                }
+                
+                
+            }
 
             // Get headers
             ArrayList<Header> headers = httpRequest.getHeaders();
@@ -348,7 +378,7 @@ public class Trawler {
                     }
                 }
 
-                logger.debug("Decoded captcha: " + captchaResult);
+                logger.info("Decoded captcha: " + captchaResult);
             }
 
             // Grab any hidden fields
@@ -568,13 +598,11 @@ public class Trawler {
                 validURL = true;
             }
 
-
 //else if (!link.attr("href").startsWith("/") && !link.attr("href").startsWith("http")) {
             //    tagURL = "/" + link.attr("href");
             //    linkText = link.html();
             //    validURL = true;
             //}
-
             // Has it already been followed?
             alreadyFollowed = trawledPages.contains(tagURL);
 
