@@ -1,6 +1,6 @@
 {"SITES": [{
     "LOCATION": "dream",
-    "BASE_URL": "http://lchudifyeqm4ldjj.onion/",
+    "BASE_URL": "http://lchudifyeqm4ldjj.onion",
     "DEPTH": 300,
     "BEGIN": ["/"],
     "EXCLUDE": ["/inbox",
