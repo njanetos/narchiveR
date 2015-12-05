@@ -1,7 +1,0 @@
-exportPattern("^[[:alpha:]]+")
-importFrom(RMySQL, dbConnect)
-importFrom(RMySQL, dbDisconnect)
-importFrom(RMySQL, dbSendQuery)
-importFrom(RMySQL, dbFetch)
-importFrom(RMySQL, dbClearResult)
-importFrom(DBI, dbGetQuery)
